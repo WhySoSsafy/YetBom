@@ -24,18 +24,18 @@ export function Detail() {
   const c = getCommentary(id)
   const ttsTimer = useRef(null)
 
-  // TTS mock 타이머
+  // TTS mock 타이머 — 매 틱마다 store 최신값을 읽어 진행 (stale closure 방지)
   useEffect(() => {
-    if (s.mPlay) {
-      ttsTimer.current = setInterval(() => {
-        const next = s.mTTS + s.mSpeed * 1.1
-        if (next >= 100) { s.setTTS('m', { play: false, progress: 100 }); clearInterval(ttsTimer.current) }
-        else s.setTTS('m', { progress: next })
-      }, 55)
-    }
+    if (!s.mPlay) return
+    ttsTimer.current = setInterval(() => {
+      const st = useAppStore.getState()
+      const next = st.mTTS + st.mSpeed * 1.1
+      if (next >= 100) { st.setTTS('m', { play: false, progress: 100 }); clearInterval(ttsTimer.current) }
+      else st.setTTS('m', { progress: next })
+    }, 55)
     return () => clearInterval(ttsTimer.current)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [s.mPlay, s.mSpeed])
+  }, [s.mPlay])
 
   if (!h || !c) return <div className="p-content pt-16">Not found</div>
 
