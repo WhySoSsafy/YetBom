@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/wanted-design-system-e3146625-207d-4b75-a3f1-07146247c9ea/tokens/fig-tokens.css">
+<link rel="stylesheet" href="_ds/wanted-design-system-e3146625-207d-4b75-a3f1-07146247c9ea/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/wanted-design-system-e3146625-207d-4b75-a3f1-07146247c9ea/tokens/typography.css">
+<link rel="stylesheet" href="_ds/wanted-design-system-e3146625-207d-4b75-a3f1-07146247c9ea/tokens/semantic.css">
+<link rel="stylesheet" href="_ds/wanted-design-system-e3146625-207d-4b75-a3f1-07146247c9ea/tokens/components.css">
+<link rel="stylesheet" href="_ds/wanted-design-system-e3146625-207d-4b75-a3f1-07146247c9ea/styles.css">
+<script src="_ds/wanted-design-system-e3146625-207d-4b75-a3f1-07146247c9ea/_ds_bundle.js"></script>
+<script>
+(function(){
+  function ready(){ return window.React && window.ReactDOM && window.WantedDesignSystem_e31466 && window.WantedDesignSystem_e31466.Icon; }
+  function def(){
+    if(!ready()){ return setTimeout(def, 30); }
+    if(customElements.get('wds-icon')) return;
+    var R = window.React, RD = window.ReactDOM, Ic = window.WantedDesignSystem_e31466.Icon;
+    class WdsIcon extends HTMLElement {
+      static get observedAttributes(){ return ['name','size']; }
+      connectedCallback(){ this.style.display='inline-flex'; this.style.lineHeight='0'; this._mount(); }
+      attributeChangedCallback(){ this._mount(); }
+      _mount(){
+        if(!this.isConnected) return;
+        if(!this._sr) this._sr = this.attachShadow({mode:'open'});
+        var name = this.getAttribute('name') || 'circle';
+        var size = parseInt(this.getAttribute('size') || '24', 10);
+        var el = R.createElement(Ic, { name: name, size: size });
+        try {
+          if(RD.createRoot){ if(!this._root) this._root = RD.createRoot(this._sr); this._root.render(el); }
+          else { RD.render(el, this._sr); }
+        } catch(e){}
+      }
+    }
+    customElements.define('wds-icon', WdsIcon);
+  }
+  def();
+})();
+</script>
+<meta name="design_doc_mode" content="canvas">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font-sans); -webkit-font-smoothing: antialiased; color: var(--label-normal); }
+  :root { --primary-normal: #9A5ABF !important; --primary-strong: #681993 !important; --primary-heavy: #4E1370 !important; --primary: #9A5ABF !important; --primary-normal-2: #9A5ABF !important; }
+  .nsb::-webkit-scrollbar { width: 0; height: 0; display: none; }
+  .nsb { scrollbar-width: none; -ms-overflow-style: none; }
+  @keyframes dbspin { to { transform: rotate(360deg); } }
+  @keyframes dbpulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  @keyframes dbfade { from { transform: translateY(8px); } to { transform: none; } }
+  @keyframes dbsheet { from { transform: translateY(100%); } to { transform: none; } }
+  .dbfade { animation: dbfade .3s var(--ease-standard) both; }
+  .dbsheet { animation: dbsheet .26s var(--ease-emphasized) both; }
+</style>
+</helmet>
+
+<div style="position:absolute; left:60px; top:80px; width:474px;">
+  <div data-drags-parent="1" style="display:flex; align-items:center; gap:9px; margin-bottom:16px; color:var(--label-alternative);">
+    <wds-icon name="mobile" size="17" hint-size="17px,17px"></wds-icon>
+    <span class="wds-label1-normal" style="color:var(--label-neutral);">모바일 앱 · iOS / Android</span>
+  </div>
+
+  <div style="width:474px; padding:13px; background:#161617; border-radius:56px; box-shadow:0 30px 70px -20px rgba(20,20,30,.45), 0 0 0 2px rgba(255,255,255,.04) inset;">
+    <div style="position:relative; width:448px; height:946px; background:var(--background-normal-alternative); overflow:hidden; border-radius:44px;">
+
+      <!-- status bar -->
+      <div style="position:absolute; top:0; left:0; right:0; height:52px; z-index:55; display:flex; align-items:center; justify-content:space-between; padding:16px 30px 0; color:{{ statusColor }}; pointer-events:none;">
+        <span style="font:600 16px/1 var(--font-sans);">9:41</span>
+        <span style="display:flex; gap:7px; align-items:center;">
+          <span style="display:flex; gap:2px; align-items:flex-end; height:11px;"><i style="width:3px;height:5px;background:currentColor;border-radius:1px;display:block;"></i><i style="width:3px;height:7px;background:currentColor;border-radius:1px;display:block;"></i><i style="width:3px;height:9px;background:currentColor;border-radius:1px;display:block;"></i><i style="width:3px;height:11px;background:currentColor;border-radius:1px;display:block;"></i></span>
+          <span style="display:inline-flex; align-items:center; gap:2px;"><i style="width:22px;height:11px;border:1.5px solid currentColor;border-radius:3px;display:block;position:relative;"><b style="position:absolute;inset:1.5px;width:13px;background:currentColor;border-radius:1px;display:block;"></b></i><i style="width:2px;height:4px;background:currentColor;border-radius:0 1px 1px 0;display:block;"></i></span>
+        </span>
+      </div>
+
+      <!-- ============ ONBOARDING ============ -->
+      <sc-if value="{{ scrOnboarding }}" hint-placeholder-val="{{ true }}">
+        <div class="dbfade" style="position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end;">
+          <img src="assets/sungnyemun_after.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,18,30,.15) 0%, rgba(15,18,30,.35) 45%, rgba(13,16,26,.92) 100%);"></div>
+          <div style="position:relative; padding:0 30px 46px; color:#fff;">
+            <div style="display:inline-flex; align-items:center; gap:7px; padding:7px 13px; background:rgba(255,255,255,.16); backdrop-filter:blur(6px); border-radius:999px; margin-bottom:20px;">
+              <wds-icon name="sparkle-fill" size="14" hint-size="14px,14px"></wds-icon>
+              <span class="wds-label2" style="letter-spacing:.02em;">{{ t.brandSub }}</span>
+            </div>
+            <div class="wds-display3" style="white-space:pre-line; font-weight:700; letter-spacing:-.03em; line-height:1.18;">{{ t.onbTitle }}</div>
+            <div class="wds-body2-reading" style="white-space:pre-line; color:rgba(255,255,255,.82); margin-top:16px;">{{ t.onbBody }}</div>
+            <div style="margin-top:26px;">
+              <div class="wds-caption1" style="color:rgba(255,255,255,.62); margin-bottom:9px;">{{ t.onbLang }}</div>
+              <div style="display:flex; gap:8px;">
+                <sc-for list="{{ langSeg }}" as="o" hint-placeholder-count="2">
+                  <button onClick="{{ o.click }}" style="{{ o.styleOnb }}">{{ o.t }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <button onClick="{{ goHomeTab }}" style="margin-top:28px; width:100%; height:56px; border:none; border-radius:16px; background:var(--primary-normal); color:#fff; font:700 17px/1 var(--font-sans); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 10px 24px -8px rgba(154,90,191,.6);">
+              {{ t.onbStart }}
+              <wds-icon name="arrow-right" size="20" hint-size="20px,20px"></wds-icon>
+            </button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ MAIN (tab pages) ============ -->
+      <sc-if value="{{ scrMain }}" hint-placeholder-val="{{ true }}">
+
+        <!-- ---- HOME ---- -->
+        <sc-if value="{{ tabHome }}" hint-placeholder-val="{{ true }}">
+          <div id="m-body" class="nsb dbfade" style="position:absolute; inset:0; overflow-y:auto; padding:58px 0 110px;">
+            <div style="display:flex; align-items:center; gap:10px; padding:0 22px 14px;">
+              <div style="display:flex; align-items:center; gap:5px; color:var(--label-neutral);">
+                <wds-icon name="location-fill" size="18" hint-size="18px,18px"></wds-icon>
+                <span class="wds-headline2" style="color:var(--label-strong);">{{ t.locCity }}</span>
+              </div>
+              <span style="flex:1;"></span>
+              <sc-for list="{{ langSeg }}" as="o" hint-placeholder-count="2">
+                <button onClick="{{ o.click }}" style="{{ o.styleHome }}">{{ o.t }}</button>
+              </sc-for>
+              <button onClick="{{ openNoti }}" style="border:none; background:transparent; cursor:pointer; color:var(--label-neutral); display:flex; margin-left:2px; padding:0;"><wds-icon name="bell" size="22" hint-size="22px,22px"></wds-icon></button>
+            </div>
+
+            <!-- banner carousel -->
+            <div class="nsb" style="display:flex; gap:12px; overflow-x:auto; padding:0 22px 4px; scroll-snap-type:x mandatory;">
+              <sc-for list="{{ banners }}" as="b" hint-placeholder-count="3">
+                <button onClick="{{ b.click }}" style="flex:0 0 92%; scroll-snap-align:start; position:relative; height:480px; border:none; border-radius:20px; overflow:hidden; cursor:pointer; padding:0; text-align:left; background-image:{{ b.bgUrl }}; background-size:cover; background-position:center; box-shadow:var(--shadow-emphasize);">
+                  <span style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,12,22,.1), rgba(10,12,22,.78));"></span>
+                  <span style="position:absolute; top:14px; left:14px; padding:5px 11px; border-radius:999px; background:rgba(255,255,255,.92); color:var(--primary-normal); font:700 11px/1 var(--font-sans);">{{ b.badge }}</span>
+                  <span style="position:absolute; left:16px; right:16px; bottom:16px; color:#fff;">
+                    <span class="wds-heading2" style="display:block; font-weight:700;">{{ b.title }}</span>
+                    <span class="wds-label2" style="display:block; color:rgba(255,255,255,.85); margin-top:4px;">{{ b.sub }}</span>
+                  </span>
+                </button>
+              </sc-for>
+            </div>
+
+            <!-- recommended -->
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:26px 22px 6px;">
+              <div class="wds-headline1" style="color:var(--label-strong); font-weight:700;">{{ t.recommend }}</div>
+              <span class="wds-label2" style="color:var(--primary-normal); cursor:pointer;">{{ t.viewAll }}</span>
+            </div>
+            <div style="padding:0 22px;">
+              <sc-for list="{{ catalog }}" as="c" hint-placeholder-count="0">
+                <button onClick="{{ c.click }}" style="width:100%; margin-top:12px; border:1px solid var(--line-normal-alternative); border-radius:18px; overflow:hidden; background:var(--background-elevated-normal); cursor:pointer; text-align:left; display:flex; box-shadow:var(--shadow-emphasize);">
+                  <div style="width:108px; height:96px; flex:0 0 auto; background-image:{{ c.bgUrl }}; background-size:cover; background-position:center; background-color:var(--fill-normal);"></div>
+                  <div style="flex:1; padding:14px 14px 14px 15px; display:flex; flex-direction:column; justify-content:center;">
+                    <div style="display:flex; align-items:center; gap:7px;">
+                      <span class="wds-headline2" style="color:var(--label-strong);">{{ c.name }}</span>
+                      <span class="wds-caption2" style="padding:3px 7px; border-radius:6px; font-weight:600; {{ c.tagStyle }}">{{ c.tag }}</span>
+                    </div>
+                    <div class="wds-label2" style="color:var(--label-alternative); margin-top:4px;">{{ c.sub }}</div>
+                  </div>
+                  <div style="display:flex; align-items:center; padding-right:14px; color:var(--label-assistive);">
+                    <wds-icon name="chevron-right" size="20" hint-size="20px,20px"></wds-icon>
+                  </div>
+                </button>
+              </sc-for>
+            </div>
+
+            <!-- events -->
+            <div style="padding:26px 22px 6px;"><div class="wds-headline1" style="color:var(--label-strong); font-weight:700;">{{ t.eventsTitle }}</div></div>
+            <div style="padding:0 22px;">
+              <sc-for list="{{ events }}" as="e" hint-placeholder-count="3">
+                <div style="display:flex; align-items:center; gap:13px; padding:14px 4px; border-bottom:1px solid var(--line-normal-alternative);">
+                  <div style="flex:0 0 auto; width:44px; height:44px; border-radius:12px; background:var(--fill-normal); color:var(--accent-foreground-orange); display:flex; align-items:center; justify-content:center;">
+                    <wds-icon name="calendar" size="22" hint-size="22px,22px"></wds-icon>
+                  </div>
+                  <div style="flex:1;">
+                    <div class="wds-label1-normal" style="color:var(--label-strong); font-weight:600;">{{ e.title }}</div>
+                    <div class="wds-caption1" style="color:var(--label-alternative); margin-top:2px;">{{ e.date }}</div>
+                  </div>
+                  <span class="wds-caption2" style="padding:4px 9px; border-radius:7px; background:var(--fill-normal); color:var(--label-neutral); font-weight:600;">{{ e.tag }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---- MAP ---- -->
+        <sc-if value="{{ tabMap }}" hint-placeholder-val="{{ false }}">
+          <div class="dbfade" style="position:absolute; inset:0;">
+            <div style="position:absolute; inset:0; background-image:url(assets/map_bg.png); background-size:cover; background-position:center;">
+              <sc-for list="{{ markers }}" as="mk" hint-placeholder-count="4">
+                <button onClick="{{ mk.click }}" style="position:absolute; transform:translate(-50%,-100%); {{ mk.pinStyle }} border:none; cursor:pointer; padding:0; background:transparent;">
+                  <span style="display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50% 50% 50% 2px; transform:rotate(45deg); box-shadow:0 4px 10px rgba(0,0,0,.28); background:{{ mk.pinBg }};">
+                    <span style="transform:rotate(-45deg); color:#fff; display:flex;"><wds-icon name="{{ mk.pinIcon }}" size="18" hint-size="18px,18px"></wds-icon></span>
+                  </span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="position:absolute; top:62px; left:18px; display:flex; gap:8px; z-index:12;">
+              <span style="display:inline-flex; align-items:center; gap:5px; padding:7px 12px; border-radius:999px; background:rgba(255,255,255,.95); box-shadow:var(--shadow-emphasize);"><i style="width:9px;height:9px;border-radius:50%;background:var(--primary-normal);"></i><span class="wds-caption2" style="color:var(--label-neutral); font-weight:600;">{{ t.legendOk }}</span></span>
+              <span style="display:inline-flex; align-items:center; gap:5px; padding:7px 12px; border-radius:999px; background:rgba(255,255,255,.95); box-shadow:var(--shadow-emphasize);"><i style="width:9px;height:9px;border-radius:50%;background:var(--label-assistive);"></i><span class="wds-caption2" style="color:var(--label-neutral); font-weight:600;">{{ t.legendSoon }}</span></span>
+            </div>
+            <div style="position:absolute; left:0; right:0; bottom:90px; height:{{ mapSheetH }}; background:var(--background-elevated-normal); border-radius:22px 22px 0 0; box-shadow:0 -10px 34px -10px rgba(20,20,40,.22); transition:height .28s var(--ease-emphasized); display:flex; flex-direction:column; overflow:hidden; z-index:14;">
+              <div onPointerDown="{{ mapDown }}" onPointerMove="{{ mapMove }}" onPointerUp="{{ mapUp }}" style="flex:0 0 auto; padding:10px 0 6px; cursor:grab; touch-action:none;">
+                <div style="width:42px; height:5px; border-radius:99px; background:var(--fill-strong); margin:0 auto 10px;"></div>
+                <div style="display:flex; align-items:center; gap:8px; padding:0 22px;"><span style="color:var(--primary-normal); display:flex;"><wds-icon name="location-fill" size="18" hint-size="18px,18px"></wds-icon></span><span class="wds-headline2" style="color:var(--label-strong); flex:1;">{{ t.nearbyTitle }}</span><span class="wds-caption1" style="color:var(--label-alternative);">{{ nearbyCount }}</span></div>
+              </div>
+              <div class="nsb" style="flex:1; overflow-y:auto; padding:10px 22px 16px; display:flex; flex-direction:column; gap:11px;">
+                <sc-for list="{{ nearby }}" as="n" hint-placeholder-count="3">
+                  <button onClick="{{ n.click }}" style="display:flex; align-items:center; gap:13px; padding:11px; border:1px solid var(--line-normal-alternative); border-radius:15px; background:var(--background-normal-alternative); cursor:pointer; text-align:left;">
+                    <div style="flex:0 0 auto; width:54px; height:54px; border-radius:12px; background-image:{{ n.bgUrl }}; background-size:cover; background-position:center;"></div>
+                    <div style="flex:1;">
+                      <div class="wds-headline2" style="color:var(--label-strong);">{{ n.name }}</div>
+                      <div style="display:flex; align-items:center; gap:6px; margin-top:4px;"><span class="wds-caption1" style="color:var(--label-alternative);">{{ n.dist }}</span><span style="width:3px;height:3px;border-radius:50%;background:var(--label-assistive);"></span><span class="wds-caption1" style="font-weight:700; {{ n.supStyle }}">{{ n.supLabel }}</span></div>
+                    </div>
+                    <span style="color:var(--label-assistive); display:flex;"><wds-icon name="chevron-right" size="20" hint-size="20px,20px"></wds-icon></span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---- SAVED ---- -->
+        <sc-if value="{{ tabSaved }}" hint-placeholder-val="{{ false }}">
+          <div id="m-body" class="nsb dbfade" style="position:absolute; inset:0; overflow-y:auto; padding:58px 22px 110px;">
+            <div class="wds-heading2" style="color:var(--label-strong); font-weight:700;">{{ t.savedTitle }}</div>
+            <div class="wds-label2" style="color:var(--label-alternative); margin-top:4px;">{{ t.savedSub }} · {{ savedCount }}</div>
+            <sc-if value="{{ savedEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:80px; display:flex; flex-direction:column; align-items:center; text-align:center; color:var(--label-assistive);">
+                <wds-icon name="bookmark" size="48" hint-size="48px,48px"></wds-icon>
+                <div class="wds-body2-normal" style="margin-top:14px; color:var(--label-alternative);">{{ t.savedEmpty }}</div>
+              </div>
+            </sc-if>
+            <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
+              <sc-for list="{{ savedList }}" as="c" hint-placeholder-count="0">
+                <div style="display:flex; border:1px solid var(--line-normal-alternative); border-radius:18px; overflow:hidden; background:var(--background-elevated-normal); box-shadow:var(--shadow-emphasize);">
+                  <button onClick="{{ c.click }}" style="flex:1; display:flex; border:none; background:transparent; cursor:pointer; text-align:left; padding:0;">
+                    <div style="width:96px; height:90px; flex:0 0 auto; background-image:{{ c.bgUrl }}; background-size:cover; background-position:center;"></div>
+                    <div style="flex:1; padding:14px; display:flex; flex-direction:column; justify-content:center;">
+                      <div class="wds-headline2" style="color:var(--label-strong);">{{ c.name }}</div>
+                      <div class="wds-label2" style="color:var(--label-alternative); margin-top:4px;">{{ c.sub }}</div>
+                    </div>
+                  </button>
+                  <button onClick="{{ c.remove }}" style="flex:0 0 auto; width:48px; border:none; background:transparent; cursor:pointer; color:var(--primary-normal); display:flex; align-items:center; justify-content:center;">
+                    <wds-icon name="bookmark-fill" size="22" hint-size="22px,22px"></wds-icon>
+                  </button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---- MY ---- -->
+        <sc-if value="{{ tabMy }}" hint-placeholder-val="{{ false }}">
+          <div id="m-body" class="nsb dbfade" style="position:absolute; inset:0; overflow-y:auto; padding:58px 22px 110px;">
+            <div class="wds-heading2" style="color:var(--label-strong); font-weight:700;">{{ t.myTitle }}</div>
+            <div style="margin-top:16px; display:flex; align-items:center; gap:14px; padding:18px; border-radius:18px; background:var(--background-elevated-normal); border:1px solid var(--line-normal-alternative); box-shadow:var(--shadow-emphasize);">
+              <div style="width:58px; height:58px; border-radius:50%; background:var(--primary-normal); color:#fff; display:flex; align-items:center; justify-content:center;"><wds-icon name="person-fill" size="30" hint-size="30px,30px"></wds-icon></div>
+              <div style="flex:1;"><div class="wds-headline1" style="color:var(--label-strong); font-weight:700;">{{ t.myName }}</div><div class="wds-label2" style="color:var(--label-alternative); margin-top:3px;">{{ t.mySub }}</div></div>
+            </div>
+            <div style="margin-top:12px; display:flex; gap:10px;">
+              <div style="flex:1; padding:16px; border-radius:14px; background:var(--background-elevated-normal); border:1px solid var(--line-normal-alternative); text-align:center;"><div class="wds-title3" style="color:var(--label-strong);">{{ stVisited }}</div><div class="wds-caption1" style="color:var(--label-alternative); margin-top:2px;">{{ t.stVisited }}</div></div>
+              <div style="flex:1; padding:16px; border-radius:14px; background:var(--background-elevated-normal); border:1px solid var(--line-normal-alternative); text-align:center;"><div class="wds-title3" style="color:var(--label-strong);">{{ savedCount }}</div><div class="wds-caption1" style="color:var(--label-alternative); margin-top:2px;">{{ t.stSaved }}</div></div>
+              <div style="flex:1; padding:16px; border-radius:14px; background:var(--background-elevated-normal); border:1px solid var(--line-normal-alternative); text-align:center;"><div class="wds-title3" style="color:var(--label-strong);">{{ stQuiz }}</div><div class="wds-caption1" style="color:var(--label-alternative); margin-top:2px;">{{ t.stQuiz }}</div></div>
+            </div>
+            <div style="margin-top:18px; border-radius:16px; overflow:hidden; border:1px solid var(--line-normal-alternative); background:var(--background-elevated-normal);">
+              <div style="display:flex; align-items:center; gap:13px; padding:16px;">
+                <span style="color:var(--label-neutral); display:flex;"><wds-icon name="globe" size="22" hint-size="22px,22px"></wds-icon></span>
+                <span class="wds-body2-normal" style="flex:1; color:var(--label-normal);">{{ t.setLangRow }}</span>
+                <span style="display:flex; gap:6px;">
+                  <sc-for list="{{ langSeg }}" as="o" hint-placeholder-count="2"><button onClick="{{ o.click }}" style="{{ o.styleHome }}">{{ o.t }}</button></sc-for>
+                </span>
+              </div>
+              <sc-for list="{{ myRows }}" as="r" hint-placeholder-count="4">
+                <div style="display:flex; align-items:center; gap:13px; padding:16px; border-top:1px solid var(--line-normal-alternative); cursor:pointer;">
+                  <span style="color:var(--label-neutral); display:flex;"><wds-icon name="{{ r.icon }}" size="22" hint-size="22px,22px"></wds-icon></span>
+                  <span class="wds-body2-normal" style="flex:1; color:var(--label-normal);">{{ r.label }}</span>
+                  <span style="color:var(--label-assistive); display:flex;"><wds-icon name="chevron-right" size="18" hint-size="18px,18px"></wds-icon></span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+      </sc-if>
+
+      <!-- ============ CAPTURE ============ -->
+      <sc-if value="{{ scrCapture }}" hint-placeholder-val="{{ false }}">
+        <div class="dbfade" style="position:absolute; inset:0; background:#0c0d12; display:flex; flex-direction:column;">
+          <div style="position:relative; flex:1; overflow:hidden;">
+            <img src="assets/sungnyemun_after.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.92;">
+            <div style="position:absolute; inset:0; background:radial-gradient(circle at 50% 42%, transparent 30%, rgba(5,6,10,.55) 100%);"></div>
+            <div style="position:absolute; left:46px; right:46px; top:150px; bottom:210px;">
+              <i style="position:absolute;left:0;top:0;width:34px;height:34px;border-top:3px solid #fff;border-left:3px solid #fff;border-radius:6px 0 0 0;"></i>
+              <i style="position:absolute;right:0;top:0;width:34px;height:34px;border-top:3px solid #fff;border-right:3px solid #fff;border-radius:0 6px 0 0;"></i>
+              <i style="position:absolute;left:0;bottom:0;width:34px;height:34px;border-bottom:3px solid #fff;border-left:3px solid #fff;border-radius:0 0 0 6px;"></i>
+              <i style="position:absolute;right:0;bottom:0;width:34px;height:34px;border-bottom:3px solid #fff;border-right:3px solid #fff;border-radius:0 0 6px 0;"></i>
+            </div>
+            <div style="position:absolute; top:74px; left:0; right:0; text-align:center; color:#fff;">
+              <div style="display:inline-flex; align-items:center; gap:6px; padding:6px 13px; border-radius:999px; background:rgba(154,90,191,.9); margin-bottom:10px;">
+                <wds-icon name="{{ captureIcon }}" size="14" hint-size="14px,14px"></wds-icon>
+                <span class="wds-caption1" style="font-weight:700;">{{ captureLabel }}</span>
+              </div>
+              <div class="wds-headline1" style="font-weight:700;">{{ t.capTitle }}</div>
+              <div class="wds-label2" style="color:rgba(255,255,255,.78); margin-top:5px;">{{ t.capHint }}</div>
+            </div>
+          </div>
+          <div style="height:170px; background:#0c0d12; display:flex; align-items:center; justify-content:space-between; padding:0 46px;">
+            <button onClick="{{ chooseGallery }}" style="width:56px; height:56px; border-radius:14px; border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.08); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+              <wds-icon name="image" size="24" hint-size="24px,24px"></wds-icon>
+            </button>
+            <button onClick="{{ doCapture }}" style="width:80px; height:80px; border-radius:50%; border:5px solid rgba(255,255,255,.35); background:#fff; cursor:pointer; box-shadow:0 0 0 3px #0c0d12 inset;"></button>
+            <button onClick="{{ backToHome }}" style="width:56px; height:56px; border-radius:14px; border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.08); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+              <wds-icon name="close" size="24" hint-size="24px,24px"></wds-icon>
+            </button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ ANALYZING ============ -->
+      <sc-if value="{{ scrAnalyzing }}" hint-placeholder-val="{{ false }}">
+        <div class="dbfade" style="position:absolute; inset:0; background:linear-gradient(165deg,#0d1018,#141a2b); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 40px; color:#fff;">
+          <div style="position:relative; width:96px; height:96px; margin-bottom:30px;">
+            <div style="position:absolute; inset:0; border-radius:50%; border:3px solid rgba(255,255,255,.12);"></div>
+            <div style="position:absolute; inset:0; border-radius:50%; border:3px solid transparent; border-top-color:var(--primary-normal); animation:dbspin 1s linear infinite;"></div>
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;"><wds-icon name="sparkle-fill" size="34" hint-size="34px,34px"></wds-icon></div>
+          </div>
+          <div class="wds-heading2" style="font-weight:700;">{{ t.anTitle }}</div>
+          <div class="wds-label2" style="color:rgba(255,255,255,.6); margin-top:6px;">{{ t.anSub }}</div>
+          <div style="margin-top:30px; width:100%; max-width:280px; display:flex; flex-direction:column; gap:13px;">
+            <div style="display:flex; align-items:center; gap:11px;"><i style="width:9px;height:9px;border-radius:50%;background:var(--accent-foreground-green);"></i><span class="wds-body2-normal" style="color:rgba(255,255,255,.92);">{{ t.anS1 }}</span></div>
+            <div style="display:flex; align-items:center; gap:11px;"><i style="width:9px;height:9px;border-radius:50%;background:var(--primary-normal); animation:dbpulse 1s ease-in-out infinite;"></i><span class="wds-body2-normal" style="color:rgba(255,255,255,.92);">{{ t.anS2 }}</span></div>
+            <div style="display:flex; align-items:center; gap:11px;"><i style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.25);"></i><span class="wds-body2-normal" style="color:rgba(255,255,255,.5);">{{ t.anS3 }}</span></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ IDENTIFY ============ -->
+      <sc-if value="{{ scrIdentify }}" hint-placeholder-val="{{ false }}">
+        <div id="m-body" class="nsb dbfade" style="position:absolute; inset:0; overflow-y:auto; padding:62px 22px 36px;">
+          <div class="wds-heading2" style="color:var(--label-strong); font-weight:700;">{{ t.idTitle }}</div>
+          <div class="wds-label1-normal" style="color:var(--label-alternative); margin-top:6px;">{{ t.idSub }}</div>
+          <div style="margin-top:18px; border:2px solid var(--primary-normal); border-radius:18px; overflow:hidden; background:var(--background-elevated-normal); box-shadow:var(--shadow-emphasize);">
+            <div style="position:relative;">
+              <img src="assets/sungnyemun_after.png" alt="" style="width:100%; height:168px; object-fit:cover; display:block;">
+              <span style="position:absolute; top:12px; right:12px; display:inline-flex; align-items:center; gap:5px; padding:6px 11px; border-radius:999px; background:rgba(154,90,191,.92); color:#fff; font:700 12px/1 var(--font-sans);"><wds-icon name="circle-check-fill" size="14" hint-size="14px,14px"></wds-icon>{{ t.idMatch }} 96%</span>
+            </div>
+            <div style="padding:15px 16px;">
+              <div class="wds-headline1" style="color:var(--label-strong); font-weight:700;">{{ d.name }}</div>
+              <div class="wds-label2" style="color:var(--label-alternative); margin-top:3px;">{{ d.sub }} · {{ d.era }}</div>
+            </div>
+          </div>
+          <div style="margin-top:16px; border:1px solid var(--line-normal-neutral); border-radius:16px; background:var(--background-elevated-normal); padding:14px 16px;">
+            <div style="display:flex; align-items:center; gap:7px; color:var(--label-neutral);"><wds-icon name="document-text" size="16" hint-size="16px,16px"></wds-icon><span class="wds-label2" style="font-weight:600;">{{ t.idOcr }}</span></div>
+            <div class="wds-body2-reading" style="color:var(--label-neutral); margin-top:8px; padding:11px 13px; background:var(--fill-alternative); border-radius:10px;">{{ t.idOcrText }}</div>
+          </div>
+          <button onClick="{{ confirmId }}" style="margin-top:22px; width:100%; height:54px; border:none; border-radius:15px; background:var(--primary-normal); color:#fff; font:700 16px/1 var(--font-sans); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;"><wds-icon name="change" size="20" hint-size="20px,20px"></wds-icon>{{ t.idConfirm }}</button>
+        </div>
+      </sc-if>
+
+      <!-- ============ UNSUPPORTED ============ -->
+      <sc-if value="{{ scrUnsupported }}" hint-placeholder-val="{{ false }}">
+        <div class="dbfade" style="position:absolute; inset:0; display:flex; flex-direction:column; padding:62px 30px 40px;">
+          <button onClick="{{ backToHome }}" style="align-self:flex-start; width:40px; height:40px; border-radius:12px; border:1px solid var(--line-normal-neutral); background:var(--background-elevated-normal); color:var(--label-neutral); display:flex; align-items:center; justify-content:center; cursor:pointer;"><wds-icon name="arrow-left" size="20" hint-size="20px,20px"></wds-icon></button>
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+            <div style="width:88px; height:88px; border-radius:26px; background:var(--fill-normal); color:var(--accent-foreground-orange); display:flex; align-items:center; justify-content:center; margin-bottom:22px;"><wds-icon name="hourglass" size="40" hint-size="40px,40px"></wds-icon></div>
+            <div class="wds-heading2" style="color:var(--label-strong); font-weight:700;">{{ t.unsupTitle }}</div>
+            <div class="wds-body2-reading" style="color:var(--label-alternative); margin-top:12px; max-width:280px;">{{ t.unsupBody }}</div>
+          </div>
+          <button onClick="{{ backToHome }}" style="width:100%; height:54px; border:none; border-radius:15px; background:var(--primary-normal); color:#fff; font:700 16px/1 var(--font-sans); cursor:pointer;">{{ t.unsupBack }}</button>
+        </div>
+      </sc-if>
+
+      <!-- ============ NOTIFICATIONS ============ -->
+      <sc-if value="{{ scrNoti }}" hint-placeholder-val="{{ false }}">
+        <div id="m-body" class="nsb dbfade" style="position:absolute; inset:0; overflow-y:auto; padding:58px 22px 36px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <button onClick="{{ backToHome }}" style="width:40px; height:40px; border-radius:12px; border:1px solid var(--line-normal-neutral); background:var(--background-elevated-normal); color:var(--label-neutral); display:flex; align-items:center; justify-content:center; cursor:pointer;"><wds-icon name="arrow-left" size="20" hint-size="20px,20px"></wds-icon></button>
+            <div class="wds-heading2" style="color:var(--label-strong); font-weight:700;">{{ t.notiTitle }}</div>
+          </div>
+          <div class="wds-label2" style="color:var(--label-alternative); margin:14px 2px 16px;">{{ t.notiSub }}</div>
+          <div style="border:1px solid var(--line-normal-alternative); border-radius:16px; overflow:hidden; background:var(--background-elevated-normal);">
+            <sc-for list="{{ notiRows }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex; align-items:center; gap:13px; padding:16px; border-bottom:1px solid var(--line-normal-alternative);">
+                <div style="flex:0 0 auto; width:42px; height:42px; border-radius:12px; background:{{ r.bg }}; color:{{ r.fg }}; display:flex; align-items:center; justify-content:center;"><wds-icon name="{{ r.icon }}" size="22" hint-size="22px,22px"></wds-icon></div>
+                <div style="flex:1;"><div class="wds-label1-normal" style="color:var(--label-strong); font-weight:600;">{{ r.label }}</div><div class="wds-caption1" style="color:var(--label-alternative); margin-top:2px;">{{ r.desc }}</div></div>
+                <button onClick="{{ r.toggle }}" style="{{ r.switchStyle }}"><span style="{{ r.knobStyle }}"></span></button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ DETAIL ============ -->
+      <sc-if value="{{ scrDetail }}" hint-placeholder-val="{{ false }}">
+        <div id="m-body" class="nsb dbfade" style="position:absolute; inset:0; overflow-y:auto; padding:0 0 110px;">
+          <!-- hero -->
+          <div style="position:relative; height:230px;">
+            <img src="assets/sungnyemun_after.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+            <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,15,25,.5) 0%, rgba(12,15,25,.05) 32%, rgba(12,15,25,.78) 100%);"></div>
+            <div style="position:absolute; top:56px; left:18px; right:18px; display:flex; align-items:center;">
+              <button onClick="{{ backToHome }}" style="width:40px; height:40px; border-radius:12px; border:none; background:rgba(0,0,0,.32); backdrop-filter:blur(6px); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer;"><wds-icon name="arrow-left" size="20" hint-size="20px,20px"></wds-icon></button>
+              <span style="flex:1;"></span>
+              <button onClick="{{ toggleSaveCur }}" style="width:40px; height:40px; border-radius:12px; border:none; background:rgba(0,0,0,.32); backdrop-filter:blur(6px); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; margin-right:8px;"><wds-icon name="{{ bookmarkIcon }}" size="20" hint-size="20px,20px"></wds-icon></button>
+              <button style="width:40px; height:40px; border-radius:12px; border:none; background:rgba(0,0,0,.32); backdrop-filter:blur(6px); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer;"><wds-icon name="share" size="19" hint-size="19px,19px"></wds-icon></button>
+            </div>
+            <div style="position:absolute; left:22px; right:22px; bottom:18px; color:#fff;">
+              <div class="wds-title2" style="font-weight:700;">{{ d.name }}</div>
+              <div style="display:flex; align-items:center; gap:8px; margin-top:6px;"><span class="wds-label2" style="color:rgba(255,255,255,.85);">{{ d.sub }}</span><span style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.6);"></span><span class="wds-label2" style="color:rgba(255,255,255,.85);">{{ d.era }}</span></div>
+            </div>
+          </div>
+
+          <!-- segmented tabs -->
+          <div style="position:sticky; top:0; z-index:20; background:var(--background-normal-alternative); padding:12px 22px;">
+            <div style="display:flex; gap:4px; padding:4px; background:var(--fill-normal); border-radius:13px;">
+              <sc-for list="{{ dtTabs }}" as="dt" hint-placeholder-count="3">
+                <button onClick="{{ dt.click }}" style="{{ dt.style }}"><wds-icon name="{{ dt.icon }}" size="16" hint-size="16px,16px"></wds-icon>{{ dt.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- detail: RESTORE -->
+          <sc-if value="{{ dtRestore }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:6px 22px 0;">
+              <div onPointerDown="{{ m.down }}" onPointerMove="{{ m.move }}" onPointerUp="{{ m.up }}" onPointerLeave="{{ m.up }}" style="position:relative; width:100%; aspect-ratio:4/3; border-radius:18px; overflow:hidden; touch-action:none; cursor:ew-resize; user-select:none; box-shadow:var(--shadow-emphasize);">
+                <img src="assets/sungnyemun_after.png" alt="" draggable="false" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
+                <img src="assets/sungnyemun_before.png" alt="" draggable="false" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; clip-path: inset(0 {{ m.insetR }} 0 0);">
+                <span style="position:absolute; top:12px; left:12px; padding:5px 10px; border-radius:999px; background:rgba(20,18,16,.7); color:#fff; font:600 11px/1 var(--font-sans);">{{ d.beforeLabel }}</span>
+                <span style="position:absolute; top:12px; right:12px; padding:5px 10px; border-radius:999px; background:rgba(154,90,191,.88); color:#fff; font:600 11px/1 var(--font-sans);">{{ d.afterLabel }}</span>
+                <div style="position:absolute; top:0; bottom:0; left:{{ m.posPct }}; width:3px; background:#fff; transform:translateX(-1.5px); pointer-events:none; box-shadow:0 0 8px rgba(0,0,0,.3);"></div>
+                <div style="position:absolute; top:50%; left:{{ m.posPct }}; transform:translate(-50%,-50%); width:42px; height:42px; border-radius:50%; background:#fff; box-shadow:0 3px 10px rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; color:var(--primary-normal); pointer-events:none;"><wds-icon name="chevron-double-left" size="20" hint-size="20px,20px"></wds-icon></div>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:center; gap:6px; margin-top:10px; color:var(--label-assistive);"><wds-icon name="handle" size="14" hint-size="14px,14px"></wds-icon><span class="wds-caption1">{{ t.dragHint }}</span></div>
+              <div style="display:flex; align-items:center; gap:7px; margin-top:14px; padding:11px 14px; border-radius:12px; background:{{ m.estBg }};"><span style="color:var(--accent-foreground-orange); display:flex;"><wds-icon name="sparkle-fill" size="16" hint-size="16px,16px"></wds-icon></span><span class="wds-label2" style="color:var(--label-neutral); font-weight:600;">{{ t.estimate }}</span><span style="flex:1;"></span><span class="wds-caption1" style="color:var(--label-alternative);">{{ t.source }}: {{ t.sourceName }}</span></div>
+              <div class="wds-headline1" style="color:var(--label-strong); font-weight:700; margin:24px 0 12px;">{{ t.changeTitle }}</div>
+              <div style="display:flex; flex-direction:column; gap:11px;">
+                <sc-for list="{{ m.change }}" as="c" hint-placeholder-count="3">
+                  <div style="display:flex; gap:13px; padding:15px 16px; border:1px solid var(--line-normal-alternative); border-radius:15px; background:var(--background-elevated-normal);">
+                    <div style="flex:0 0 auto; width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:{{ c.bg }}; color:{{ c.fg }};"><wds-icon name="{{ c.icon }}" size="22" hint-size="22px,22px"></wds-icon></div>
+                    <div style="flex:1;"><div class="wds-headline2" style="color:var(--label-strong);">{{ c.title }}</div><div class="wds-label2" style="color:var(--label-alternative); margin-top:3px; line-height:1.5;">{{ c.body }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- detail: COMMENTARY -->
+          <sc-if value="{{ dtStory }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:6px 22px 0;">
+              <div class="wds-caption1" style="color:var(--label-alternative); margin:4px 0 9px; font-weight:600;">{{ t.storyMode }}</div>
+              <div class="nsb" style="display:flex; gap:8px; overflow-x:auto; padding-bottom:4px;">
+                <sc-for list="{{ m.modes }}" as="md" hint-placeholder-count="5">
+                  <button onClick="{{ md.click }}" class="wds-chip wds-chip--medium {{ md.cls }}" style="flex:0 0 auto;"><wds-icon name="{{ md.icon }}" size="15" hint-size="15px,15px"></wds-icon>{{ md.label }}</button>
+                </sc-for>
+              </div>
+              <div style="margin-top:18px; border:1px solid var(--line-normal-alternative); border-radius:18px; background:var(--background-elevated-normal); overflow:hidden; box-shadow:var(--shadow-emphasize);">
+                <div style="padding:18px;"><div class="wds-body1-reading" style="color:var(--label-normal); white-space:pre-line;">{{ m.story }}</div></div>
+                <div style="border-top:1px solid var(--line-normal-alternative); padding:13px 16px; display:flex; align-items:center; gap:13px;">
+                  <button onClick="{{ m.toggleTTS }}" style="flex:0 0 auto; width:42px; height:42px; border-radius:50%; border:none; background:var(--primary-normal); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer;"><wds-icon name="{{ m.playIcon }}" size="20" hint-size="20px,20px"></wds-icon></button>
+                  <div style="flex:1;"><div style="display:flex; align-items:center; gap:6px; color:var(--label-neutral); margin-bottom:7px;"><wds-icon name="music-microphone" size="15" hint-size="15px,15px"></wds-icon><span class="wds-caption1" style="font-weight:600;">{{ t.listen }}</span></div><div style="height:5px; border-radius:99px; background:var(--fill-normal); overflow:hidden;"><div style="height:100%; width:{{ m.ttsPct }}; background:var(--primary-normal); border-radius:99px;"></div></div></div>
+                  <button onClick="{{ m.cycleSpeed }}" style="flex:0 0 auto; padding:8px 11px; border-radius:10px; border:1px solid var(--line-normal-neutral); background:var(--background-elevated-normal); color:var(--label-neutral); font:600 12px/1 var(--font-sans); cursor:pointer;">{{ m.speed }}</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- detail: LEARN -->
+          <sc-if value="{{ dtLearn }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:6px 22px 0;">
+              <div style="display:flex; align-items:center; gap:7px; margin:4px 0 11px; color:var(--label-strong);"><span style="color:var(--primary-normal); display:flex;"><wds-icon name="bubble-fill" size="18" hint-size="18px,18px"></wds-icon></span><span class="wds-headline1" style="font-weight:700;">{{ t.askTitle }}</span></div>
+              <div id="m-chat" class="nsb" style="border:1px solid var(--line-normal-alternative); border-radius:16px; background:var(--background-normal-alternative); padding:14px; max-height:260px; overflow-y:auto; display:flex; flex-direction:column; gap:10px;">
+                <div style="display:flex; gap:9px;"><div style="flex:0 0 auto; width:30px; height:30px; border-radius:9px; background:var(--primary-normal); color:#fff; display:flex; align-items:center; justify-content:center;"><wds-icon name="sparkle-fill" size="16" hint-size="16px,16px"></wds-icon></div><div style="background:var(--background-elevated-normal); border:1px solid var(--line-normal-alternative); border-radius:4px 13px 13px 13px; padding:11px 13px; max-width:80%;"><div class="wds-body2-reading" style="color:var(--label-normal);">{{ t.chatGreet }}</div></div></div>
+                <sc-for list="{{ m.chat }}" as="c" hint-placeholder-count="0">
+                  <sc-if value="{{ c.isUser }}" hint-placeholder-val="{{ false }}"><div style="align-self:flex-end; background:var(--primary-normal); color:#fff; border-radius:13px 4px 13px 13px; padding:10px 13px; max-width:80%;"><div class="wds-body2-normal">{{ c.text }}</div></div></sc-if>
+                  <sc-if value="{{ c.isAi }}" hint-placeholder-val="{{ false }}"><div style="display:flex; gap:9px;"><div style="flex:0 0 auto; width:30px; height:30px; border-radius:9px; background:var(--primary-normal); color:#fff; display:flex; align-items:center; justify-content:center;"><wds-icon name="sparkle-fill" size="16" hint-size="16px,16px"></wds-icon></div><div style="background:var(--background-elevated-normal); border:1px solid var(--line-normal-alternative); border-radius:4px 13px 13px 13px; padding:11px 13px; max-width:80%;"><div class="wds-body2-reading" style="color:var(--label-normal);">{{ c.text }}</div><div style="display:flex; align-items:center; gap:5px; margin-top:8px; padding-top:8px; border-top:1px dashed var(--line-normal-neutral); color:var(--label-assistive);"><wds-icon name="circle-check" size="12" hint-size="12px,12px"></wds-icon><span class="wds-caption2">{{ t.source }}: {{ c.src }}</span></div></div></div></sc-if>
+                </sc-for>
+              </div>
+              <div class="wds-caption1" style="color:var(--label-alternative); margin:14px 0 8px; font-weight:600;">{{ t.recoTitle }}</div>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;"><sc-for list="{{ m.reco }}" as="r" hint-placeholder-count="3"><button onClick="{{ r.click }}" class="wds-chip wds-chip--small" style="background:var(--background-elevated-normal);">{{ r.q }}</button></sc-for></div>
+              <div style="display:flex; gap:8px; margin-top:12px;"><div class="wds-input-wrap" style="flex:1;"><input class="wds-input" placeholder="{{ t.askPh }}" value="{{ m.input }}" onChange="{{ m.onInput }}" onKeyDown="{{ m.onKey }}"></div><button onClick="{{ m.submit }}" style="flex:0 0 auto; width:48px; border:none; border-radius:12px; background:var(--primary-normal); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer;"><wds-icon name="send-fill" size="20" hint-size="20px,20px"></wds-icon></button></div>
+
+              <div style="display:flex; align-items:center; gap:7px; margin:28px 0 12px; color:var(--label-strong);"><span style="color:var(--accent-foreground-orange); display:flex;"><wds-icon name="template-fill" size="18" hint-size="18px,18px"></wds-icon></span><span class="wds-headline1" style="font-weight:700;">{{ t.cardTitle }}</span></div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <sc-for list="{{ m.cards }}" as="c" hint-placeholder-count="5">
+                  <div style="border:1px solid var(--line-normal-alternative); border-radius:14px; background:var(--background-elevated-normal); padding:14px; box-shadow:var(--shadow-emphasize);"><div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><div style="width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center; background:{{ c.bg }}; color:{{ c.fg }};"><wds-icon name="{{ c.icon }}" size="17" hint-size="17px,17px"></wds-icon></div><span class="wds-caption1" style="color:{{ c.fg }}; font-weight:700;">{{ c.label }}</span></div><div class="wds-label1-normal" style="color:var(--label-strong); font-weight:600;">{{ c.title }}</div><div class="wds-caption1" style="color:var(--label-alternative); margin-top:4px; line-height:1.45;">{{ c.body }}</div></div>
+                </sc-for>
+              </div>
+
+              <div style="margin-top:28px; border:1px solid var(--line-normal-neutral); border-radius:18px; background:var(--background-elevated-normal); padding:18px; box-shadow:var(--shadow-emphasize);">
+                <div style="display:flex; align-items:center; gap:9px;"><div style="width:34px; height:34px; border-radius:10px; background:{{ m.quizBg }}; color:var(--accent-foreground-green); display:flex; align-items:center; justify-content:center;"><wds-icon name="graduation" size="19" hint-size="19px,19px"></wds-icon></div><div style="flex:1;"><div class="wds-headline2" style="color:var(--label-strong);">{{ t.quizTitle }}</div><div class="wds-caption1" style="color:var(--label-alternative); margin-top:1px;">{{ t.quizSub }}</div></div></div>
+                <div style="display:flex; flex-direction:column; gap:18px; margin-top:16px;">
+                  <sc-for list="{{ m.quiz }}" as="q" hint-placeholder-count="3">
+                    <div>
+                      <div class="wds-headline2" style="color:var(--label-strong); margin-bottom:10px;">{{ q.num }}. {{ q.q }}</div>
+                      <div style="display:flex; flex-direction:column; gap:8px;"><sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="4"><button onClick="{{ o.click }}" style="{{ o.style }}"><span style="{{ o.markStyle }}">{{ o.mark }}</span><span>{{ o.text }}</span></button></sc-for></div>
+                      <sc-if value="{{ q.done }}" hint-placeholder-val="{{ false }}"><div style="margin-top:9px; padding:11px 13px; border-radius:11px; background:var(--fill-alternative); display:flex; gap:8px;"><span style="color:var(--accent-foreground-green); flex:0 0 auto; display:flex;"><wds-icon name="bulb" size="16" hint-size="16px,16px"></wds-icon></span><span class="wds-label2" style="color:var(--label-neutral); line-height:1.5;"><b style="color:var(--label-strong);">{{ t.explainLabel }}</b> · {{ q.explain }}</span></div></sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ m.quizDone }}" hint-placeholder-val="{{ false }}"><div style="margin-top:18px; padding-top:16px; border-top:1px solid var(--line-normal-alternative); display:flex; align-items:center; justify-content:space-between;"><div style="display:flex; align-items:baseline; gap:6px;"><span style="color:var(--accent-foreground-orange); align-self:center; display:flex;"><wds-icon name="trophy-fill" size="22" hint-size="22px,22px"></wds-icon></span><span class="wds-title2" style="color:var(--label-strong);">{{ m.quizScore }}</span><span class="wds-body2-normal" style="color:var(--label-alternative);">/ 3 {{ t.quizScore }}</span></div><button onClick="{{ m.resetQuiz }}" style="padding:9px 15px; border-radius:10px; border:1px solid var(--line-normal-neutral); background:var(--background-elevated-normal); color:var(--label-neutral); font:600 13px/1 var(--font-sans); cursor:pointer;">{{ t.quizRetry }}</button></div></sc-if>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ============ BOTTOM NAV ============ -->
+      <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute; bottom:0; left:0; right:0; height:90px; background:var(--background-elevated-normal); border-top:1px solid var(--line-normal-alternative); display:flex; align-items:flex-start; padding:11px 6px 22px; z-index:45;">
+          <button onClick="{{ navHome.click }}" style="flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; border:none; background:transparent; cursor:pointer; color:{{ navHome.color }};"><wds-icon name="{{ navHome.icon }}" size="26" hint-size="26px,26px"></wds-icon><span style="font:{{ navHome.weight }} 12px/1 var(--font-sans);">{{ navHome.label }}</span></button>
+          <button onClick="{{ navMap.click }}" style="flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; border:none; background:transparent; cursor:pointer; color:{{ navMap.color }};"><wds-icon name="{{ navMap.icon }}" size="26" hint-size="26px,26px"></wds-icon><span style="font:{{ navMap.weight }} 12px/1 var(--font-sans);">{{ navMap.label }}</span></button>
+          <div style="flex:1; display:flex; justify-content:center;"><button onClick="{{ openSheet }}" style="margin-top:-30px; width:62px; height:62px; border-radius:50%; border:4px solid var(--background-elevated-normal); background:var(--primary-normal); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 8px 20px -6px rgba(154,90,191,.6);"><wds-icon name="camera-fill" size="28" hint-size="28px,28px"></wds-icon></button></div>
+          <button onClick="{{ navSaved.click }}" style="flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; border:none; background:transparent; cursor:pointer; color:{{ navSaved.color }};"><wds-icon name="{{ navSaved.icon }}" size="26" hint-size="26px,26px"></wds-icon><span style="font:{{ navSaved.weight }} 12px/1 var(--font-sans);">{{ navSaved.label }}</span></button>
+          <button onClick="{{ navMy.click }}" style="flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; border:none; background:transparent; cursor:pointer; color:{{ navMy.color }};"><wds-icon name="{{ navMy.icon }}" size="26" hint-size="26px,26px"></wds-icon><span style="font:{{ navMy.weight }} 12px/1 var(--font-sans);">{{ navMy.label }}</span></button>
+        </div>
+      </sc-if>
+
+      <!-- ============ CAMERA SHEET ============ -->
+      <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeSheet }}" style="position:absolute; inset:0; z-index:70; background:rgba(12,14,22,.46); display:flex; align-items:flex-end;">
+          <div onClick="{{ stopProp }}" class="dbsheet" style="width:100%; background:var(--background-elevated-normal); border-radius:24px 24px 0 0; padding:12px 22px 28px;">
+            <div style="width:42px; height:5px; border-radius:99px; background:var(--fill-strong); margin:0 auto 16px;"></div>
+            <div class="wds-heading2" style="color:var(--label-strong); font-weight:700; margin-bottom:16px;">{{ t.sheetTitle }}</div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <sc-for list="{{ sheetOpts }}" as="o" hint-placeholder-count="4">
+                <button onClick="{{ o.click }}" style="display:flex; align-items:center; gap:14px; padding:14px; border:1px solid var(--line-normal-alternative); border-radius:15px; background:var(--background-normal-alternative); cursor:pointer; text-align:left;">
+                  <div style="flex:0 0 auto; width:46px; height:46px; border-radius:13px; background:{{ o.bg }}; color:{{ o.fg }}; display:flex; align-items:center; justify-content:center;"><wds-icon name="{{ o.icon }}" size="24" hint-size="24px,24px"></wds-icon></div>
+                  <div style="flex:1;"><div class="wds-headline2" style="color:var(--label-strong);">{{ o.label }}</div><div class="wds-caption1" style="color:var(--label-alternative); margin-top:2px;">{{ o.desc }}</div></div>
+                  <span style="color:var(--label-assistive); display:flex;"><wds-icon name="chevron-right" size="20" hint-size="20px,20px"></wds-icon></span>
+                </button>
+              </sc-for>
+            </div>
+            <button onClick="{{ closeSheet }}" style="margin-top:14px; width:100%; height:50px; border:none; border-radius:14px; background:var(--fill-normal); color:var(--label-neutral); font:600 15px/1 var(--font-sans); cursor:pointer;">{{ t.cancel }}</button>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DESKTOP WEB ===================== -->
+<div style="position:absolute; left:600px; top:80px; width:1440px;">
+  <div data-drags-parent="1" style="display:flex; align-items:center; gap:9px; margin-bottom:16px; color:var(--label-alternative);">
+    <wds-icon name="desktop" size="17" hint-size="17px,17px"></wds-icon>
+    <span class="wds-label1-normal" style="color:var(--label-neutral);">데스크톱 웹</span>
+  </div>
+  <div style="width:1440px; height:980px; border-radius:14px; overflow:hidden; background:var(--background-normal-normal); box-shadow:0 30px 80px -28px rgba(20,20,40,.4); display:flex; flex-direction:column;">
+    <div style="flex:0 0 auto; height:44px; background:#f1f2f4; border-bottom:1px solid var(--line-normal-alternative); display:flex; align-items:center; padding:0 16px; gap:14px;">
+      <span style="display:flex; gap:8px;"><i style="width:12px;height:12px;border-radius:50%;background:#ff5f57;"></i><i style="width:12px;height:12px;border-radius:50%;background:#febc2e;"></i><i style="width:12px;height:12px;border-radius:50%;background:#28c840;"></i></span>
+      <div style="flex:1; max-width:520px; margin:0 auto; height:28px; background:#fff; border-radius:8px; display:flex; align-items:center; gap:7px; padding:0 12px; color:var(--label-assistive);"><wds-icon name="lock" size="12" hint-size="12px,12px"></wds-icon><span class="wds-caption1">dasibom.kr</span></div>
+      <span style="width:60px;"></span>
+    </div>
+
+    <div id="w-body" class="nsb" style="flex:1; overflow-y:auto; background:var(--background-normal-normal);">
+      <div style="position:sticky; top:0; z-index:30; background:rgba(255,255,255,.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--line-normal-alternative); display:flex; align-items:center; gap:30px; padding:0 40px; height:66px;">
+        <div style="display:flex; align-items:center; gap:9px;"><div style="width:30px; height:30px; border-radius:9px; background:var(--primary-normal); color:#fff; display:flex; align-items:center; justify-content:center;"><wds-icon name="sparkle-fill" size="18" hint-size="18px,18px"></wds-icon></div><span class="wds-heading2" style="color:var(--label-strong); font-weight:700;">{{ t.brand }}</span></div>
+        <div style="display:flex; gap:26px; flex:1;"><span class="wds-body2-normal" style="color:var(--label-neutral); cursor:pointer;">{{ t.nav1 }}</span><span class="wds-body2-normal" style="color:var(--label-neutral); cursor:pointer;">{{ t.nav2 }}</span><span class="wds-body2-normal" style="color:var(--label-neutral); cursor:pointer;">{{ t.nav3 }}</span><span class="wds-body2-normal" style="color:var(--label-neutral); cursor:pointer;">{{ t.nav4 }}</span></div>
+        <div style="display:flex; align-items:center; gap:6px; padding:4px; background:var(--fill-normal); border-radius:999px;"><sc-for list="{{ langSeg }}" as="o" hint-placeholder-count="2"><button onClick="{{ o.click }}" style="{{ o.styleWeb }}">{{ o.t }}</button></sc-for></div>
+        <button onClick="{{ w.onUpload }}" class="wds-btn wds-btn--solid wds-btn--primary wds-btn--medium"><wds-icon name="upload" size="18" hint-size="18px,18px"></wds-icon>{{ t.webCta }}</button>
+      </div>
+
+      <!-- hero -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:46px; padding:54px 56px 40px; align-items:center;">
+        <div>
+          <div style="display:inline-flex; align-items:center; gap:7px; padding:7px 13px; border-radius:999px; background:{{ m.estBg }}; color:var(--primary-normal); margin-bottom:20px;"><wds-icon name="sparkle-fill" size="14" hint-size="14px,14px"></wds-icon><span class="wds-label2" style="font-weight:600;">{{ t.webKicker }}</span></div>
+          <div class="wds-display2" style="color:var(--label-strong); letter-spacing:-.03em; line-height:1.12;">{{ t.webHero }}</div>
+          <div class="wds-body1-reading" style="color:var(--label-alternative); margin-top:18px; max-width:520px;">{{ t.webHeroSub }}</div>
+          <!-- upload dropzone -->
+          <div onClick="{{ w.onUpload }}" onDrop="{{ w.onDrop }}" onDragOver="{{ w.onDragOver }}" style="margin-top:26px; border:2px dashed {{ w.dropBorder }}; border-radius:16px; background:{{ w.dropBg }}; padding:26px; display:flex; align-items:center; gap:18px; cursor:pointer; transition:all .2s var(--ease-standard);">
+            <div style="flex:0 0 auto; width:54px; height:54px; border-radius:15px; background:var(--primary-normal); color:#fff; display:flex; align-items:center; justify-content:center;"><wds-icon name="{{ w.dropIcon }}" size="26" hint-size="26px,26px"></wds-icon></div>
+            <div style="flex:1;"><div class="wds-headline1" style="color:var(--label-strong); font-weight:700;">{{ w.dropTitle }}</div><div class="wds-label2" style="color:var(--label-alternative); margin-top:4px;">{{ w.dropSub }}</div></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; margin-top:18px; color:var(--label-alternative);"><wds-icon name="verified-check-fill" size="16" hint-size="16px,16px"></wds-icon><span class="wds-label2">{{ t.poweredBy }} · {{ t.uncertain }}</span></div>
+        </div>
+        <div>
+          <div onPointerDown="{{ w.down }}" onPointerMove="{{ w.move }}" onPointerUp="{{ w.up }}" onPointerLeave="{{ w.up }}" style="position:relative; width:100%; aspect-ratio:4/3; border-radius:20px; overflow:hidden; touch-action:none; cursor:ew-resize; user-select:none; box-shadow:var(--shadow-strong);">
+            <img src="assets/sungnyemun_after.png" alt="" draggable="false" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
+            <img src="assets/sungnyemun_before.png" alt="" draggable="false" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; clip-path: inset(0 {{ w.insetR }} 0 0);">
+            <span style="position:absolute; top:16px; left:16px; padding:7px 13px; border-radius:999px; background:rgba(20,18,16,.72); color:#fff; font:600 13px/1 var(--font-sans);">{{ d.beforeLabel }}</span>
+            <span style="position:absolute; top:16px; right:16px; padding:7px 13px; border-radius:999px; background:rgba(154,90,191,.9); color:#fff; font:600 13px/1 var(--font-sans);">{{ d.afterLabel }}</span>
+            <div style="position:absolute; top:0; bottom:0; left:{{ w.posPct }}; width:3px; background:#fff; transform:translateX(-1.5px); pointer-events:none; box-shadow:0 0 10px rgba(0,0,0,.3);"></div>
+            <div style="position:absolute; top:50%; left:{{ w.posPct }}; transform:translate(-50%,-50%); width:52px; height:52px; border-radius:50%; background:#fff; box-shadow:0 4px 14px rgba(0,0,0,.32); display:flex; align-items:center; justify-content:center; color:var(--primary-normal); pointer-events:none;"><wds-icon name="chevron-double-left" size="24" hint-size="24px,24px"></wds-icon></div>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:13px;"><span style="display:inline-flex; align-items:center; gap:7px; padding:8px 13px; border-radius:10px; background:{{ m.est2Bg }};"><span style="color:var(--accent-foreground-orange); display:flex;"><wds-icon name="sparkle-fill" size="15" hint-size="15px,15px"></wds-icon></span><span class="wds-label2" style="color:var(--label-neutral); font-weight:600;">{{ t.estimate }}</span></span><span class="wds-label2" style="color:var(--label-alternative);">{{ t.source }}: {{ t.sourceName }}</span></div>
+        </div>
+      </div>
+
+      <div id="w-change" style="padding:18px 56px 8px;">
+        <div class="wds-title3" style="color:var(--label-strong); margin-bottom:18px;">{{ t.changeTitle }}</div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+          <sc-for list="{{ w.change }}" as="c" hint-placeholder-count="3">
+            <div style="border:1px solid var(--line-normal-alternative); border-radius:18px; background:var(--background-elevated-normal); padding:22px; box-shadow:var(--shadow-emphasize);"><div style="width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center; background:{{ c.bg }}; color:{{ c.fg }}; margin-bottom:14px;"><wds-icon name="{{ c.icon }}" size="26" hint-size="26px,26px"></wds-icon></div><div class="wds-headline1" style="color:var(--label-strong);">{{ c.title }}</div><div class="wds-body2-reading" style="color:var(--label-alternative); margin-top:7px;">{{ c.body }}</div></div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:34px; padding:44px 56px;">
+        <div>
+          <div class="wds-title3" style="color:var(--label-strong); margin-bottom:16px;">{{ t.storyTitle }}</div>
+          <div class="nsb" style="display:flex; gap:9px; flex-wrap:wrap; margin-bottom:16px;"><sc-for list="{{ w.modes }}" as="md" hint-placeholder-count="5"><button onClick="{{ md.click }}" class="wds-chip wds-chip--large {{ md.cls }}"><wds-icon name="{{ md.icon }}" size="17" hint-size="17px,17px"></wds-icon>{{ md.label }}</button></sc-for></div>
+          <div style="border:1px solid var(--line-normal-alternative); border-radius:20px; background:var(--background-elevated-normal); padding:26px; box-shadow:var(--shadow-emphasize);">
+            <div class="wds-body1-reading" style="color:var(--label-normal); white-space:pre-line; min-height:120px;">{{ w.story }}</div>
+            <div style="border-top:1px solid var(--line-normal-alternative); margin-top:20px; padding-top:18px; display:flex; align-items:center; gap:16px;"><button onClick="{{ w.toggleTTS }}" style="flex:0 0 auto; width:50px; height:50px; border-radius:50%; border:none; background:var(--primary-normal); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer;"><wds-icon name="{{ w.playIcon }}" size="24" hint-size="24px,24px"></wds-icon></button><div style="flex:1;"><div style="display:flex; align-items:center; gap:7px; color:var(--label-neutral); margin-bottom:8px;"><wds-icon name="music-microphone" size="16" hint-size="16px,16px"></wds-icon><span class="wds-label2" style="font-weight:600;">{{ t.listen }}</span></div><div style="height:6px; border-radius:99px; background:var(--fill-normal); overflow:hidden;"><div style="height:100%; width:{{ w.ttsPct }}; background:var(--primary-normal);"></div></div></div><button onClick="{{ w.cycleSpeed }}" style="flex:0 0 auto; padding:10px 14px; border-radius:11px; border:1px solid var(--line-normal-neutral); background:var(--background-elevated-normal); color:var(--label-neutral); font:600 13px/1 var(--font-sans); cursor:pointer;">{{ w.speed }}</button></div>
+          </div>
+        </div>
+        <div>
+          <div class="wds-title3" style="color:var(--label-strong); margin-bottom:16px;">{{ t.cardTitle }}</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;"><sc-for list="{{ w.cards }}" as="c" hint-placeholder-count="5"><div style="border:1px solid var(--line-normal-alternative); border-radius:16px; background:var(--background-elevated-normal); padding:18px; box-shadow:var(--shadow-emphasize);"><div style="display:flex; align-items:center; gap:8px; margin-bottom:11px;"><div style="width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:{{ c.bg }}; color:{{ c.fg }};"><wds-icon name="{{ c.icon }}" size="19" hint-size="19px,19px"></wds-icon></div><span class="wds-label2" style="color:{{ c.fg }}; font-weight:700;">{{ c.label }}</span></div><div class="wds-headline2" style="color:var(--label-strong);">{{ c.title }}</div><div class="wds-label2" style="color:var(--label-alternative); margin-top:5px; line-height:1.5;">{{ c.body }}</div></div></sc-for></div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:34px; padding:8px 56px 50px;">
+        <div style="border:1px solid var(--line-normal-alternative); border-radius:20px; background:var(--background-normal-alternative); padding:24px; display:flex; flex-direction:column;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px; color:var(--label-strong);"><span style="color:var(--primary-normal); display:flex;"><wds-icon name="bubble-fill" size="20" hint-size="20px,20px"></wds-icon></span><span class="wds-heading2" style="font-weight:700;">{{ t.askTitle }}</span></div>
+          <div id="w-chat" class="nsb" style="flex:1; max-height:240px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;">
+            <div style="display:flex; gap:10px;"><div style="flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--primary-normal); color:#fff; display:flex; align-items:center; justify-content:center;"><wds-icon name="sparkle-fill" size="18" hint-size="18px,18px"></wds-icon></div><div style="background:var(--background-elevated-normal); border:1px solid var(--line-normal-alternative); border-radius:5px 14px 14px 14px; padding:12px 15px; max-width:82%;"><div class="wds-body2-reading" style="color:var(--label-normal);">{{ t.chatGreet }}</div></div></div>
+            <sc-for list="{{ w.chat }}" as="c" hint-placeholder-count="0">
+              <sc-if value="{{ c.isUser }}" hint-placeholder-val="{{ false }}"><div style="align-self:flex-end; background:var(--primary-normal); color:#fff; border-radius:14px 5px 14px 14px; padding:11px 15px; max-width:82%;"><div class="wds-body2-normal">{{ c.text }}</div></div></sc-if>
+              <sc-if value="{{ c.isAi }}" hint-placeholder-val="{{ false }}"><div style="display:flex; gap:10px;"><div style="flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--primary-normal); color:#fff; display:flex; align-items:center; justify-content:center;"><wds-icon name="sparkle-fill" size="18" hint-size="18px,18px"></wds-icon></div><div style="background:var(--background-elevated-normal); border:1px solid var(--line-normal-alternative); border-radius:5px 14px 14px 14px; padding:12px 15px; max-width:82%;"><div class="wds-body2-reading" style="color:var(--label-normal);">{{ c.text }}</div><div style="display:flex; align-items:center; gap:6px; margin-top:9px; padding-top:9px; border-top:1px dashed var(--line-normal-neutral); color:var(--label-assistive);"><wds-icon name="circle-check" size="13" hint-size="13px,13px"></wds-icon><span class="wds-caption1">{{ t.source }}: {{ c.src }}</span></div></div></div></sc-if>
+            </sc-for>
+          </div>
+          <div class="wds-caption1" style="color:var(--label-alternative); margin:16px 0 9px; font-weight:600;">{{ t.recoTitle }}</div>
+          <div style="display:flex; flex-wrap:wrap; gap:9px;"><sc-for list="{{ w.reco }}" as="r" hint-placeholder-count="3"><button onClick="{{ r.click }}" class="wds-chip wds-chip--medium" style="background:var(--background-elevated-normal);">{{ r.q }}</button></sc-for></div>
+          <div style="display:flex; gap:10px; margin-top:14px;"><div class="wds-input-wrap" style="flex:1;"><input class="wds-input" placeholder="{{ t.askPh }}" value="{{ w.input }}" onChange="{{ w.onInput }}" onKeyDown="{{ w.onKey }}"></div><button onClick="{{ w.submit }}" class="wds-btn wds-btn--solid wds-btn--primary wds-btn--large">{{ t.send }}</button></div>
+        </div>
+        <div style="border:1px solid var(--line-normal-neutral); border-radius:20px; background:var(--background-elevated-normal); padding:24px; box-shadow:var(--shadow-emphasize);">
+          <div style="display:flex; align-items:center; gap:11px; margin-bottom:18px;"><div style="width:40px; height:40px; border-radius:12px; background:{{ w.quizBg }}; color:var(--accent-foreground-green); display:flex; align-items:center; justify-content:center;"><wds-icon name="graduation" size="22" hint-size="22px,22px"></wds-icon></div><div style="flex:1;"><div class="wds-heading2" style="color:var(--label-strong);">{{ t.quizTitle }}</div><div class="wds-label2" style="color:var(--label-alternative); margin-top:2px;">{{ t.quizSub }}</div></div></div>
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <sc-for list="{{ w.quiz }}" as="q" hint-placeholder-count="3">
+              <div><div class="wds-headline2" style="color:var(--label-strong); margin-bottom:11px;">{{ q.num }}. {{ q.q }}</div><div style="display:grid; grid-template-columns:1fr 1fr; gap:9px;"><sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="4"><button onClick="{{ o.click }}" style="{{ o.style }}"><span style="{{ o.markStyle }}">{{ o.mark }}</span><span>{{ o.text }}</span></button></sc-for></div><sc-if value="{{ q.done }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px; padding:12px 14px; border-radius:11px; background:var(--fill-alternative); display:flex; gap:9px;"><span style="color:var(--accent-foreground-green); flex:0 0 auto; display:flex;"><wds-icon name="bulb" size="17" hint-size="17px,17px"></wds-icon></span><span class="wds-label2" style="color:var(--label-neutral); line-height:1.5;"><b style="color:var(--label-strong);">{{ t.explainLabel }}</b> · {{ q.explain }}</span></div></sc-if></div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ w.quizDone }}" hint-placeholder-val="{{ false }}"><div style="margin-top:20px; padding-top:18px; border-top:1px solid var(--line-normal-alternative); display:flex; align-items:center; justify-content:space-between;"><div style="display:flex; align-items:baseline; gap:7px;"><span style="color:var(--accent-foreground-orange); align-self:center; display:flex;"><wds-icon name="trophy-fill" size="26" hint-size="26px,26px"></wds-icon></span><span class="wds-title1" style="color:var(--label-strong);">{{ w.quizScore }}</span><span class="wds-body1-normal" style="color:var(--label-alternative);">/ 3 {{ t.quizScore }}</span></div><button onClick="{{ w.resetQuiz }}" class="wds-btn wds-btn--outlined wds-btn--neutral wds-btn--medium">{{ t.quizRetry }}</button></div></sc-if>
+        </div>
+      </div>
+
+      <div style="padding:8px 56px 60px;">
+        <div class="wds-title3" style="color:var(--label-strong); margin-bottom:18px;">{{ t.webExplore }}</div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px;"><sc-for list="{{ catalog }}" as="c" hint-placeholder-count="0"><div onClick="{{ c.click }}" style="border:1px solid var(--line-normal-alternative); border-radius:18px; overflow:hidden; background:var(--background-elevated-normal); box-shadow:var(--shadow-emphasize); cursor:pointer;"><div style="width:100%; height:150px; background-image:{{ c.bgUrl }}; background-size:cover; background-position:center; background-color:var(--fill-normal);"></div><div style="padding:16px 18px;"><div style="display:flex; align-items:center; gap:7px;"><span class="wds-headline2" style="color:var(--label-strong);">{{ c.name }}</span><span class="wds-caption2" style="padding:3px 7px; border-radius:6px; font-weight:600; {{ c.tagStyle }}">{{ c.tag }}</span></div><div class="wds-label2" style="color:var(--label-alternative); margin-top:5px;">{{ c.sub }}</div></div></div></sc-for></div>
+      </div>
+
+      <div style="border-top:1px solid var(--line-normal-alternative); padding:28px 56px; display:flex; align-items:center; gap:10px; color:var(--label-assistive);"><div style="width:24px; height:24px; border-radius:7px; background:var(--fill-strong); color:var(--label-alternative); display:flex; align-items:center; justify-content:center;"><wds-icon name="sparkle-fill" size="14" hint-size="14px,14px"></wds-icon></div><span class="wds-label2">{{ t.brand }} · {{ t.brandSub }}</span><span style="flex:1;"></span><span class="wds-caption1">{{ t.source }}: {{ t.sourceName }}</span></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;ko&quot;,&quot;en&quot;],&quot;default&quot;:&quot;ko&quot;,&quot;tsType&quot;:&quot;'ko' | 'en'&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;onboarding&quot;,&quot;home&quot;,&quot;map&quot;,&quot;detail&quot;],&quot;default&quot;:&quot;onboarding&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = {
+    lang: 'ko', screen: 'onboarding', tab: 'home', detailTab: 'restore',
+    sheetOpen: false, captureMode: 'camera', saved: { sungnyemun: true }, mapSheet: 'collapsed', noti: { ads: true, today: true, newRestore: false, nearby: true },
+    mSlider: 42, mMode: 'summary', mPlay: false, mTTS: 0, mSpeed: 1, mChat: [], mPick: {}, mInput: '',
+    wSlider: 50, wMode: 'summary', wPlay: false, wTTS: 0, wSpeed: 1, wChat: [], wPick: {}, wInput: '', wUploaded: false
+  };
+
+  componentDidMount() {
+    const p = this.props || {};
+    const patch = {};
+    if (p.defaultLang && p.defaultLang !== this.state.lang) patch.lang = p.defaultLang;
+    if (p.startScreen && p.startScreen !== 'onboarding') {
+      if (p.startScreen === 'detail') patch.screen = 'detail';
+      else { patch.screen = 'main'; patch.tab = (['home', 'map', 'saved', 'my'].indexOf(p.startScreen) >= 0 ? p.startScreen : 'home'); }
+    }
+    if (Object.keys(patch).length) this.setState(patch);
+  }
+  componentWillUnmount() { this._stop('m'); this._stop('w'); }
+
+  T(l) {
+    const ko = {
+      brand: '다시봄', brandSub: 'AI 문화유산 복원·해설',
+      onbTitle: '사라진 풍경을, 다시 봄', onbBody: '사진 한 장으로 문화유산의 과거를 복원하고,\n나에게 꼭 맞는 해설로 다시 만나보세요.',
+      onbStart: '시작하기', onbLang: '언어를 선택하세요',
+      tHome: '홈', tRestore: '복원', tStory: '해설', tLearn: '학습',
+      tabHome: '홈', tabMap: '지도', tabSaved: '즐겨찾기', tabMy: '마이',
+      locCity: '서울 · 중구', homeGreet: '안녕하세요', homeQ: '오늘은 어떤 유산을 만나볼까요?',
+      scan: '촬영해서 복원하기', scanSub: '안내판·유적을 비추면 AI가 인식해요', upload: '갤러리에서 선택',
+      recommend: '추천 문화유산', viewAll: '전체보기', nearbyTitle: '내 주변 문화유산', eventsTitle: '문화유산 행사',
+      notiTitle: '알림 설정', notiSub: '받고 싶은 소식을 선택하세요',
+      notiItems: [
+        { key: 'ads', icon: 'megaphone', label: '야간개장·행사 알림', desc: '새 행사가 열리면 알려드려요' },
+        { key: 'today', icon: 'sparkle', label: '오늘의 문화유산', desc: '매일 추천 문화유산을 보내드려요' },
+        { key: 'newRestore', icon: 'change', label: '신규 복원 공개', desc: '새 복원 사례가 추가되면 알림' },
+        { key: 'nearby', icon: 'location', label: '주변 문화유산 추천', desc: '근처 문화유산을 추천해드려요' }
+      ],
+      capTitle: '문화유산 비추기', capHint: '안내판이나 유적이 화면 안에 들어오게 하세요', capShot: '촬영', capGallery: '갤러리', capOcr: '안내판 텍스트 자동 인식 (OCR)',
+      anTitle: 'AI가 분석하고 있어요', anSub: '잠시만 기다려 주세요', anS1: '이미지 인식', anS2: '안내판 OCR 추출', anS3: '문화유산 데이터 매칭',
+      idTitle: '이 문화유산이 맞나요?', idSub: '가장 비슷한 후보예요. 선택하면 복원이 시작돼요.', idOcr: '인식된 안내판 텍스트', idConfirm: '복원 시작하기', idMatch: '일치율', idOcrText: '국보 제1호 숭례문(崇禮門). 조선 태조 7년(1398) 창건. 2008년 화재로 소실된 문루를 2013년 복원.',
+      restoreTitle: '복원 전·후 비교', beforeTag: '복원 전', afterTag: '복원 후', dragHint: '손잡이를 좌우로 드래그해 비교하세요', estimate: 'AI 추정 복원', changeTitle: '무엇이 달라졌나요', source: '출처', sourceName: '문화재청 국가유산포털',
+      storyTitle: '맞춤 해설', storyMode: '해설 모드', listen: '음성으로 듣기', pause: '일시정지', speed: '배속',
+      learnTitle: 'AI 질문 · 체험 학습', askTitle: '질문형 AI 해설', askPh: '궁금한 점을 물어보세요', recoTitle: '이렇게 물어보세요', cardTitle: '핵심 요약 카드', quizTitle: '3문항 퀴즈로 확인', quizSub: '해설을 잘 봤는지 확인해요', quizScore: '점', quizRetry: '다시 풀기', send: '보내기', answered: '문항 완료', explainLabel: '해설',
+      sheetTitle: '무엇을 촬영할까요?', optCam: '카메라 촬영', optCamD: '문화유산을 찍어 분석해요', optOcr: '안내판 OCR', optOcrD: '설명문 텍스트를 인식해요', optQr: 'QR 인식', optQrD: '현장 QR 코드를 스캔해요', optGallery: '갤러리 선택', optGalleryD: '저장된 사진을 업로드해요', cancel: '취소',
+      unsupTitle: '준비 중인 문화유산이에요', unsupBody: '아직 복원·해설 데이터가 준비되지 않았어요. 데이터 확장을 통해 곧 지원할 예정입니다.', unsupBack: '다른 문화유산 보기',
+      mapTitle: '지도', legendOk: '체험 가능', legendSoon: '준비 중',
+      savedTitle: '즐겨찾기', savedSub: '저장한 문화유산', savedEmpty: '아직 저장한 문화유산이 없어요',
+      myTitle: '마이페이지', myName: '방문자님', mySub: '문화유산 탐험가', stVisited: '방문', stSaved: '저장', stQuiz: '퀴즈',
+      setLangRow: '언어 설정', setNoti: '알림 설정', setHistory: '저장 기록', setVisit: '방문한 문화유산', setAccount: '계정 관리',
+      verified: '데이터 검증됨', webKicker: 'AI 문화유산 복원·해설 플랫폼', webCta: '사진 업로드', webHero: '사라진 풍경을, 다시 봄', webHeroSub: '훼손되거나 사라진 문화유산의 과거 모습을 AI로 복원하고, 수준·언어에 맞춘 해설로 누구나 쉽게 이해하도록 돕습니다.',
+      nav1: '복원 비교', nav2: '맞춤 해설', nav3: 'AI 학습', nav4: '문화유산', webExplore: '다른 문화유산 둘러보기',
+      webPick: '갤러리에서 선택', dropTitle: '사진을 끌어다 놓으세요', dropSub: 'JPG · PNG · HEIC 지원 · 클릭해서 선택', dropDoneTitle: '업로드 완료', dropDoneSub: '아래에서 복원 결과를 확인하세요',
+      chatA: '좋은 질문이에요. 숭례문 기록 데이터를 바탕으로 답변을 준비했어요. 이 데모에서는 추천 질문을 눌러 자세한 답을 확인해 보세요.',
+      poweredBy: '문화재청 데이터 기반 (RAG)', uncertain: '불확실한 내용은 ‘추정’으로 표시돼요',
+      chatGreet: '안녕하세요! 숭례문에 대해 궁금한 점을 물어보세요. 문화재청 데이터를 바탕으로 쉽게 답해드릴게요.',
+      banners: [
+        { badge: '야간개장', title: '경복궁 별빛 야행', sub: '오늘 19:00–21:30 · 예약 오픈', img: 'assets/gyeongbok_night.png' },
+        { badge: '오늘의 문화유산', title: '숭례문, 다시 보다', sub: '복원 전·후를 한눈에 비교해요', img: 'assets/sungnyemun_after.png' },
+        { badge: '무료 관람', title: '근정전 상시 개방', sub: '문화가 있는 날, 입장료 무료', img: 'assets/geunjeongjeon.png' }
+      ],
+      nearby: [
+        { name: '숭례문', dist: '350m', img: 'assets/sungnyemun_after.png', sup: true },
+        { name: '경복궁 근정전', dist: '1.2km', img: 'assets/geunjeongjeon.png', sup: true },
+        { name: '환구단', dist: '600m', img: 'assets/cheomseongdae.png', sup: false }
+      ],
+      events: [
+        { title: '경복궁 야간개장', date: '~ 6/30', tag: '행사' },
+        { title: '서울 문화유산 야행', date: '6/14–15', tag: '축제' },
+        { title: '국가유산 미디어아트', date: '상설 전시', tag: '전시' }
+      ]
+    };
+    const en = {
+      brand: 'Dasibom', brandSub: 'AI Heritage Restoration',
+      onbTitle: 'See what time erased,\nonce again.', onbBody: 'Restore the past of a cultural treasure from a single photo —\nand meet it again through commentary made just for you.',
+      onbStart: 'Get started', onbLang: 'Choose your language',
+      tHome: 'Home', tRestore: 'Restore', tStory: 'Story', tLearn: 'Learn',
+      tabHome: 'Home', tabMap: 'Map', tabSaved: 'Saved', tabMy: 'My',
+      locCity: 'Seoul · Jung-gu', homeGreet: 'Hello', homeQ: 'Which heritage will you meet today?',
+      scan: 'Scan & restore', scanSub: 'Point at a sign or site — AI recognizes it', upload: 'Pick from gallery',
+      recommend: 'Recommended heritage', viewAll: 'See all', nearbyTitle: 'Heritage near you', eventsTitle: 'Heritage events',
+      notiTitle: 'Notifications', notiSub: 'Choose what you’d like to hear about',
+      notiItems: [
+        { key: 'ads', icon: 'megaphone', label: 'Events & night openings', desc: 'We’ll alert you about new events' },
+        { key: 'today', icon: 'sparkle', label: 'Today’s heritage', desc: 'A daily heritage pick, just for you' },
+        { key: 'newRestore', icon: 'change', label: 'New restorations', desc: 'Get notified when new cases are added' },
+        { key: 'nearby', icon: 'location', label: 'Nearby heritage', desc: 'Recommendations near your location' }
+      ],
+      capTitle: 'Scan a heritage site', capHint: 'Fit the sign or monument inside the frame', capShot: 'Capture', capGallery: 'Gallery', capOcr: 'Auto sign-text recognition (OCR)',
+      anTitle: 'AI is analyzing', anSub: 'Just a moment', anS1: 'Image recognition', anS2: 'Sign OCR extraction', anS3: 'Matching heritage data',
+      idTitle: 'Is this the right heritage?', idSub: 'The closest match. Select it to begin restoration.', idOcr: 'Recognized sign text', idConfirm: 'Start restoration', idMatch: 'Match', idOcrText: 'National Treasure No.1, Sungnyemun (崇禮門). Built 1398 (King Taejo). Gatehouse lost to fire in 2008, restored 2013.',
+      restoreTitle: 'Before & After', beforeTag: 'Before', afterTag: 'After', dragHint: 'Drag the handle left and right to compare', estimate: 'AI-estimated restoration', changeTitle: 'What changed', source: 'Source', sourceName: 'Korea Heritage Service',
+      storyTitle: 'Tailored commentary', storyMode: 'Reading mode', listen: 'Listen', pause: 'Pause', speed: 'Speed',
+      learnTitle: 'Ask AI · Learn', askTitle: 'Ask the AI guide', askPh: 'Ask anything you’re curious about', recoTitle: 'Try asking', cardTitle: 'Key summary cards', quizTitle: 'Check with a 3-question quiz', quizSub: 'See how much you caught', quizScore: 'pts', quizRetry: 'Try again', send: 'Send', answered: 'answered', explainLabel: 'Explanation',
+      sheetTitle: 'What would you like to capture?', optCam: 'Camera', optCamD: 'Photograph a heritage to analyze', optOcr: 'Sign OCR', optOcrD: 'Recognize sign & description text', optQr: 'Scan QR', optQrD: 'Scan an on-site QR code', optGallery: 'From gallery', optGalleryD: 'Upload a saved photo', cancel: 'Cancel',
+      unsupTitle: 'This heritage is coming soon', unsupBody: 'Restoration & commentary data isn’t ready yet. We’ll support it soon as our dataset grows.', unsupBack: 'Browse other heritage',
+      mapTitle: 'Map', legendOk: 'Available', legendSoon: 'Coming soon',
+      savedTitle: 'Saved', savedSub: 'Saved heritage', savedEmpty: 'No saved heritage yet',
+      myTitle: 'My', myName: 'Guest', mySub: 'Heritage explorer', stVisited: 'Visited', stSaved: 'Saved', stQuiz: 'Quiz',
+      setLangRow: 'Language', setNoti: 'Notifications', setHistory: 'Saved history', setVisit: 'Visited heritage', setAccount: 'Account',
+      verified: 'Data verified', webKicker: 'AI heritage restoration & commentary platform', webCta: 'Upload photo', webHero: 'See what time erased, once again.', webHeroSub: 'Restore the past of damaged or lost heritage with AI, and make it easy for anyone to understand with commentary matched to their level and language.',
+      nav1: 'Compare', nav2: 'Commentary', nav3: 'Learn', nav4: 'Heritage', webExplore: 'Explore more heritage',
+      webPick: 'Choose file', dropTitle: 'Drag & drop a photo here', dropSub: 'JPG · PNG · HEIC · or click to choose', dropDoneTitle: 'Uploaded', dropDoneSub: 'See the restoration result below',
+      chatA: 'Great question. We’ve prepared an answer based on Sungnyemun records. In this demo, tap a suggested question for a detailed reply.',
+      poweredBy: 'Grounded on Korea Heritage data (RAG)', uncertain: 'Uncertain details are marked “estimated”',
+      chatGreet: 'Hi! Ask me anything about Sungnyemun. I’ll answer simply, grounded on Korea Heritage data.',
+      banners: [
+        { badge: 'Night Opening', title: 'Gyeongbokgung Starlight Night', sub: 'Today 19:00–21:30 · Booking open', img: 'assets/gyeongbok_night.png' },
+        { badge: 'Today’s pick', title: 'Sungnyemun, seen again', sub: 'Compare before & after at a glance', img: 'assets/sungnyemun_after.png' },
+        { badge: 'Free entry', title: 'Geunjeongjeon open daily', sub: 'Free admission on Culture Day', img: 'assets/geunjeongjeon.png' }
+      ],
+      nearby: [
+        { name: 'Sungnyemun', dist: '350m', img: 'assets/sungnyemun_after.png', sup: true },
+        { name: 'Geunjeongjeon', dist: '1.2km', img: 'assets/geunjeongjeon.png', sup: true },
+        { name: 'Hwangudan', dist: '600m', img: 'assets/cheomseongdae.png', sup: false }
+      ],
+      events: [
+        { title: 'Gyeongbokgung Night Opening', date: '~ Jun 30', tag: 'Event' },
+        { title: 'Seoul Heritage Nighttour', date: 'Jun 14–15', tag: 'Festival' },
+        { title: 'Heritage Media Art', date: 'Permanent', tag: 'Exhibit' }
+      ]
+    };
+    return l === 'ko' ? ko : en;
+  }
+
+  C(l) {
+    const ko = {
+      name: '숭례문', sub: '국보 제1호 · 서울', era: '조선 1398년 창건',
+      beforeLabel: '2008년 화재 직후', afterLabel: '2013년 복원 완료',
+      story: {
+        summary: '숭례문은 1398년에 세워진 한양 도성의 남쪽 정문이에요. 2008년 화재로 2층 문루가 크게 소실됐지만, 5년간의 복원을 거쳐 2013년 다시 문을 열었어요. 지금의 단청과 기와 지붕은 전통 방식으로 되살린 모습입니다.',
+        child: '옛날 옛적, 서울을 지키던 아주 큰 문이 있었어요. 이름은 ‘숭례문’이에요. 그런데 2008년, 그만 불이 나서 지붕이 까맣게 타버렸지 뭐예요. 깜짝 놀란 사람들이 힘을 모아 다시 멋지게 고쳤답니다. 알록달록한 무늬도 다시 살아났어요!',
+        teen: '• 국보 제1호 · 1398년(태조 7년) 창건\n• 2008년 방화로 2층 문루 소실\n• 2013년 전통 기법으로 복원 완료\n\n시험 포인트 — 숭례문의 다른 이름은? 바로 ‘남대문’이에요.',
+        deep: '숭례문은 조선 한양도성의 정문(正門)으로, 웅장한 우진각 지붕과 다포식 공포(栱包)가 특징이다. 2008년 방화 화재로 2층 문루와 1층 일부가 소실되었고, 복원 과정에서 전통 목공·기와·단청 기법을 적용해 원형 고증에 충실하고자 했다. 제시된 복원 이미지는 사료와 실측 기록에 근거한 추정이다.',
+        foreign: '숭례문(崇禮門, ‘예를 숭상하는 문’)은 1398년에 처음 세워진 서울 도성의 남쪽 대문입니다. 2008년 방화 화재로 목조 윗부분이 무너졌고, 2013년까지 5년에 걸쳐 전통 한국 건축 기법으로 복원되었습니다. 한국에서 가장 상징적인 문화유산 중 하나예요.'
+      },
+      changeCards: [
+        { icon: 'component', title: '구조', body: '2층 문루의 목조 지붕틀이 소실 → 전통 결구 기법으로 재건' },
+        { icon: 'palette', title: '단청', body: '그을린 단청을 천연 안료로 다시 칠해 오방색 문양 복원' },
+        { icon: 'home', title: '기와·지붕', body: '전통 가마에서 구운 기와로 지붕을 다시 이어 원형에 가깝게' }
+      ],
+      modes: [
+        { key: 'summary', label: '30초 요약', icon: 'thunder' },
+        { key: 'child', label: '어린이', icon: 'face-smile' },
+        { key: 'teen', label: '청소년 학습', icon: 'graduation' },
+        { key: 'deep', label: '심화', icon: 'book' },
+        { key: 'foreign', label: '외국인', icon: 'globe' }
+      ],
+      summaryCards: [
+        { label: '시대', icon: 'clock', title: '조선 초기 · 1398년', body: '태조 7년, 한양 천도와 함께 창건', tok: '--accent-foreground-blue' },
+        { label: '인물', icon: 'person', title: '태조 이성계', body: '조선을 세우고 한양을 도읍으로 삼다', tok: '--accent-foreground-purple' },
+        { label: '사건', icon: 'fire', title: '2008년 화재', body: '방화로 2층 문루와 지붕이 소실', tok: '--accent-foreground-red' },
+        { label: '변화', icon: 'change', title: '소실 → 복원', body: '5년간 전통 기법으로 되살린 문루', tok: '--accent-foreground-orange' },
+        { label: '의미', icon: 'crown', title: '국보 제1호', body: '600여 년 서울을 지켜온 상징', tok: '--accent-foreground-green' }
+      ],
+      reco: [
+        { q: '왜 복원했나요?', a: '2008년 2월 방화 화재로 2층 문루와 지붕이 크게 소실되었어요. 원형을 되찾기 위해 5년간 전통 기법으로 복원해 2013년 다시 공개했습니다.', src: '문화재청 국가유산포털' },
+        { q: '무엇이 달라졌나요?', a: '목조 지붕틀과 기와, 그을린 단청이 새로 복원됐어요. 천연 안료로 오방색 문양을 되살리고, 전통 가마 기와로 지붕을 다시 이었습니다.', src: '숭례문 복원 종합보고서' },
+        { q: '이름의 뜻은?', a: '숭례문(崇禮門)은 ‘예(禮)를 숭상한다’는 뜻이에요. 도성의 남쪽 정문이라 흔히 ‘남대문’으로도 불립니다.', src: '한국민족문화대백과' }
+      ],
+      quiz: [
+        { q: '숭례문 문루가 화재로 소실된 해는?', opts: ['2003년', '2008년', '2011년', '2014년'], ans: 1, explain: '2008년 2월, 방화로 2층 문루가 소실되었어요.' },
+        { q: '숭례문의 다른 이름은?', opts: ['동대문', '남대문', '광화문', '독립문'], ans: 1, explain: '도성의 남쪽 정문이라 ‘남대문’으로도 불려요.' },
+        { q: '숭례문은 대한민국 국보 몇 호일까요?', opts: ['제1호', '제2호', '제24호', '제70호'], ans: 0, explain: '숭례문은 대한민국 국보 제1호예요.' }
+      ],
+      catalog: [
+        { id: 'sungnyemun', name: '숭례문', sub: '국보 제1호 · 서울', img: 'assets/sungnyemun_after.png', tag: '복원 사례', hot: true },
+        { id: 'geunjeongjeon', name: '경복궁 근정전', sub: '국보 제223호 · 서울', img: 'assets/geunjeongjeon.png', tag: '인기', hot: false },
+        { id: 'pagoda', name: '미륵사지 석탑', sub: '국보 제11호 · 익산', img: 'assets/stone_pagoda.png', tag: '복원 사례', hot: false },
+        { id: 'cheomseongdae', name: '첨성대', sub: '국보 제31호 · 경주', img: 'assets/cheomseongdae.png', tag: '곧 추가', hot: false }
+      ]
+    };
+    const en = {
+      name: 'Sungnyemun Gate', sub: 'National Treasure No.1 · Seoul', era: 'Joseon, built 1398',
+      beforeLabel: 'After the 2008 fire', afterLabel: 'Restored in 2013',
+      story: {
+        summary: 'Sungnyemun was the great southern gate of Seoul’s old city wall, first built in 1398. A 2008 fire destroyed its two-story wooden gatehouse, but after a five-year restoration it reopened in 2013. The dancheong and tiled roof you see today were revived with traditional methods.',
+        child: 'Once upon a time, a great gate guarded the city of Seoul. Its name was Sungnyemun. But in 2008 a fire broke out and the whole roof burned black! Surprised and sad, people worked together to rebuild it beautifully — and the colorful patterns came back to life!',
+        teen: '• National Treasure No.1 · built 1398\n• Wooden gatehouse lost to arson in 2008\n• Restored with traditional methods in 2013\n\nExam tip — Sungnyemun’s other name? It’s “Namdaemun,” the Great South Gate.',
+        deep: 'Sungnyemun was the main southern gate of Joseon’s Hanyang city wall, marked by a grand hipped roof and multi-bracket (dapo) eaves. The 2008 arson fire destroyed the upper gatehouse and part of the lower floor; the restoration applied traditional carpentry, tiling and dancheong to stay faithful to the original. The restored image is an estimate based on records and surveys.',
+        foreign: 'Sungnyemun (“Gate of Exalted Ceremonies”) is the southern main gate of Seoul’s old city wall, first built in 1398. A 2008 arson fire collapsed its wooden upper structure, and it was restored over five years using traditional Korean architecture, reopening in 2013. It is one of Korea’s most iconic heritage sites.'
+      },
+      changeCards: [
+        { icon: 'component', title: 'Structure', body: 'The wooden roof frame was lost and rebuilt with traditional joinery.' },
+        { icon: 'palette', title: 'Dancheong', body: 'Charred dancheong was repainted with natural pigments, reviving the five-color patterns.' },
+        { icon: 'home', title: 'Roof tiles', body: 'The roof was re-laid with kiln-fired traditional tiles, close to the original form.' }
+      ],
+      modes: [
+        { key: 'summary', label: '30-sec', icon: 'thunder' },
+        { key: 'child', label: 'For kids', icon: 'face-smile' },
+        { key: 'teen', label: 'Study', icon: 'graduation' },
+        { key: 'deep', label: 'In-depth', icon: 'book' },
+        { key: 'foreign', label: 'Visitor', icon: 'globe' }
+      ],
+      summaryCards: [
+        { label: 'Era', icon: 'clock', title: 'Early Joseon · 1398', body: 'Built with the move of the capital to Hanyang', tok: '--accent-foreground-blue' },
+        { label: 'People', icon: 'person', title: 'King Taejo', body: 'Founded Joseon and made Hanyang the capital', tok: '--accent-foreground-purple' },
+        { label: 'Event', icon: 'fire', title: '2008 fire', body: 'Arson destroyed the gatehouse and roof', tok: '--accent-foreground-red' },
+        { label: 'Change', icon: 'change', title: 'Lost → restored', body: 'A gatehouse revived over five years', tok: '--accent-foreground-orange' },
+        { label: 'Meaning', icon: 'crown', title: 'National Treasure No.1', body: 'A symbol guarding Seoul for 600+ years', tok: '--accent-foreground-green' }
+      ],
+      reco: [
+        { q: 'Why was it restored?', a: 'A Feb 2008 arson fire destroyed much of the two-story gatehouse and roof. To recover its original form, it was restored over five years with traditional methods and reopened in 2013.', src: 'Korea Heritage Service' },
+        { q: 'What changed?', a: 'The wooden roof frame, tiles and charred dancheong were renewed. Natural pigments revived the five-color patterns, and kiln-fired tiles re-formed the roof.', src: 'Sungnyemun Restoration Report' },
+        { q: 'What does the name mean?', a: 'Sungnyemun (崇禮門) means “the gate that reveres propriety.” As the southern main gate, it is also widely called “Namdaemun.”', src: 'Encyclopedia of Korean Culture' }
+      ],
+      quiz: [
+        { q: 'In which year did fire destroy the gatehouse?', opts: ['2003', '2008', '2011', '2014'], ans: 1, explain: 'In February 2008, arson destroyed the two-story gatehouse.' },
+        { q: 'What is Sungnyemun’s other name?', opts: ['Dongdaemun', 'Namdaemun', 'Gwanghwamun', 'Dongnimmun'], ans: 1, explain: 'As the southern main gate, it’s also called “Namdaemun.”' },
+        { q: 'Which National Treasure number is it?', opts: ['No.1', 'No.2', 'No.24', 'No.70'], ans: 0, explain: 'Sungnyemun is Korea’s National Treasure No.1.' }
+      ],
+      catalog: [
+        { id: 'sungnyemun', name: 'Sungnyemun', sub: 'Nat’l Treasure No.1 · Seoul', img: 'assets/sungnyemun_after.png', tag: 'Restored', hot: true },
+        { id: 'geunjeongjeon', name: 'Geunjeongjeon', sub: 'Nat’l Treasure No.223 · Seoul', img: 'assets/geunjeongjeon.png', tag: 'Popular', hot: false },
+        { id: 'pagoda', name: 'Mireuksa Pagoda', sub: 'Nat’l Treasure No.11 · Iksan', img: 'assets/stone_pagoda.png', tag: 'Restored', hot: false },
+        { id: 'cheomseongdae', name: 'Cheomseongdae', sub: 'Nat’l Treasure No.31 · Gyeongju', img: 'assets/cheomseongdae.png', tag: 'Soon', hot: false }
+      ]
+    };
+    return l === 'ko' ? ko : en;
+  }
+
+  mix(tok, p) { return `color-mix(in srgb, var(${tok}) ${p}%, var(--background-elevated-normal))`; }
+
+  // ---- handlers ----
+  setLang(l) { this.setState({ lang: l }); }
+  _top() { window.requestAnimationFrame(() => { const el = document.querySelector('#m-body'); if (el) el.scrollTop = 0; }); }
+  go(s) { this.setState({ screen: s }); this._top(); }
+  setTab(t) { this.setState({ screen: 'main', tab: t }); this._top(); }
+  openDetail() { this.setState({ screen: 'detail', detailTab: 'restore' }); this._top(); }
+  setDetailTab(t) { this.setState({ detailTab: t }); }
+  openSheet() { this.setState({ sheetOpen: true }); }
+  closeSheet() { this.setState({ sheetOpen: false }); }
+  chooseCapture(mode) { this.setState({ sheetOpen: false, captureMode: mode }); this.go('capture'); }
+  doCapture() { this.go('analyzing'); clearTimeout(this._anT); this._anT = setTimeout(() => this.go('identify'), 2100); }
+  confirmId() { this.setState({ screen: 'detail', detailTab: 'restore' }); this._top(); }
+  toUnsupported() { this.go('unsupported'); }
+  toggleSave(id) { const sv = Object.assign({}, this.state.saved); if (sv[id]) delete sv[id]; else sv[id] = true; this.setState({ saved: sv }); }
+  toggleMapSheet() { this.setState({ mapSheet: this.state.mapSheet === 'expanded' ? 'collapsed' : 'expanded' }); }
+  _msDown(e) { this._msY = e.clientY; this._msMoved = false; try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} }
+  _msMove(e) { if (this._msY != null && Math.abs(e.clientY - this._msY) > 6) this._msMoved = true; }
+  _msUp(e) { if (this._msY == null) return; const dy = e.clientY - this._msY; this._msY = null; if (!this._msMoved) this.toggleMapSheet(); else if (dy < -24) this.setState({ mapSheet: 'expanded' }); else if (dy > 24) this.setState({ mapSheet: 'collapsed' }); }
+  openNoti() { this.go('noti'); }
+  toggleNoti(k) { const n = Object.assign({}, this.state.noti); n[k] = !n[k]; this.setState({ noti: n }); }
+
+  _sld(key, e) { const r = e.currentTarget.getBoundingClientRect(); let p = (e.clientX - r.left) / r.width * 100; p = Math.max(0, Math.min(100, Math.round(p))); this.setState({ [key]: p }); }
+  _down(key, e) { try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} this['_d_' + key] = true; this._sld(key, e); }
+  _move(key, e) { if (this['_d_' + key]) this._sld(key, e); }
+  _up(key) { this['_d_' + key] = false; }
+
+  setMode(which, key) { this.setState({ [which + 'Mode']: key }); }
+
+  toggleTTS(which) {
+    const pk = which + 'Play', tk = which + 'TTS';
+    if (this.state[pk]) { this.setState({ [pk]: false }); this._stop(which); }
+    else { if (this.state[tk] >= 100) this.setState({ [tk]: 0 }); this.setState({ [pk]: true }); this._start(which); }
+  }
+  _start(which) {
+    const tk = which + 'TTS', pk = which + 'Play', sk = which + 'Speed';
+    clearInterval(this['_i_' + which]);
+    this['_i_' + which] = setInterval(() => {
+      const cur = this.state[tk], sp = this.state[sk] || 1;
+      let nx = cur + sp * 1.1;
+      if (nx >= 100) { clearInterval(this['_i_' + which]); this.setState({ [tk]: 100, [pk]: false }); }
+      else this.setState({ [tk]: nx });
+    }, 55);
+  }
+  _stop(which) { clearInterval(this['_i_' + which]); }
+  cycleSpeed(which) { const k = which + 'Speed'; const o = [1, 1.5, 2]; const nx = o[(o.indexOf(this.state[k]) + 1) % 3]; this.setState({ [k]: nx }); }
+
+  ask(which, item) { const k = which + 'Chat'; this.setState({ [k]: this.state[k].concat([{ role: 'user', text: item.q }, { role: 'ai', text: item.a, src: item.src }]) }); this._scrollChat(which); }
+  setInput(which, e) { this.setState({ [which + 'Input']: e.target.value }); }
+  submitChat(which) {
+    const ik = which + 'Input', ck = which + 'Chat'; const v = (this.state[ik] || '').trim(); if (!v) return;
+    const T = this.T(this.state.lang);
+    this.setState({ [ck]: this.state[ck].concat([{ role: 'user', text: v }, { role: 'ai', text: T.chatA, src: T.sourceName }]), [ik]: '' });
+    this._scrollChat(which);
+  }
+  onKey(which, e) { if (e.key === 'Enter') this.submitChat(which); }
+  _scrollChat(which) { window.requestAnimationFrame(() => { const el = document.querySelector('#' + which + '-chat'); if (el) el.scrollTop = el.scrollHeight; }); }
+
+  pick(which, qi, oi) { const k = which + 'Pick'; if (this.state[k][qi] != null) return; this.setState({ [k]: Object.assign({}, this.state[k], { [qi]: oi }) }); }
+  resetQuiz(which) { this.setState({ [which + 'Pick']: {} }); }
+
+  onUpload() { this.setState({ wUploaded: true }); window.requestAnimationFrame(() => { const b = document.querySelector('#w-body'), c = document.querySelector('#w-change'); if (b && c) b.scrollTop = c.offsetTop - 20; }); }
+  onDrop(e) { e.preventDefault(); this.onUpload(); }
+  onDragOver(e) { e.preventDefault(); }
+
+  build(which) {
+    const s = this.state, l = s.lang, C = this.C(l), T = this.T(l);
+    const sliderKey = which + 'Slider', modeKey = which + 'Mode', pickKey = which + 'Pick';
+    const pos = s[sliderKey];
+    const modes = C.modes.map(m => ({ key: m.key, label: m.label, icon: m.icon, cls: s[modeKey] === m.key ? 'is-active' : '', click: () => this.setMode(which, m.key) }));
+    const change = C.changeCards.map((c, i) => ({ icon: c.icon, title: c.title, body: c.body, bg: this.mix(['--accent-foreground-blue', '--accent-foreground-orange', '--accent-foreground-green'][i], 9), fg: 'var(' + ['--accent-foreground-blue', '--accent-foreground-orange', '--accent-foreground-green'][i] + ')' }));
+    const cards = C.summaryCards.map(c => ({ label: c.label, icon: c.icon, title: c.title, body: c.body, fg: 'var(' + c.tok + ')', bg: this.mix(c.tok, 9) }));
+    const reco = C.reco.map(r => ({ q: r.q, click: () => this.ask(which, r) }));
+    const pk = s[pickKey];
+    let correct = 0;
+    const quiz = C.quiz.map((q, qi) => {
+      const picked = pk[qi];
+      const done = picked != null;
+      if (done && picked === q.ans) correct++;
+      const opts = q.opts.map((o, oi) => {
+        let st = 'idle';
+        if (done) { if (oi === q.ans) st = 'correct'; else if (oi === picked) st = 'wrong'; else st = 'dim'; }
+        const base = 'display:flex;align-items:center;gap:11px;width:100%;text-align:left;padding:13px 14px;border-radius:12px;font:500 14px/1.35 var(--font-sans);cursor:' + (done ? 'default' : 'pointer') + ';transition:all .15s var(--ease-standard);';
+        const map = {
+          idle: 'border:1px solid var(--line-normal-neutral);background:var(--background-elevated-normal);color:var(--label-normal);',
+          correct: 'border:1.5px solid var(--accent-foreground-green);background:' + this.mix('--accent-foreground-green', 11) + ';color:var(--label-strong);',
+          wrong: 'border:1.5px solid var(--accent-foreground-red);background:' + this.mix('--accent-foreground-red', 11) + ';color:var(--label-strong);',
+          dim: 'border:1px solid var(--line-normal-alternative);background:var(--background-elevated-normal);color:var(--label-assistive);opacity:.7;'
+        };
+        const mk = { idle: 'border:1px solid var(--line-normal-normal);color:var(--label-alternative);', correct: 'border:none;background:var(--accent-foreground-green);color:#fff;', wrong: 'border:none;background:var(--accent-foreground-red);color:#fff;', dim: 'border:1px solid var(--line-normal-alternative);color:var(--label-assistive);' };
+        return { text: o, mark: (done && oi === q.ans) ? '✓' : (st === 'wrong' ? '✕' : ['A', 'B', 'C', 'D'][oi]), style: base + map[st], markStyle: 'flex:0 0 auto;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 12px/1 var(--font-sans);' + mk[st], click: () => this.pick(which, qi, oi) };
+      });
+      return { num: qi + 1, q: q.q, opts, done, explain: q.explain };
+    });
+    const answeredCount = Object.keys(pk).length;
+    const dropDone = which === 'w' && s.wUploaded;
+    return {
+      pos, posPct: pos + '%', insetR: (100 - pos) + '%',
+      story: C.story[s[modeKey]], modes, change, cards, reco, quiz,
+      chat: s[which + 'Chat'].map(c => ({ text: c.text, src: c.src, isUser: c.role === 'user', isAi: c.role === 'ai' })), input: s[which + 'Input'],
+      estBg: change[0].bg, est2Bg: change[1].bg, quizBg: cards[4].bg,
+      play: s[which + 'Play'], playIcon: s[which + 'Play'] ? 'pause' : 'play', tts: s[which + 'TTS'], ttsPct: s[which + 'TTS'] + '%', speed: s[which + 'Speed'] + 'x',
+      down: (e) => this._down(sliderKey, e), move: (e) => this._move(sliderKey, e), up: () => this._up(sliderKey),
+      toggleTTS: () => this.toggleTTS(which), cycleSpeed: () => this.cycleSpeed(which),
+      onInput: (e) => this.setInput(which, e), onKey: (e) => this.onKey(which, e), submit: () => this.submitChat(which),
+      quizScore: correct, quizDone: answeredCount === 3, resetQuiz: () => this.resetQuiz(which),
+      onUpload: () => this.onUpload(), onDrop: (e) => this.onDrop(e), onDragOver: (e) => this.onDragOver(e),
+      dropIcon: dropDone ? 'circle-check-fill' : 'upload', dropTitle: dropDone ? T.dropDoneTitle : T.dropTitle, dropSub: dropDone ? T.dropDoneSub : T.dropSub,
+      dropBorder: dropDone ? 'var(--accent-foreground-green)' : 'var(--line-normal-strong)', dropBg: dropDone ? this.mix('--accent-foreground-green', 8) : 'var(--background-normal-alternative)'
+    };
+  }
+
+  renderVals() {
+    const s = this.state, l = s.lang, T = this.T(l), C = this.C(l);
+    const m = this.build('m'), w = this.build('w');
+    const sc = s.screen;
+
+    const langSeg = [{ k: 'ko', t: '한국어' }, { k: 'en', t: 'EN' }].map(o => {
+      const a = s.lang === o.k;
+      return {
+        t: o.t, click: () => this.setLang(o.k),
+        styleOnb: 'padding:9px 18px;border-radius:999px;border:1px solid ' + (a ? '#fff' : 'rgba(255,255,255,.32)') + ';background:' + (a ? '#fff' : 'transparent') + ';color:' + (a ? '#16181f' : '#fff') + ';font:600 14px/1 var(--font-sans);cursor:pointer;',
+        styleHome: 'padding:7px 12px;border-radius:999px;border:1px solid ' + (a ? 'var(--primary-normal)' : 'var(--line-normal-neutral)') + ';background:' + (a ? 'var(--primary-normal)' : 'var(--background-elevated-normal)') + ';color:' + (a ? '#fff' : 'var(--label-alternative)') + ';font:600 12px/1 var(--font-sans);cursor:pointer;',
+        styleWeb: 'padding:6px 14px;border-radius:999px;border:none;background:' + (a ? 'var(--background-elevated-normal)' : 'transparent') + ';color:' + (a ? 'var(--label-strong)' : 'var(--label-alternative)') + ';font:600 13px/1 var(--font-sans);cursor:pointer;box-shadow:' + (a ? 'var(--shadow-emphasize)' : 'none') + ';'
+      };
+    });
+
+    const tabDef = [
+      { k: 'home', label: T.tabHome, icon: 'home', fill: 'home-fill' },
+      { k: 'map', label: T.tabMap, icon: 'location', fill: 'location-fill' },
+      { k: 'saved', label: T.tabSaved, icon: 'bookmark', fill: 'bookmark-fill' },
+      { k: 'my', label: T.tabMy, icon: 'person', fill: 'person-fill' }
+    ];
+    const nav = {};
+    tabDef.forEach(o => {
+      const a = sc === 'main' && s.tab === o.k;
+      nav[o.k] = { label: o.label, icon: a ? o.fill : o.icon, color: a ? 'var(--primary-normal)' : 'var(--label-assistive)', weight: a ? '700' : '500', click: () => this.setTab(o.k) };
+    });
+
+    const dtDef = [
+      { k: 'restore', label: T.tRestore, icon: 'change' },
+      { k: 'commentary', label: T.tStory, icon: 'bubble' },
+      { k: 'learn', label: T.tLearn, icon: 'graduation' }
+    ];
+    const dtTabs = dtDef.map(o => {
+      const a = s.detailTab === o.k;
+      return {
+        label: o.label, icon: o.icon,
+        style: 'flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 0;border:none;border-radius:11px;cursor:pointer;font:' + (a ? '700' : '600') + ' 14px/1 var(--font-sans);background:' + (a ? 'var(--background-elevated-normal)' : 'transparent') + ';color:' + (a ? 'var(--primary-normal)' : 'var(--label-alternative)') + ';box-shadow:' + (a ? 'var(--shadow-emphasize)' : 'none') + ';',
+        click: () => this.setDetailTab(o.k)
+      };
+    });
+
+    const pos = [[52, 44], [37, 28], [64, 66], [27, 72]];
+    const sup = [true, true, false, false];
+    const markers = C.catalog.map((c, i) => ({
+      name: c.name, x: pos[i][0] + '%', y: pos[i][1] + '%',
+      pinStyle: 'left:' + pos[i][0] + '%;top:' + pos[i][1] + '%;',
+      pinBg: sup[i] ? 'var(--primary-normal)' : 'var(--label-assistive)',
+      pinIcon: sup[i] ? 'location-fill' : 'hourglass',
+      click: sup[i] ? (() => this.openDetail()) : (() => this.toUnsupported())
+    }));
+
+    const nearby = T.nearby.map(n => ({
+      name: n.name, dist: n.dist, bgUrl: 'url(' + n.img + ')',
+      supLabel: n.sup ? T.legendOk : T.legendSoon,
+      supStyle: n.sup ? 'color:var(--accent-foreground-green);' : 'color:var(--label-assistive);',
+      click: n.sup ? (() => this.openDetail()) : (() => this.toUnsupported())
+    }));
+    const banners = T.banners.map(b => ({ badge: b.badge, title: b.title, sub: b.sub, bgUrl: 'url(' + b.img + ')', click: () => this.openDetail() }));
+    const events = T.events.map(e => ({ title: e.title, date: e.date, tag: e.tag }));
+
+    const catalog = C.catalog.map(c => ({ name: c.name, sub: c.sub, bgUrl: 'url(' + c.img + ')', tag: c.tag, tagStyle: c.hot ? 'background:var(--primary-normal);color:#fff;' : 'background:var(--fill-normal);color:var(--label-alternative);', click: () => this.openDetail() }));
+    const savedList = C.catalog.filter(c => s.saved[c.id]).map(c => ({ name: c.name, sub: c.sub, bgUrl: 'url(' + c.img + ')', click: () => this.openDetail(), remove: () => this.toggleSave(c.id) }));
+    const savedCount = Object.keys(s.saved).length;
+    const savedCur = !!s.saved['sungnyemun'];
+
+    const sheetOpts = [
+      { icon: 'camera-fill', label: T.optCam, desc: T.optCamD, tok: '--primary-normal', click: () => this.chooseCapture('camera') },
+      { icon: 'document-text', label: T.optOcr, desc: T.optOcrD, tok: '--accent-foreground-orange', click: () => this.chooseCapture('ocr') },
+      { icon: 'apps', label: T.optQr, desc: T.optQrD, tok: '--accent-foreground-purple', click: () => this.chooseCapture('qr') },
+      { icon: 'image', label: T.optGallery, desc: T.optGalleryD, tok: '--accent-foreground-green', click: () => this.chooseCapture('gallery') }
+    ].map(o => ({ icon: o.icon, label: o.label, desc: o.desc, fg: 'var(' + o.tok + ')', bg: this.mix(o.tok, 11), click: o.click }));
+
+    const capMap = { camera: { icon: 'camera-fill', label: T.optCam }, ocr: { icon: 'document-text', label: T.optOcr }, qr: { icon: 'apps', label: T.optQr }, gallery: { icon: 'image', label: T.optGallery } };
+    const capInfo = capMap[s.captureMode] || capMap.camera;
+
+    const myRows = [
+      { icon: 'bell', label: T.setNoti }, { icon: 'bookmark', label: T.setHistory },
+      { icon: 'history', label: T.setVisit }, { icon: 'setting', label: T.setAccount }
+    ];
+    const notiRows = T.notiItems.map(it => {
+      const on = !!s.noti[it.key];
+      return { icon: it.icon, label: it.label, desc: it.desc, bg: this.mix('--primary-normal', 9), fg: 'var(--primary-normal)',
+        switchStyle: 'flex:0 0 auto;width:46px;height:28px;border-radius:99px;border:none;cursor:pointer;position:relative;transition:background .2s;background:' + (on ? 'var(--primary-normal)' : 'var(--fill-strong)') + ';',
+        knobStyle: 'position:absolute;top:3px;left:' + (on ? '21px' : '3px') + ';width:22px;height:22px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);',
+        toggle: () => this.toggleNoti(it.key) };
+    });
+
+    return {
+      t: T, d: { name: C.name, sub: C.sub, era: C.era, beforeLabel: C.beforeLabel, afterLabel: C.afterLabel },
+      m, w, langSeg, lang: s.lang,
+      catalog, savedList, savedCount, savedEmpty: savedCount === 0,
+      banners, nearby, events, markers, dtTabs, sheetOpts, myRows,
+      navHome: nav.home, navMap: nav.map, navSaved: nav.saved, navMy: nav.my,
+      bookmarkIcon: savedCur ? 'bookmark-fill' : 'bookmark', toggleSaveCur: () => this.toggleSave('sungnyemun'),
+      stVisited: '3', stQuiz: m.quizScore + '/3',
+      captureIcon: capInfo.icon, captureLabel: capInfo.label,
+      statusColor: (sc === 'onboarding' || sc === 'capture' || sc === 'analyzing') ? '#ffffff' : 'var(--label-strong)',
+      showNav: (sc === 'main' || sc === 'detail'),
+      scrOnboarding: sc === 'onboarding', scrMain: sc === 'main', scrCapture: sc === 'capture', scrAnalyzing: sc === 'analyzing', scrIdentify: sc === 'identify', scrUnsupported: sc === 'unsupported', scrDetail: sc === 'detail',
+      tabHome: s.tab === 'home', tabMap: s.tab === 'map', tabSaved: s.tab === 'saved', tabMy: s.tab === 'my',
+      dtRestore: s.detailTab === 'restore', dtStory: s.detailTab === 'commentary', dtLearn: s.detailTab === 'learn',
+      sheetOpen: s.sheetOpen,
+      goHomeTab: () => this.setTab('home'), openSheet: () => this.openSheet(), closeSheet: () => this.closeSheet(), stopProp: (e) => e.stopPropagation(),
+      chooseGallery: () => this.chooseCapture('gallery'), doCapture: () => this.doCapture(), confirmId: () => this.confirmId(), backToHome: () => this.setTab('home'),
+      scrNoti: sc === 'noti', openNoti: () => this.openNoti(), notiRows, nearbyCount: T.nearby.length,
+      mapSheetH: s.mapSheet === 'expanded' ? '402px' : '150px', mapDown: (e) => this._msDown(e), mapMove: (e) => this._msMove(e), mapUp: (e) => this._msUp(e)
+    };
+  }
+}
+</script>
+</body>
+</html>
