@@ -10,13 +10,17 @@ export function BeforeAfterSlider({ beforeSrc, afterSrc, pos, onPosChange, befor
     const p = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
     onPosChange(p)
   }
-  const onDown = (e) => { dragging.current = true; update(e.clientX) }
+  const onDown = (e) => {
+    dragging.current = true
+    if (e.currentTarget.setPointerCapture) e.currentTarget.setPointerCapture(e.pointerId)
+    update(e.clientX)
+  }
   const onMove = (e) => { if (dragging.current) update(e.clientX) }
   const onUp = () => { dragging.current = false }
 
   return (
     <div ref={ref} onPointerDown={onDown} onPointerMove={onMove}
-         onPointerUp={onUp} onPointerLeave={onUp}
+         onPointerUp={onUp}
          className="relative w-full aspect-[4/3] rounded-card-lg overflow-hidden select-none touch-none cursor-ew-resize">
       <img src={afterSrc} alt="" className="absolute inset-0 w-full h-full object-cover" draggable={false} />
       <img data-overlay src={beforeSrc} alt="" draggable={false}
