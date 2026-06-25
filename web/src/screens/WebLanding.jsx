@@ -1,7 +1,8 @@
+import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
 import { copy } from '../data/copy'
 import { getCommentary } from '../data/commentary'
-import { getHeritage } from '../data/heritage'
 import { askAI } from '../api/chat'
 import { BeforeAfterSlider } from '../components/BeforeAfterSlider'
 import { CommentaryPlayer } from '../components/CommentaryPlayer'
@@ -11,11 +12,12 @@ import { LangToggle } from '../components/LangToggle'
 import { heritages } from '../data/heritage'
 
 export function WebLanding() {
+  const nav = useNavigate()
+  const inputRef = useRef(null)
   const s = useAppStore()
   const lang = s.lang
   const t = copy[lang]
   const c = getCommentary('sungnyemun')
-  const h = getHeritage('sungnyemun')
 
   const handleSend = async (q) => {
     s.addChat('w', { role: 'user', text: q })
@@ -31,7 +33,7 @@ export function WebLanding() {
           <nav className="flex items-center gap-6 text-[14px] text-black/70">
             <a>복원 비교</a><a>맞춤 해설</a><a>AI 학습</a><a>문화유산</a>
             <LangToggle />
-            <button className="px-4 py-2 rounded-btn bg-primary text-white">사진 업로드</button>
+            <button className="px-4 py-2 rounded-btn bg-primary text-white" onClick={() => inputRef.current?.click()}>사진 업로드</button>
           </nav>
         </div>
       </header>
@@ -41,8 +43,10 @@ export function WebLanding() {
           <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-[13px] mb-4">{t.brandSub}</span>
           <h1 className="text-[40px] font-bold leading-tight whitespace-pre-line tracking-tight">{t.onbTitle}</h1>
           <p className="text-[16px] text-black/60 mt-4 whitespace-pre-line">{t.onbBody}</p>
-          <label className="mt-6 block border-2 border-dashed border-primary/40 rounded-card-lg p-10 text-center cursor-pointer">
-            <input type="file" accept="image/*" className="hidden" />
+          <label className="mt-6 block border-2 border-dashed border-primary/40 rounded-card-lg p-10 text-center cursor-pointer"
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => { e.preventDefault(); nav('/analyzing') }}>
+            <input type="file" accept="image/*" className="hidden" ref={inputRef} onChange={() => nav('/analyzing')} />
             <div className="text-[16px] font-medium">{lang === 'ko' ? '사진을 끌어다 놓으세요' : 'Drag & drop a photo'}</div>
             <div className="text-[13px] text-black/50 mt-2">{lang === 'ko' ? 'JPG·PNG·HEIC 지원 · 클릭해서 선택' : 'JPG·PNG·HEIC · click to choose'}</div>
           </label>
