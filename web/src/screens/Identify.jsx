@@ -11,9 +11,14 @@ export function Identify() {
   const lang = useAppStore((s) => s.lang)
   const t = copy[lang]
   const [result, setResult] = useState(null)
-  useEffect(() => { identifyImage(null).then(setResult) }, [])
+  useEffect(() => {
+    let alive = true
+    identifyImage(null).then((r) => { if (alive) setResult(r) })
+    return () => { alive = false }
+  }, [])
   if (!result) return null
   const h = getHeritage(result.heritageId)
+  if (!h) return null
   return (
     <div className="absolute inset-0 overflow-y-auto nsb px-content pt-16 pb-8">
       <button onClick={() => nav('/home')} className="mb-4"><Icon name="chevron-left" size={24} /></button>
