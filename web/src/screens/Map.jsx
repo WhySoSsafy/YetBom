@@ -23,14 +23,18 @@ export function MapScreen() {
         <span className="px-3 py-1 rounded-full bg-white/90 text-[12px] flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-primary" />{t.mapLegendAvailable}</span>
         <span className="px-3 py-1 rounded-full bg-white/90 text-[12px] flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-black/40" />{t.mapLegendSoon}</span>
       </div>
-      {heritages.map((h, i) => (
-        <button key={h.id} onClick={() => open(h)} style={pinPos[i]}
-          className="absolute -translate-x-1/2 -translate-y-full">
-          <span className={`block w-7 h-7 rotate-45 rounded-full rounded-bl-none ${h.status === 'available' ? 'bg-primary' : 'bg-black/40'} flex items-center justify-center`}>
-            <span className="-rotate-45 text-white"><Icon name="location" size={14} /></span>
-          </span>
-        </button>
-      ))}
+      {heritages.map((h, i) => {
+        const pos = pinPos[i]
+        if (!pos) return null
+        return (
+          <button key={h.id} onClick={() => open(h)} style={pos}
+            className="absolute -translate-x-1/2 -translate-y-full">
+            <span className={`block w-7 h-7 rotate-45 rounded-full rounded-bl-none ${h.status === 'available' ? 'bg-primary' : 'bg-black/40'} flex items-center justify-center`}>
+              <span className="-rotate-45 text-white"><Icon name="location" size={14} /></span>
+            </span>
+          </button>
+        )
+      })}
       <BottomSheet open state={mapSheet} collapsedH={150} expandedH={402} onToggle={toggle}
         title={`${t.mapNearby} · ${heritages.length}`}>
         {heritages.map((h) => (
