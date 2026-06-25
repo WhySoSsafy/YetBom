@@ -45,6 +45,8 @@ export const copy = {
     // 미지원
     unsupportedTitle: '준비 중인 문화유산이에요',
     unsupportedBrowse: '다른 문화유산 둘러보기',
+    // 채팅 오류
+    chatError: '답변을 가져오지 못했어요. 잠시 후 다시 시도해 주세요.',
   },
   en: {
     brandSub: '✦ AI Heritage Restoration & Commentary',
@@ -82,5 +84,6 @@ export const copy = {
     myTitle: 'My page',
     unsupportedTitle: 'This heritage is coming soon',
     unsupportedBrowse: 'Browse other heritage',
+    chatError: 'Could not load a response. Please try again.',
   },
 }

@@ -21,8 +21,12 @@ export function WebLanding() {
 
   const handleSend = async (q) => {
     s.addChat('w', { role: 'user', text: q })
-    const res = await askAI(q, 'sungnyemun', lang)
-    s.addChat('w', { role: 'ai', text: res.answer, source: res.source })
+    try {
+      const res = await askAI(q, 'sungnyemun', lang)
+      s.addChat('w', { role: 'ai', text: res.answer, source: res.source })
+    } catch {
+      s.addChat('w', { role: 'ai', text: t.chatError, source: '' })
+    }
   }
 
   return (

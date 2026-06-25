@@ -41,8 +41,12 @@ export function Detail() {
 
   const handleSend = async (q) => {
     s.addChat('m', { role: 'user', text: q })
-    const res = await askAI(q, id, lang)
-    s.addChat('m', { role: 'ai', text: res.answer, source: res.source })
+    try {
+      const res = await askAI(q, id, lang)
+      s.addChat('m', { role: 'ai', text: res.answer, source: res.source })
+    } catch {
+      s.addChat('m', { role: 'ai', text: t.chatError, source: '' })
+    }
   }
 
   return (
