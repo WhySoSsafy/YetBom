@@ -1,9 +1,11 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
 import { copy } from '../data/copy'
 import { getCommentary } from '../data/commentary'
 import { askAI } from '../api/chat'
+import { USE_MOCK } from '../api/client'
+import { requestTTS } from '../api/tts'
 import { BeforeAfterSlider } from '../components/BeforeAfterSlider'
 import { CommentaryPlayer } from '../components/CommentaryPlayer'
 import { AskAIChat } from '../components/AskAIChat'
@@ -19,6 +21,33 @@ export function WebLanding() {
   const t = copy[lang]
   const c = getCommentary('sungnyemun')
   const hero = getHeritage('sungnyemun')
+  const audioRef = useRef(null)
+
+  // TTS 실제 오디오 재생 — USE_MOCK=false일 때만 동작 (mock 모드에서는 기존 no-op 유지)
+  useEffect(() => {
+    if (USE_MOCK) return
+    if (!s.wPlay) { audioRef.current?.pause(); return }
+    let cancelled = false
+    const text = getCommentary('sungnyemun')?.modes.find((m) => m.key === s.wMode)?.text[lang]
+    requestTTS(text).then((res) => {
+      if (cancelled) return
+      if (!res?.audio_data) { useAppStore.getState().setTTS('w', { play: false }); return }
+      const audio = new Audio('data:audio/mp3;base64,' + res.audio_data)
+      audio.playbackRate = useAppStore.getState().wSpeed
+      audio.ontimeupdate = () => useAppStore.getState().setTTS('w', { progress: (audio.currentTime / audio.duration) * 100 })
+      audio.onended = () => useAppStore.getState().setTTS('w', { play: false, progress: 100 })
+      audioRef.current = audio
+      audio.play().catch(() => useAppStore.getState().setTTS('w', { play: false }))
+    }).catch(() => { if (!cancelled) useAppStore.getState().setTTS('w', { play: false }) })
+    return () => { cancelled = true; audioRef.current?.pause() }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [s.wPlay])
+
+  // 재생 중 속도 변경 반영 (실제 오디오 경로)
+  useEffect(() => {
+    if (USE_MOCK) return
+    if (audioRef.current) audioRef.current.playbackRate = s.wSpeed
+  }, [s.wSpeed])
 
   const captureFile = (file) => {
     if (!file) { nav('/analyzing'); return }

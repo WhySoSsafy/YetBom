@@ -5,6 +5,8 @@ import { copy } from '../data/copy'
 import { getHeritage } from '../data/heritage'
 import { getCommentary } from '../data/commentary'
 import { askAI } from '../api/chat'
+import { USE_MOCK } from '../api/client'
+import { requestTTS } from '../api/tts'
 import { Icon } from '../components/Icon'
 import { BeforeAfterSlider } from '../components/BeforeAfterSlider'
 import { CommentaryPlayer } from '../components/CommentaryPlayer'
@@ -23,9 +25,11 @@ export function Detail() {
   const h = getHeritage(id)
   const c = getCommentary(id)
   const ttsTimer = useRef(null)
+  const audioRef = useRef(null)
 
   // TTS mock 타이머 — 매 틱마다 store 최신값을 읽어 진행 (stale closure 방지)
   useEffect(() => {
+    if (!USE_MOCK) return
     if (!s.mPlay) return
     ttsTimer.current = setInterval(() => {
       const st = useAppStore.getState()
@@ -36,6 +40,32 @@ export function Detail() {
     return () => clearInterval(ttsTimer.current)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [s.mPlay])
+
+  // TTS 실제 오디오 재생 — USE_MOCK=false일 때만 동작
+  useEffect(() => {
+    if (USE_MOCK) return
+    if (!s.mPlay) { audioRef.current?.pause(); return }
+    let cancelled = false
+    const text = getCommentary(id)?.modes.find((m) => m.key === s.mMode)?.text[lang]
+    requestTTS(text).then((res) => {
+      if (cancelled) return
+      if (!res?.audio_data) { useAppStore.getState().setTTS('m', { play: false }); return }
+      const audio = new Audio('data:audio/mp3;base64,' + res.audio_data)
+      audio.playbackRate = useAppStore.getState().mSpeed
+      audio.ontimeupdate = () => useAppStore.getState().setTTS('m', { progress: (audio.currentTime / audio.duration) * 100 })
+      audio.onended = () => useAppStore.getState().setTTS('m', { play: false, progress: 100 })
+      audioRef.current = audio
+      audio.play().catch(() => useAppStore.getState().setTTS('m', { play: false }))
+    }).catch(() => { if (!cancelled) useAppStore.getState().setTTS('m', { play: false }) })
+    return () => { cancelled = true; audioRef.current?.pause() }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [s.mPlay])
+
+  // 재생 중 속도 변경 반영 (실제 오디오 경로)
+  useEffect(() => {
+    if (USE_MOCK) return
+    if (audioRef.current) audioRef.current.playbackRate = s.mSpeed
+  }, [s.mSpeed])
 
   if (!h || !c) return <div className="p-content pt-16">Not found</div>
 
