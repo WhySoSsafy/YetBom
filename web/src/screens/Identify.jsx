@@ -17,12 +17,15 @@ export function Identify() {
     identifyImage(capturedImage).then((r) => { if (alive) setResult(r) })
     return () => { alive = false }
   }, [capturedImage])
+  const h = result ? getHeritage(result.heritageId) : null
+  // 미지원/미식별이면 리다이렉트 (render 중이 아니라 effect에서)
+  useEffect(() => {
+    if (result && (result.heritageId === 'unsupported' || !getHeritage(result.heritageId))) {
+      nav('/unsupported', { replace: true })
+    }
+  }, [result, nav])
   if (!result) return null
-  const h = getHeritage(result.heritageId)
-  if (result.heritageId === 'unsupported' || !h) {
-    nav('/unsupported', { replace: true })
-    return null
-  }
+  if (result.heritageId === 'unsupported' || !h) return null
   return (
     <div className="absolute inset-0 overflow-y-auto nsb px-content pt-16 pb-8">
       <button onClick={() => nav('/home')} className="mb-4"><Icon name="chevron-left" size={24} /></button>
