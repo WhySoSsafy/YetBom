@@ -32,7 +32,7 @@ export function WebLanding() {
     requestTTS(text).then((res) => {
       if (cancelled) return
       if (!res?.audio_data) { useAppStore.getState().setTTS('w', { play: false }); return }
-      const audio = new Audio('data:audio/mp3;base64,' + res.audio_data)
+      const audio = new Audio('data:audio/mpeg;base64,' + res.audio_data)
       audio.playbackRate = useAppStore.getState().wSpeed
       audio.ontimeupdate = () => {
         const dur = audio.duration
