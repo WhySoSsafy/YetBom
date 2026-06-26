@@ -1,120 +1,153 @@
 """
-교육생 구현 영역: MODEL_SERVER_URL( FastAPI 모델 서버 )로 HTTP POST 요청을 보내고
-응답을 파싱해 반환하세요. get_chat_response 는 예시로 구현되어 있습니다.
-나머지는 None 대신 실제 로직을 구현하세요. (에러 시 None 반환)
+OpenAI 직접 호출 서비스 레이어.
+각 함수는 성공 시 dict, 실패 시 None 반환.
 """
-import requests
+import base64
+import json
+import re
+
 from django.conf import settings
+from openai import OpenAI
 
-MODEL_SERVER_URL = settings.MODEL_SERVER_URL
+ALLOWED_HERITAGE_IDS = {"sungnyemun", "gyeongbok", "cheomseongdae", "mireuksa", "unsupported"}
+
+DOCENT_SYSTEM_MESSAGE = {
+    "role": "system",
+    "content": (
+        "당신은 한국 문화유산 도슨트입니다. "
+        "방문객의 질문에 친절하고 간결하게 답변하세요. "
+        "답변은 질문자가 사용하는 언어로 작성하세요 (한국어 질문이면 한국어, 영어 질문이면 영어). "
+        "역사적 사실에 기반해 정확한 정보를 제공하고 지나치게 길지 않게 하세요."
+    ),
+}
+
+IDENTIFY_PROMPT = (
+    "Identify which of these Korean heritage sites this photo shows and read any signboard text. "
+    "Respond ONLY with compact JSON: "
+    "{\"heritageId\": one of [\"sungnyemun\",\"gyeongbok\",\"cheomseongdae\",\"mireuksa\",\"unsupported\"], "
+    "\"match\": 0-100 confidence, "
+    "\"ocrText\": any Korean text visible on signs or empty string}."
+)
 
 
-def get_chat_response(chat_request):
-    """예시: 채팅 요청을 모델 서버 /chat/completions 로 전달하고 content 를 반환합니다."""
+def _get_client() -> OpenAI:
+    return OpenAI(api_key=settings.OPENAI_API_KEY)
+
+
+def get_chat_response(chat_request: dict):
+    """
+    채팅 완성 요청.
+    먼저 최신 user 메시지에 대해 moderation 을 수행하고,
+    부적절하면 거부 메시지를 반환한다.
+    """
     messages = chat_request["messages"]
-    payload_data = {"messages": messages}
+
+    # 마지막 user 메시지 추출
+    user_text = ""
+    for msg in reversed(messages):
+        if msg.get("role") == "user":
+            content = msg.get("content", "")
+            user_text = content if isinstance(content, str) else str(content)
+            break
+
     try:
-        response = requests.post(
-            f"{MODEL_SERVER_URL}/chat/completions", json=payload_data
+        client = _get_client()
+
+        # Moderation 검사
+        mod_resp = client.moderations.create(
+            model="omni-moderation-latest",
+            input=user_text,
         )
-        response.raise_for_status()
-        content = response.json()["content"]
+        if mod_resp.results[0].flagged:
+            return {
+                "content": (
+                    "죄송합니다. 해당 내용은 답변드리기 어렵습니다. "
+                    "한국 문화유산에 관한 다른 질문을 부탁드립니다."
+                )
+            }
+
+        # 채팅 완성
+        full_messages = [DOCENT_SYSTEM_MESSAGE] + list(messages)
+        resp = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=full_messages,
+        )
+        content = resp.choices[0].message.content
         return {"content": content}
+
     except Exception as e:
-        print(f"[서비스 에러 발생] {e}")
+        print(f"[서비스 에러 발생] get_chat_response: {e}")
         return None
 
 
-def get_chat_guardrail_response(guardrail_request):
-    """prompt 를 모델 서버 /chat/guardrail 로 보내고 is_appropriate 를 반환합니다."""
-    payload_data = {"prompt": guardrail_request["prompt"]}
+def get_identify_response(identify_request: dict):
+    """
+    이미지(data URL 또는 raw base64)를 받아 문화유산을 식별한다.
+    """
+    image = identify_request["image"]
+
+    # data URL 이 아닌 raw base64 라면 jpeg data URL 로 감싼다
+    if not image.startswith("data:"):
+        image = f"data:image/jpeg;base64,{image}"
+
     try:
-        response = requests.post(
-            f"{MODEL_SERVER_URL}/chat/guardrail", json=payload_data
+        client = _get_client()
+
+        resp = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": IDENTIFY_PROMPT},
+                        {"type": "image_url", "image_url": {"url": image}},
+                    ],
+                }
+            ],
         )
-        response.raise_for_status()
-        data = response.json()
-        # 모델 서버가 result 또는 is_appropriate 키로 응답할 수 있어 둘 다 수용
-        is_appropriate = data.get("is_appropriate", data.get("result"))
-        return {"is_appropriate": is_appropriate}
+        raw = resp.choices[0].message.content or ""
+
+        # 코드 펜스 제거 후 JSON 파싱
+        cleaned = re.sub(r"```[a-zA-Z]*\n?", "", raw).strip().rstrip("`").strip()
+        try:
+            data = json.loads(cleaned)
+        except json.JSONDecodeError:
+            # JSON 블록만 추출 시도
+            match = re.search(r"\{.*\}", cleaned, re.DOTALL)
+            if match:
+                data = json.loads(match.group())
+            else:
+                data = {}
+
+        heritage_id = data.get("heritageId", "unsupported")
+        if heritage_id not in ALLOWED_HERITAGE_IDS:
+            heritage_id = "unsupported"
+
+        match_score = int(data.get("match", 0))
+        ocr_text = str(data.get("ocrText", ""))
+
+        return {"heritageId": heritage_id, "match": match_score, "ocrText": ocr_text}
+
     except Exception as e:
-        print(f"[서비스 에러 발생] {e}")
+        print(f"[서비스 에러 발생] get_identify_response: {e}")
         return None
 
 
-def get_chat_score_response(score_request):
-    """messages, answer 를 모델 서버 /chat/score 로 보내고 score, reason 을 반환합니다."""
-    payload_data = {
-        "messages": score_request["messages"],
-        "answer": score_request["answer"],
-    }
+def get_tts_response(tts_request: dict):
+    """
+    텍스트를 TTS 로 변환하고 base64 인코딩된 오디오 데이터를 반환한다.
+    """
+    text = tts_request["text"]
     try:
-        response = requests.post(
-            f"{MODEL_SERVER_URL}/chat/score", json=payload_data
+        client = _get_client()
+        resp = client.audio.speech.create(
+            model="tts-1",
+            voice="alloy",
+            input=text,
         )
-        response.raise_for_status()
-        data = response.json()
-        return {"score": data["score"], "reason": data["reason"]}
+        audio_bytes = resp.content
+        audio_b64 = base64.b64encode(audio_bytes).decode("utf-8")
+        return {"audio_data": audio_b64}
     except Exception as e:
-        print(f"[서비스 에러 발생] {e}")
-        return None
-
-
-def get_image_generation_response(gen_request):
-    """prompt 를 모델 서버 /images/generations 로 보내고 url 을 반환합니다."""
-    payload_data = {"prompt": gen_request["prompt"]}
-    try:
-        response = requests.post(
-            f"{MODEL_SERVER_URL}/images/generations", json=payload_data
-        )
-        response.raise_for_status()
-        return {"url": response.json()["url"]}
-    except Exception as e:
-        print(f"[서비스 에러 발생] {e}")
-        return None
-
-
-def get_image_score_response_for_url(score_request):
-    """question, image_url 을 모델 서버 /images/score/url 로 보내고 score, reason 을 반환합니다."""
-    payload_data = {
-        "question": score_request["question"],
-        "image_url": score_request["image_url"],
-    }
-    try:
-        response = requests.post(
-            f"{MODEL_SERVER_URL}/images/score/url", json=payload_data
-        )
-        response.raise_for_status()
-        data = response.json()
-        return {"score": data["score"], "reason": data["reason"]}
-    except Exception as e:
-        print(f"[서비스 에러 발생] {e}")
-        return None
-
-
-def get_decide_route_response(route_request):
-    """prompt 를 모델 서버 /decide-route 로 보내고 route 를 반환합니다."""
-    payload_data = {"prompt": route_request["prompt"]}
-    try:
-        response = requests.post(
-            f"{MODEL_SERVER_URL}/decide-route", json=payload_data
-        )
-        response.raise_for_status()
-        return {"route": response.json()["route"]}
-    except Exception as e:
-        print(f"[서비스 에러 발생] {e}")
-        return None
-
-
-def get_tts_response(tts_request):
-    """text 를 모델 서버 /generate-speech 로 보내고 audio_data 를 반환합니다."""
-    payload_data = {"text": tts_request["text"]}
-    try:
-        response = requests.post(
-            f"{MODEL_SERVER_URL}/generate-speech", json=payload_data
-        )
-        response.raise_for_status()
-        return {"audio_data": response.json()["audio_data"]}
-    except Exception as e:
-        print(f"[서비스 에러 발생] {e}")
+        print(f"[서비스 에러 발생] get_tts_response: {e}")
         return None
