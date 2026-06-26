@@ -16,16 +16,16 @@ export const heritages = [
   {
     id: 'cheomseongdae', name: { ko: '첨성대', en: 'Cheomseongdae' },
     era: { ko: '국보 제31호 · 경주 · 신라', en: 'National Treasure No.31 · Gyeongju · Silla' },
-    thumb: '/img/cheomseongdae.png', supported: false,
-    tag: { ko: '준비 중', en: 'Coming soon' },
-    distance: '278km', lat: 35.8347, lng: 129.2190, status: 'soon',
+    thumb: '/img/cheomseongdae.png', supported: true,
+    tag: { ko: '복원 사례', en: 'Restored' },
+    distance: '278km', lat: 35.8347, lng: 129.2190, status: 'available',
   },
   {
     id: 'mireuksa', name: { ko: '미륵사지 석탑', en: 'Mireuksa Stone Pagoda' },
     era: { ko: '국보 제11호 · 익산 · 백제', en: 'National Treasure No.11 · Iksan · Baekje' },
-    thumb: '/img/stone_pagoda.png', supported: false,
-    tag: { ko: '준비 중', en: 'Coming soon' },
-    distance: '178km', lat: 36.0120, lng: 127.0286, status: 'soon',
+    thumb: '/img/stone_pagoda.png', supported: true,
+    tag: { ko: '복원 사례', en: 'Restored' },
+    distance: '178km', lat: 36.0120, lng: 127.0286, status: 'available',
   },
 ]
 
