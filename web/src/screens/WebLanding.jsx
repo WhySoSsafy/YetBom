@@ -34,7 +34,11 @@ export function WebLanding() {
       if (!res?.audio_data) { useAppStore.getState().setTTS('w', { play: false }); return }
       const audio = new Audio('data:audio/mp3;base64,' + res.audio_data)
       audio.playbackRate = useAppStore.getState().wSpeed
-      audio.ontimeupdate = () => useAppStore.getState().setTTS('w', { progress: (audio.currentTime / audio.duration) * 100 })
+      audio.ontimeupdate = () => {
+        const dur = audio.duration
+        if (!dur || !isFinite(dur)) return
+        useAppStore.getState().setTTS('w', { progress: (audio.currentTime / dur) * 100 })
+      }
       audio.onended = () => useAppStore.getState().setTTS('w', { play: false, progress: 100 })
       audioRef.current = audio
       audio.play().catch(() => useAppStore.getState().setTTS('w', { play: false }))

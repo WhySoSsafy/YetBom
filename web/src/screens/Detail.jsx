@@ -52,7 +52,11 @@ export function Detail() {
       if (!res?.audio_data) { useAppStore.getState().setTTS('m', { play: false }); return }
       const audio = new Audio('data:audio/mp3;base64,' + res.audio_data)
       audio.playbackRate = useAppStore.getState().mSpeed
-      audio.ontimeupdate = () => useAppStore.getState().setTTS('m', { progress: (audio.currentTime / audio.duration) * 100 })
+      audio.ontimeupdate = () => {
+        const dur = audio.duration
+        if (!dur || !isFinite(dur)) return
+        useAppStore.getState().setTTS('m', { progress: (audio.currentTime / dur) * 100 })
+      }
       audio.onended = () => useAppStore.getState().setTTS('m', { play: false, progress: 100 })
       audioRef.current = audio
       audio.play().catch(() => useAppStore.getState().setTTS('m', { play: false }))
