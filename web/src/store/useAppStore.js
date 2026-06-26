@@ -3,6 +3,7 @@ import { create } from 'zustand'
 const initial = {
   lang: 'ko',
   captureMode: 'camera',
+  capturedImage: null,
   sheetOpen: false,
   mapSheet: 'collapsed',
   saved: {},
@@ -19,8 +20,9 @@ const initial = {
 
 export const useAppStore = create((set) => ({
   ...initial,
-  __reset: () => set({ ...initial, saved: {}, noti: { ...initial.noti }, mPick: {}, wPick: {}, mChat: [], wChat: [] }),
+  __reset: () => set({ ...initial, capturedImage: null, saved: {}, noti: { ...initial.noti }, mPick: {}, wPick: {}, mChat: [], wChat: [] }),
   setLang: (lang) => set({ lang }),
+  setCapturedImage: (img) => set({ capturedImage: img }),
   toggleSaved: (id) => set((s) => {
     const saved = { ...s.saved }
     if (saved[id]) delete saved[id]; else saved[id] = true

@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
 import { copy } from '../data/copy'
@@ -6,19 +7,29 @@ import { Icon } from '../components/Icon'
 export function Capture() {
   const nav = useNavigate()
   const lang = useAppStore((s) => s.lang)
+  const setCapturedImage = useAppStore((s) => s.setCapturedImage)
+  const inputRef = useRef(null)
   const t = copy[lang]
+  const onFile = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => { setCapturedImage(reader.result); nav('/analyzing') }
+    reader.readAsDataURL(file)
+  }
   return (
     <div className="absolute inset-0 bg-[#0c0d12]">
       <img src="/img/sungnyemun_after.png" alt="" className="absolute inset-0 w-full h-full object-cover opacity-90" />
       <div className="absolute inset-0" style={{ background: 'radial-gradient(circle, transparent 40%, rgba(0,0,0,.6))' }} />
+      <input type="file" accept="image/*" capture="environment" className="hidden" ref={inputRef} onChange={onFile} />
       <div className="absolute top-24 left-0 right-0 text-center text-white">
         <div className="text-[20px] font-bold">{t.captureTitle}</div>
         <div className="text-[13px] text-white/70 mt-1">{t.captureHint}</div>
         <span className="inline-block mt-3 px-3 py-1 rounded-full bg-white/20 text-[12px]">{t.captureOcr}</span>
       </div>
       <div className="absolute bottom-0 left-0 right-0 h-[140px] bg-[#0c0d12] flex items-center justify-around px-8">
-        <button onClick={() => nav('/analyzing')}><Icon name="layers" size={28} /></button>
-        <button onClick={() => nav('/analyzing')} className="w-20 h-20 rounded-full bg-white border-4 border-white/40" />
+        <button onClick={() => inputRef.current?.click()}><Icon name="layers" size={28} /></button>
+        <button onClick={() => inputRef.current?.click()} className="w-20 h-20 rounded-full bg-white border-4 border-white/40" />
         <button onClick={() => nav('/home')} className="text-white"><Icon name="close" size={28} /></button>
       </div>
     </div>

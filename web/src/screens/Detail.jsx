@@ -65,7 +65,7 @@ export function Detail() {
       <div className="px-content py-6 space-y-8">
         <section>
           <h2 className="text-[18px] font-bold mb-3">{t.detailBeforeAfter}</h2>
-          <BeforeAfterSlider beforeSrc="/img/sungnyemun_before.png" afterSrc="/img/sungnyemun_after.png"
+          <BeforeAfterSlider beforeSrc={h.before} afterSrc={h.after}
             pos={s.mSliderPos} onPosChange={(p) => s.setSlider('m', p)}
             beforeLabel={t.detailBefore} afterLabel={t.detailAfter} />
           <div className="mt-2 flex items-center gap-2 text-[12px] text-orange-600">

@@ -9,7 +9,7 @@ import { CommentaryPlayer } from '../components/CommentaryPlayer'
 import { AskAIChat } from '../components/AskAIChat'
 import { Quiz } from '../components/Quiz'
 import { LangToggle } from '../components/LangToggle'
-import { heritages } from '../data/heritage'
+import { heritages, getHeritage } from '../data/heritage'
 
 export function WebLanding() {
   const nav = useNavigate()
@@ -18,6 +18,14 @@ export function WebLanding() {
   const lang = s.lang
   const t = copy[lang]
   const c = getCommentary('sungnyemun')
+  const hero = getHeritage('sungnyemun')
+
+  const captureFile = (file) => {
+    if (!file) { nav('/analyzing'); return }
+    const reader = new FileReader()
+    reader.onload = () => { s.setCapturedImage(reader.result); nav('/analyzing') }
+    reader.readAsDataURL(file)
+  }
 
   const handleSend = async (q) => {
     s.addChat('w', { role: 'user', text: q })
@@ -49,13 +57,13 @@ export function WebLanding() {
           <p className="text-[16px] text-black/60 mt-4 whitespace-pre-line">{t.onbBody}</p>
           <label className="mt-6 block border-2 border-dashed border-primary/40 rounded-card-lg p-10 text-center cursor-pointer"
             onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => { e.preventDefault(); nav('/analyzing') }}>
-            <input type="file" accept="image/*" className="hidden" ref={inputRef} onChange={() => nav('/analyzing')} />
+            onDrop={(e) => { e.preventDefault(); captureFile(e.dataTransfer.files?.[0]) }}>
+            <input type="file" accept="image/*" className="hidden" ref={inputRef} onChange={(e) => captureFile(e.target.files?.[0])} />
             <div className="text-[16px] font-medium">{lang === 'ko' ? '사진을 끌어다 놓으세요' : 'Drag & drop a photo'}</div>
             <div className="text-[13px] text-black/50 mt-2">{lang === 'ko' ? 'JPG·PNG·HEIC 지원 · 클릭해서 선택' : 'JPG·PNG·HEIC · click to choose'}</div>
           </label>
         </div>
-        <BeforeAfterSlider beforeSrc="/img/sungnyemun_before.png" afterSrc="/img/sungnyemun_after.png"
+        <BeforeAfterSlider beforeSrc={hero.before} afterSrc={hero.after}
           pos={s.wSliderPos} onPosChange={(p) => s.setSlider('w', p)}
           beforeLabel={t.detailBefore} afterLabel={t.detailAfter} />
       </section>

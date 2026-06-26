@@ -9,16 +9,20 @@ import { Icon } from '../components/Icon'
 export function Identify() {
   const nav = useNavigate()
   const lang = useAppStore((s) => s.lang)
+  const capturedImage = useAppStore((s) => s.capturedImage)
   const t = copy[lang]
   const [result, setResult] = useState(null)
   useEffect(() => {
     let alive = true
-    identifyImage(null).then((r) => { if (alive) setResult(r) })
+    identifyImage(capturedImage).then((r) => { if (alive) setResult(r) })
     return () => { alive = false }
-  }, [])
+  }, [capturedImage])
   if (!result) return null
   const h = getHeritage(result.heritageId)
-  if (!h) return null
+  if (result.heritageId === 'unsupported' || !h) {
+    nav('/unsupported', { replace: true })
+    return null
+  }
   return (
     <div className="absolute inset-0 overflow-y-auto nsb px-content pt-16 pb-8">
       <button onClick={() => nav('/home')} className="mb-4"><Icon name="chevron-left" size={24} /></button>
