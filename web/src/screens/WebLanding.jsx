@@ -13,6 +13,7 @@ import { Quiz } from '../components/Quiz'
 import { WebHeader } from '../components/WebHeader'
 import { Thumb } from '../components/Thumb'
 import { heritages, getHeritage } from '../data/heritage'
+import { restorationView } from '../data/restoration'
 
 const demoSites = heritages.filter((h) => h.supported)
 
@@ -26,6 +27,7 @@ export function WebLanding() {
   const [demoId, setDemoId] = useState('sungnyemun')
   const c = getCommentary(demoId)
   const hero = getHeritage(demoId)
+  const heroRv = restorationView(hero, hero.thumb, t, lang)
   const audioRef = useRef(null)
 
   const selectDemo = (id) => {
@@ -116,10 +118,9 @@ export function WebLanding() {
           <button onClick={() => inputRef.current?.click()} className="mt-4 text-[13px] text-primary font-medium underline underline-offset-2">{t.orUpload}</button>
         </div>
         <div>
-          <BeforeAfterSlider beforeSrc={hero.before} afterSrc={hero.after}
+          <BeforeAfterSlider beforeSrc={heroRv.beforeSrc} afterSrc={heroRv.afterSrc} beforeFilter={heroRv.beforeFilter}
             pos={s.wSliderPos} onPosChange={(p) => s.setSlider('w', p)}
-            beforeLabel={tr(hero.beforeLabel, lang) || t.detailBefore}
-            afterLabel={tr(hero.afterLabel, lang) || t.detailAfter} hint={t.sliderHint} />
+            beforeLabel={heroRv.beforeLabel} afterLabel={heroRv.afterLabel} hint={t.sliderHint} />
           <div className="mt-3 text-center">
             <div className="text-[16px] font-bold">{tr(hero.name, lang)}</div>
             <div className="text-[13px] text-black/55 mt-0.5">{tr(hero.era, lang)} · {t.detailBeforeAfter}</div>

@@ -7,9 +7,8 @@ import { WebHeader } from '../components/WebHeader'
 import { HeritageMap } from '../components/HeritageMap'
 import { Thumb } from '../components/Thumb'
 import { BeforeAfterSlider } from '../components/BeforeAfterSlider'
+import { restorationView } from '../data/restoration'
 import { Icon } from '../components/Icon'
-
-const GRAY = 'grayscale(1) sepia(0.25) contrast(1.05) brightness(0.95)'
 
 // 우측 상세 패널 — 선택한 문화유산의 사진·복원 전후·설명
 function DetailPanel({ heritage, lang, onClose }) {
@@ -17,6 +16,7 @@ function DetailPanel({ heritage, lang, onClose }) {
   const { content, loading } = useHeritageContent(heritage, lang)
   const [pos, setPos] = useState(50)
   const img = content?.image || heritage.thumb || heritage.image
+  const rv = restorationView(heritage, img, t, lang)
 
   return (
     <aside className="w-[420px] shrink-0 border-l border-black/8 bg-white overflow-y-auto nsb animate-screenIn">
@@ -30,19 +30,16 @@ function DetailPanel({ heritage, lang, onClose }) {
         <h2 className="text-[22px] font-bold">{tr(heritage.name, lang)}</h2>
         {tr(heritage.era, lang) && <div className="text-[13px] text-black/55 mt-1">{tr(heritage.era, lang)}</div>}
 
-        {img && (
+        {rv.beforeSrc && (
           <div className="mt-5">
             <div className="text-[14px] font-bold mb-2">{t.detailBeforeAfter}</div>
             <BeforeAfterSlider key={heritage.id}
-              beforeSrc={content?.curated ? content.before : img}
-              afterSrc={content?.curated ? content.after : img}
-              beforeFilter={content?.curated ? undefined : GRAY}
+              beforeSrc={rv.beforeSrc} afterSrc={rv.afterSrc} beforeFilter={rv.beforeFilter}
               pos={pos} onPosChange={setPos}
-              beforeLabel={content?.curated ? (content.beforeLabel || t.detailBefore) : t.demoBefore}
-              afterLabel={content?.curated ? (content.afterLabel || t.detailAfter) : t.demoAfter}
+              beforeLabel={rv.beforeLabel} afterLabel={rv.afterLabel}
               hint={t.sliderHint} />
             <div className="mt-2 flex items-center gap-2 text-[12px] text-orange-600">
-              <Icon name="sparkle" size={14} />{content?.curated ? t.detailAiEstimate : t.demoNote}
+              <Icon name="sparkle" size={14} />{rv.note}
             </div>
           </div>
         )}

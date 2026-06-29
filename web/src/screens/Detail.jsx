@@ -4,6 +4,7 @@ import { useAppStore } from '../store/useAppStore'
 import { copy, tr } from '../data/copy'
 import { getHeritage } from '../data/heritage'
 import { getCommentary } from '../data/commentary'
+import { restorationView } from '../data/restoration'
 import { fetchHeritageById, fetchWikiSummary } from '../api/wiki'
 import { askAI, generateOverview } from '../api/chat'
 import { USE_MOCK } from '../api/client'
@@ -62,6 +63,7 @@ export function Detail() {
     ? c.modes
     : (summary?.extract ? [{ key: 'wiki', label: WIKI_LABEL, text: summary.extract }] : [])
   const heroSrc = heritage?.thumb || summary?.image || heritage?.image
+  const rv = heritage ? restorationView(heritage, heroSrc, t, lang) : {}
   const activeText = tr((modes.find((m) => m.key === s.mMode) || modes[0])?.text, lang)
 
   // TTS mock 타이머
@@ -140,30 +142,14 @@ export function Detail() {
       </div>
 
       <div className="px-content py-6 space-y-8">
-        {isCurated && (
+        {rv.beforeSrc && (
           <section>
             <h2 className="text-[18px] font-bold mb-3">{t.detailBeforeAfter}</h2>
-            <BeforeAfterSlider beforeSrc={heritage.before} afterSrc={heritage.after}
+            <BeforeAfterSlider beforeSrc={rv.beforeSrc} afterSrc={rv.afterSrc} beforeFilter={rv.beforeFilter}
               pos={s.mSliderPos} onPosChange={(p) => s.setSlider('m', p)}
-              beforeLabel={tr(heritage.beforeLabel, lang) || t.detailBefore}
-              afterLabel={tr(heritage.afterLabel, lang) || t.detailAfter} hint={t.sliderHint} />
+              beforeLabel={rv.beforeLabel} afterLabel={rv.afterLabel} hint={t.sliderHint} />
             <div className="mt-2 flex items-center gap-2 text-[12px] text-orange-600">
-              <Icon name="sparkle" size={14} />{t.detailAiEstimate}
-              <span className="text-black/40 ml-auto">{t.detailSource}</span>
-            </div>
-          </section>
-        )}
-
-        {/* 동적 항목: 옛 사진이 없으므로 같은 사진의 흑백본을 '옛 사진'으로 두고 AI 컬러 복원 데모 */}
-        {!isCurated && heroSrc && (
-          <section>
-            <h2 className="text-[18px] font-bold mb-3">{t.detailBeforeAfter}</h2>
-            <BeforeAfterSlider beforeSrc={heroSrc} afterSrc={heroSrc}
-              beforeFilter="grayscale(1) sepia(0.25) contrast(1.05) brightness(0.95)"
-              pos={s.mSliderPos} onPosChange={(p) => s.setSlider('m', p)}
-              beforeLabel={t.demoBefore} afterLabel={t.demoAfter} hint={t.sliderHint} />
-            <div className="mt-2 flex items-center gap-2 text-[12px] text-orange-600">
-              <Icon name="sparkle" size={14} />{t.demoNote}
+              <Icon name="sparkle" size={14} />{rv.note}
             </div>
           </section>
         )}
