@@ -23,7 +23,7 @@ export function BottomSheet({ open, state, collapsedH, expandedH, onToggle, titl
   }
 
   return (
-    <div style={{ height, bottom: 90, transition: 'height .28s cubic-bezier(.2,0,0,1)' }}
+    <div style={{ height, bottom: 62, transition: 'height .28s cubic-bezier(.2,0,0,1)' }}
          className="absolute left-0 right-0 bg-white rounded-t-sheet shadow-[0_-10px_34px_-10px_rgba(20,20,40,.22)] z-40">
       <div data-testid="sheet-handle" onPointerDown={onDown} onPointerUp={onUp}
            onClick={onClick} className="pt-3 pb-2 flex flex-col items-center cursor-grab">
