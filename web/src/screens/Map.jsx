@@ -55,6 +55,17 @@ function MapInit({ onUser }) {
   return null
 }
 
+// 지도(빈 영역) 클릭 시 바텀시트 내리기 — 핀 클릭은 Leaflet이 별도 처리해 발생 안 함
+function MapClick({ onClick }) {
+  const map = useMap()
+  useEffect(() => {
+    if (!map.on) return // 테스트 스텁 가드
+    map.on('click', onClick)
+    return () => map.off('click', onClick)
+  }, [map, onClick])
+  return null
+}
+
 // 수백 개 핀을 클러스터링으로 렌더(성능)
 function ClusterLayer({ items, onOpen }) {
   const map = useMap()
@@ -103,6 +114,7 @@ export function MapScreen() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <MapInit onUser={setUserPos} />
+          <MapClick onClick={() => setMapSheet('collapsed')} />
           {userPos && <Marker position={userPos} icon={userIcon()} />}
           <ClusterLayer items={list} onOpen={open} />
         </MapContainer>
@@ -114,7 +126,7 @@ export function MapScreen() {
         </span>
       </div>
 
-      <BottomSheet open state={mapSheet} collapsedH={150} expandedH={402} onToggle={toggle}
+      <BottomSheet open state={mapSheet} collapsedH={150} expandedH={268} onToggle={toggle}
         title={`${t.mapNearby} · ${list.length}`}>
         {sheetList.map((h) => (
           <button key={h.id} onClick={() => open(h)} className="w-full flex items-center gap-3 py-3 text-left border-b border-black/5">
