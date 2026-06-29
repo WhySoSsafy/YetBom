@@ -8,7 +8,7 @@ describe('WebLanding', () => {
   beforeEach(() => useAppStore.getState().__reset())
   it('워드마크를 보여준다', () => {
     render(<MemoryRouter><WebLanding /></MemoryRouter>)
-    expect(screen.getByText(/옛봄/)).toBeInTheDocument()
+    expect(screen.getAllByText(/옛봄/).length).toBeGreaterThan(0)
   })
   it('큐레이션 데모 선택지를 보여준다 (사진 없이 체험)', () => {
     render(<MemoryRouter><WebLanding /></MemoryRouter>)

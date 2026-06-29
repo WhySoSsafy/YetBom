@@ -6,7 +6,7 @@ describe('copy', () => {
     expect(Object.keys(copy.ko).sort()).toEqual(Object.keys(copy.en).sort())
   })
   it('온보딩 타이틀이 한국어 카피를 가진다', () => {
-    expect(copy.ko.onbTitle).toContain('다시 봄')
+    expect(copy.ko.onbTitle).toContain('옛봄')
   })
   it('영어 온보딩 타이틀이 존재한다', () => {
     expect(copy.en.onbTitle.length).toBeGreaterThan(0)

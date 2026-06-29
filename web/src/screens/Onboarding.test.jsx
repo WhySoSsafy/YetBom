@@ -6,6 +6,6 @@ import { Onboarding } from './Onboarding'
 describe('Onboarding', () => {
   it('온보딩 타이틀을 렌더링한다', () => {
     render(<MemoryRouter><Onboarding /></MemoryRouter>)
-    expect(screen.getByText(/다시 봄/)).toBeInTheDocument()
+    expect(screen.getByText(/사라진 풍경/)).toBeInTheDocument()
   })
 })

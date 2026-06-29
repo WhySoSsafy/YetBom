@@ -17,7 +17,7 @@ export const tr = (obj, lang) => {
 export const copy = {
   ko: {
     brandSub: '✦ AI 문화유산 복원·해설',
-    onbTitle: '사라진 풍경을,\n다시 봄',
+    onbTitle: '사라진 풍경을,\n옛봄에서 다시',
     onbBody: '문화유산을 비추면, AI가 복원 전·후를 보여주고\n눈높이에 맞춰 설명해 드려요.',
     onbLang: '언어를 선택하세요',
     onbStart: '시작하기',
