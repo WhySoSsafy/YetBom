@@ -3,15 +3,19 @@
 
 const WDQS = 'https://query.wikidata.org/sparql'
 
-// 한국(Q884)에서 유산 지정(P1435)을 받았고 좌표(P625)가 있는 항목 — 국보·보물·사적·세계유산 등
+// 국가지정 주요 문화유산만: 국보·보물·사적·명승·세계유산·중요민속문화재
+// (등록문화재/향토유적/람사르습지/천연기념물 등은 제외해 앱 취지에 맞춤)
+const DESIGNATIONS = '{ wd:Q486245 wd:Q11233289 wd:Q483275 wd:Q11233255 wd:Q9259 wd:Q43113623 wd:Q11441839 }'
+
 function listQuery(lang) {
   return `SELECT DISTINCT ?item ?itemLabel ?lat ?lon ?image ?article WHERE {
+  VALUES ?desig ${DESIGNATIONS}
   ?item wdt:P17 wd:Q884 ; wdt:P1435 ?desig ; p:P625 ?cs .
   ?cs psv:P625 ?cn . ?cn wikibase:geoLatitude ?lat ; wikibase:geoLongitude ?lon .
   OPTIONAL { ?item wdt:P18 ?image . }
   OPTIONAL { ?article schema:about ?item ; schema:isPartOf <https://${lang}.wikipedia.org/> . }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "${lang},en,ko". }
-} LIMIT 800`
+} LIMIT 900`
 }
 
 function singleQuery(qid, lang) {
