@@ -33,9 +33,8 @@ export const heritages = [
     id: 'mireuksa', name: { ko: '미륵사지 석탑', en: 'Mireuksa Stone Pagoda' },
     era: { ko: '국보 제11호 · 익산 · 백제', en: 'National Treasure No.11 · Iksan · Baekje' },
     thumb: '/img/mireuksa_after.png', supported: true,
-    before: '/img/mireuksa_before.png', after: '/img/mireuksa_after.png',
-    beforeLabel: { ko: '현재 모습', en: 'Current state' },
-    afterLabel: { ko: 'AI 추정 복원', en: 'AI-estimated restoration' },
+    // before 이미지가 after와 동일(진짜 옛 사진 없음) → 같은 경로로 두어 흑백 데모로 전환
+    before: '/img/mireuksa_after.png', after: '/img/mireuksa_after.png',
     tag: { ko: '복원 사례', en: 'Restored' },
     distance: '178km', lat: 36.0120, lng: 127.0286, status: 'available',
   },
