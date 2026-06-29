@@ -10,7 +10,7 @@ import { BeforeAfterSlider } from '../components/BeforeAfterSlider'
 import { CommentaryPlayer } from '../components/CommentaryPlayer'
 import { AskAIChat } from '../components/AskAIChat'
 import { Quiz } from '../components/Quiz'
-import { LangToggle } from '../components/LangToggle'
+import { WebHeader } from '../components/WebHeader'
 import { Thumb } from '../components/Thumb'
 import { heritages, getHeritage } from '../data/heritage'
 
@@ -89,16 +89,7 @@ export function WebLanding() {
 
   return (
     <div className="min-h-screen bg-white">
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-black/5">
-        <div className="max-w-[1200px] mx-auto px-8 h-16 flex items-center justify-between">
-          <span className="font-bold text-[20px] text-primary">✦ 옛봄</span>
-          <nav className="flex items-center gap-6 text-[14px] text-black/70">
-            <a>복원 비교</a><a>맞춤 해설</a><a>AI 학습</a><a>문화유산</a>
-            <LangToggle />
-            <button className="px-4 py-2 rounded-btn bg-primary text-white" onClick={() => inputRef.current?.click()}>사진 업로드</button>
-          </nav>
-        </div>
-      </header>
+      <WebHeader />
 
       <section className="max-w-[1200px] mx-auto px-8 py-16 grid grid-cols-2 gap-12 items-center">
         <div>

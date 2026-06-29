@@ -14,6 +14,7 @@ import { Detail } from './screens/Detail'
 import { Notifications } from './screens/Notifications'
 import { Unsupported } from './screens/Unsupported'
 import { WebLanding } from './screens/WebLanding'
+import { WebMap } from './screens/WebMap'
 
 function Phone({ children }) {
   const loc = useLocation()
@@ -41,6 +42,7 @@ export default function App() {
       <Route path="/notifications" element={<Phone><Notifications /></Phone>} />
       <Route path="/unsupported" element={<Phone><Unsupported /></Phone>} />
       <Route path="/web" element={<WebLanding />} />
+      <Route path="/web/map" element={<WebMap />} />
     </Routes>
   )
 }
