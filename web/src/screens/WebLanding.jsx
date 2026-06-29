@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
 import { copy, tr, LANGS } from '../data/copy'
@@ -14,22 +14,35 @@ import { LangToggle } from '../components/LangToggle'
 import { Thumb } from '../components/Thumb'
 import { heritages, getHeritage } from '../data/heritage'
 
+const demoSites = heritages.filter((h) => h.supported)
+
 export function WebLanding() {
   const nav = useNavigate()
   const inputRef = useRef(null)
   const s = useAppStore()
   const lang = s.lang
   const t = copy[lang]
-  const c = getCommentary('sungnyemun')
-  const hero = getHeritage('sungnyemun')
+  // 심사위원이 사진 없이 바로 체험할 수 있게, 큐레이션 문화유산을 골라 데모를 본다.
+  const [demoId, setDemoId] = useState('sungnyemun')
+  const c = getCommentary(demoId)
+  const hero = getHeritage(demoId)
   const audioRef = useRef(null)
+
+  const selectDemo = (id) => {
+    setDemoId(id)
+    s.setTTS('w', { play: false, progress: 0 })
+    s.resetQuiz('w')
+    s.setSlider('w', 50)
+    s.setMode('w', '30s')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   // TTS 실제 오디오 재생 — USE_MOCK=false일 때만 동작 (mock 모드에서는 기존 no-op 유지)
   useEffect(() => {
     if (USE_MOCK) return
     if (!s.wPlay) { audioRef.current?.pause(); useAppStore.getState().setTTS('w', { loading: false }); return }
     let cancelled = false
-    const text = tr(getCommentary('sungnyemun')?.modes.find((m) => m.key === s.wMode)?.text, lang)
+    const text = tr(getCommentary(demoId)?.modes.find((m) => m.key === s.wMode)?.text, lang)
     useAppStore.getState().setTTS('w', { loading: true })
     requestTTS(text).then((res) => {
       if (cancelled) return
@@ -67,7 +80,7 @@ export function WebLanding() {
   const handleSend = async (q) => {
     s.addChat('w', { role: 'user', text: q })
     try {
-      const res = await askAI(q, 'sungnyemun', lang)
+      const res = await askAI(q, demoId, lang)
       s.addChat('w', { role: 'ai', text: res.answer, source: res.source })
     } catch {
       s.addChat('w', { role: 'ai', text: t.chatError, source: '' })
@@ -92,18 +105,35 @@ export function WebLanding() {
           <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-[13px] mb-4">{t.brandSub}</span>
           <h1 className="text-[40px] font-bold leading-tight whitespace-pre-line tracking-tight">{t.onbTitle}</h1>
           <p className="text-[16px] text-black/60 mt-4 whitespace-pre-line">{t.onbBody}</p>
-          <label className="mt-6 block border-2 border-dashed border-primary/40 rounded-card-lg p-10 text-center cursor-pointer"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => { e.preventDefault(); captureFile(e.dataTransfer.files?.[0]) }}>
-            <input type="file" accept="image/*" className="hidden" ref={inputRef} onChange={(e) => captureFile(e.target.files?.[0])} />
-            <div className="text-[16px] font-medium">{t.dropTitle}</div>
-            <div className="text-[13px] text-black/50 mt-2">{t.dropHint}</div>
-          </label>
+          {/* 사진 없이 바로 체험 — 큐레이션 문화유산 선택 */}
+          <div className="mt-6 text-[13px] font-semibold text-black/50">{t.tryDemo}</div>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {demoSites.map((hh) => (
+              <button key={hh.id} onClick={() => selectDemo(hh.id)}
+                className={`flex items-center gap-3 p-2 rounded-card border text-left transition-colors ${
+                  demoId === hh.id ? 'border-primary bg-primary/5' : 'border-black/10 hover:border-primary/40'
+                }`}>
+                <Thumb src={hh.thumb} className="w-12 h-12 rounded-card object-cover shrink-0 text-[20px]" />
+                <div className="min-w-0">
+                  <div className="font-semibold text-[14px] truncate">{tr(hh.name, lang)}</div>
+                  <div className="text-[12px] text-black/50 truncate">{tr(hh.era, lang)}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+          <input type="file" accept="image/*" className="hidden" ref={inputRef} onChange={(e) => captureFile(e.target.files?.[0])} />
+          <button onClick={() => inputRef.current?.click()} className="mt-4 text-[13px] text-primary font-medium underline underline-offset-2">{t.orUpload}</button>
         </div>
-        <BeforeAfterSlider beforeSrc={hero.before} afterSrc={hero.after}
-          pos={s.wSliderPos} onPosChange={(p) => s.setSlider('w', p)}
-          beforeLabel={tr(hero.beforeLabel, lang) || t.detailBefore}
-          afterLabel={tr(hero.afterLabel, lang) || t.detailAfter} hint={t.sliderHint} />
+        <div>
+          <BeforeAfterSlider beforeSrc={hero.before} afterSrc={hero.after}
+            pos={s.wSliderPos} onPosChange={(p) => s.setSlider('w', p)}
+            beforeLabel={tr(hero.beforeLabel, lang) || t.detailBefore}
+            afterLabel={tr(hero.afterLabel, lang) || t.detailAfter} hint={t.sliderHint} />
+          <div className="mt-3 text-center">
+            <div className="text-[16px] font-bold">{tr(hero.name, lang)}</div>
+            <div className="text-[13px] text-black/55 mt-0.5">{tr(hero.era, lang)} · {t.detailBeforeAfter}</div>
+          </div>
+        </div>
       </section>
 
       {/* 다국어 지원 자랑 */}
@@ -122,7 +152,7 @@ export function WebLanding() {
       </section>
 
       <section className="max-w-[1000px] mx-auto px-8 py-12">
-        <h2 className="text-[24px] font-bold mb-6">{t.detailCommentary}</h2>
+        <h2 className="text-[24px] font-bold mb-6">{tr(hero.name, lang)} · {t.detailCommentary}</h2>
         <CommentaryPlayer modes={c.modes} lang={lang} activeMode={s.wMode}
           onModeChange={(m) => s.setMode('w', m)} play={s.wPlay} progress={s.wTTS} speed={s.wSpeed}
           loading={s.wLoading}
@@ -145,11 +175,14 @@ export function WebLanding() {
       <section className="max-w-[1200px] mx-auto px-8 py-12">
         <h2 className="text-[24px] font-bold mb-6">{t.unsupportedBrowse}</h2>
         <div className="grid grid-cols-4 gap-4">
-          {heritages.filter((hh) => hh.supported).map((hh) => (
-            <div key={hh.id} className="rounded-card overflow-hidden border border-black/8">
-              <Thumb src={hh.thumb} label={tr(hh.name, lang)} className="w-full h-40 object-cover text-[28px]" />
+          {demoSites.map((hh) => (
+            <button key={hh.id} onClick={() => selectDemo(hh.id)}
+              className={`rounded-card overflow-hidden border text-left transition-colors ${
+                demoId === hh.id ? 'border-primary ring-2 ring-primary/30' : 'border-black/8 hover:border-primary/40'
+              }`}>
+              <Thumb src={hh.thumb} className="w-full h-40 object-cover text-[28px]" />
               <div className="p-3"><div className="font-semibold text-[15px]">{tr(hh.name, lang)}</div></div>
-            </div>
+            </button>
           ))}
         </div>
       </section>

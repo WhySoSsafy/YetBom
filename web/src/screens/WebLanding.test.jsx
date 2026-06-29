@@ -10,10 +10,11 @@ describe('WebLanding', () => {
     render(<MemoryRouter><WebLanding /></MemoryRouter>)
     expect(screen.getByText(/옛봄/)).toBeInTheDocument()
   })
-  it('업로드 드롭존을 보여준다 (갤러리 버튼 없음)', () => {
+  it('큐레이션 데모 선택지를 보여준다 (사진 없이 체험)', () => {
     render(<MemoryRouter><WebLanding /></MemoryRouter>)
-    expect(screen.getByText(/끌어다 놓으세요/)).toBeInTheDocument()
-    expect(screen.queryByText('갤러리 선택')).toBeNull()
+    // 숭례문 데모가 헤더와 데모 목록에 노출됨
+    expect(screen.getAllByText(/숭례문/).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/업로드/).length).toBeGreaterThan(0)
   })
   it('파일 선택 시 /analyzing으로 이동한다', async () => {
     const { container } = render(
