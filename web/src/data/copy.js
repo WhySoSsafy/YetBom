@@ -7,8 +7,12 @@ export const LANGS = [
   { key: 'es', label: 'Español' },
 ]
 
-// 다국어 객체에서 안전하게 값 추출 — 해당 언어 없으면 영어→한국어로 폴백(빈 화면 방지).
-export const tr = (obj, lang) => (obj == null ? '' : obj[lang] ?? obj.en ?? obj.ko ?? '')
+// 다국어 객체에서 안전하게 값 추출 — 문자열(동적 데이터)은 그대로, 객체는 언어→en→ko 폴백.
+export const tr = (obj, lang) => {
+  if (obj == null) return ''
+  if (typeof obj === 'string') return obj
+  return obj[lang] ?? obj.en ?? obj.ko ?? ''
+}
 
 export const copy = {
   ko: {

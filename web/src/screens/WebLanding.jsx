@@ -112,7 +112,10 @@ export function WebLanding() {
           <div className="text-[20px] font-bold">{t.langBragTitle}</div>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             {LANGS.map((l) => (
-              <span key={l.key} className="px-4 py-2 rounded-full bg-white border border-black/8 text-[14px] font-medium shadow-sm">{l.label}</span>
+              <button key={l.key} onClick={() => s.setLang(l.key)}
+                className={`px-4 py-2 rounded-full text-[14px] font-medium shadow-sm border transition-colors ${
+                  lang === l.key ? 'bg-primary text-white border-primary' : 'bg-white border-black/8 hover:border-primary/40'
+                }`}>{l.label}</button>
             ))}
           </div>
         </div>
