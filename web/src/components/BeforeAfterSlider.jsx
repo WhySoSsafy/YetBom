@@ -1,28 +1,30 @@
 import { useEffect, useRef, useState } from 'react'
 import { Icon } from './Icon'
 
+const DEMO_START = 33 // 1/3 지점에서 시작
+const DEMO_END = 72   // 오른쪽으로 이동
+
 export function BeforeAfterSlider({ beforeSrc, afterSrc, pos, onPosChange, beforeLabel, afterLabel, hint }) {
   const ref = useRef(null)
   const dragging = useRef(false)
   const rafRef = useRef(0)
   // 최초 진입 시 '드래그 가능' 신호용. 사용자가 한 번이라도 만지면 끈다.
   const [hinting, setHinting] = useState(true)
-  const [demoPos, setDemoPos] = useState(pos)
+  const [demoPos, setDemoPos] = useState(DEMO_START)
 
-  // 자동 스윕: 경계선을 한 번 왕복시켜 두 사진이 바뀌는 걸 보여준다 (가장 강한 어포던스)
+  // 자동 데모: 1/3 지점에서 시작해 천천히 오른쪽으로 이동 → 드래그 가능함을 알림
   useEffect(() => {
     if (!hinting) return
-    const start = pos
     let t0 = 0
-    const DURATION = 1700
+    const DURATION = 2400
+    const ease = (x) => 1 - Math.pow(1 - x, 3) // easeOutCubic
     const step = (now) => {
       if (!t0) t0 = now
       const t = Math.min(1, (now - t0) / DURATION)
-      const offset = Math.sin(t * Math.PI * 2) * 24 // ±24% 1회 왕복
-      setDemoPos(Math.min(90, Math.max(10, start + offset)))
+      setDemoPos(DEMO_START + (DEMO_END - DEMO_START) * ease(t))
       if (t < 1) rafRef.current = requestAnimationFrame(step)
-      else setDemoPos(start)
     }
+    setDemoPos(DEMO_START)
     rafRef.current = requestAnimationFrame(step)
     return () => cancelAnimationFrame(rafRef.current)
     // eslint-disable-next-line react-hooks/exhaustive-deps
