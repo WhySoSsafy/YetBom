@@ -11,6 +11,10 @@ export default {
       fontFamily: {
         sans: ['Wanted Sans', 'Pretendard', 'system-ui', 'sans-serif'],
       },
+      spacing: {
+        // 콘텐츠 좌우 기본 여백. px-content / p-content 가 이 값을 사용한다.
+        content: '20px',
+      },
       borderRadius: {
         btn: '12px',
         card: '15px',
