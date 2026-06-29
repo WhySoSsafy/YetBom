@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
 import { copy, tr } from '../data/copy'
@@ -46,12 +46,26 @@ export function Home() {
   const t = copy[lang]
   const openHeritage = (h) => nav(h.supported ? `/detail/${h.id}` : '/unsupported')
 
-  // 광고 배너 자동 전환 (4초마다 옆 사진으로)
+  // 광고 배너 자동 전환 (4초마다) — idx가 바뀔 때마다 타이머 재설정(스와이프 후에도 일정)
   const [idx, setIdx] = useState(0)
+  const startX = useRef(null)
+  const next = () => setIdx((i) => (i + 1) % banners.length)
+  const prev = () => setIdx((i) => (i - 1 + banners.length) % banners.length)
   useEffect(() => {
-    const timer = setInterval(() => setIdx((i) => (i + 1) % banners.length), 4000)
-    return () => clearInterval(timer)
-  }, [])
+    const timer = setTimeout(next, 4000)
+    return () => clearTimeout(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idx])
+
+  // 스와이프로 이전/다음
+  const onDown = (e) => { startX.current = e.clientX }
+  const onUp = (e) => {
+    if (startX.current == null) return
+    const dx = e.clientX - startX.current
+    startX.current = null
+    if (dx <= -40) next()
+    else if (dx >= 40) prev()
+  }
 
   return (
     <div className="pt-[58px]">
@@ -63,11 +77,12 @@ export function Home() {
         </div>
       </div>
       <div className="mt-4 px-content">
-        <div className="relative h-[336px] rounded-card-lg overflow-hidden">
+        <div onPointerDown={onDown} onPointerUp={onUp}
+          className="relative h-[336px] rounded-card-lg overflow-hidden select-none touch-pan-y">
           <div className="flex h-full transition-transform duration-700 ease-out" style={{ transform: `translateX(-${idx * 100}%)` }}>
             {banners.map((b, i) => (
               <div key={i} className="relative w-full h-full shrink-0">
-                <img src={b.img} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <img src={b.img} alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,.75))' }} />
                 <div className="absolute bottom-6 left-5 right-5 text-white text-[18px] font-bold whitespace-pre-line">{tr(b.text, lang)}</div>
               </div>
