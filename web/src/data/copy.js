@@ -30,6 +30,7 @@ export const copy = {
     // 상세
     detailBeforeAfter: '복원 전·후 비교',
     detailBefore: '2008년 화재 직후', detailAfter: '2013년 복원 완료',
+    sliderHint: '드래그하여 비교',
     detailAiEstimate: 'AI 추정 복원',
     detailSource: '문화재청 국가유산포털',
     detailWhatChanged: '무엇이 달라졌나요',
@@ -72,6 +73,7 @@ export const copy = {
     identifyStart: 'Start restoration',
     detailBeforeAfter: 'Before / After',
     detailBefore: 'Right after 2008 fire', detailAfter: 'Restored in 2013',
+    sliderHint: 'Drag to compare',
     detailAiEstimate: 'AI-estimated',
     detailSource: 'Cultural Heritage Administration',
     detailWhatChanged: 'What changed',
