@@ -27,6 +27,9 @@ export function Detail() {
   const ttsTimer = useRef(null)
   const audioRef = useRef(null)
 
+  // 상세를 열면 방문한 문화유산으로 기록 (마이페이지 통계)
+  useEffect(() => { if (id) useAppStore.getState().markVisited(id) }, [id])
+
   // TTS mock 타이머 — 매 틱마다 store 최신값을 읽어 진행 (stale closure 방지)
   useEffect(() => {
     if (!USE_MOCK) return
