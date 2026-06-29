@@ -15,7 +15,10 @@ export function WebHeader() {
   return (
     <header className="sticky top-0 z-[1100] bg-white/90 backdrop-blur border-b border-black/5">
       <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/web" className="font-bold text-[20px] text-primary">✦ 옛봄</Link>
+        <Link to="/web" className="flex items-center gap-2 font-bold text-[20px] text-primary">
+          <img src="/logo.png" alt="옛봄" className="h-8 w-8 object-contain" />
+          <span>옛봄</span>
+        </Link>
         <nav className="flex items-center gap-6 text-[14px]">
           {links.map((l) => (
             <Link key={l.to} to={l.to}

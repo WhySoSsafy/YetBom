@@ -5,9 +5,8 @@ export function Thumb({ src, className = '', style, alt = '' }) {
   const [err, setErr] = useState(false)
   if (!src || err) {
     return (
-      <div className={`flex flex-col items-center justify-center gap-1 bg-gradient-to-br from-primary to-primary-heavy text-white ${className}`} style={style}>
-        <span className="font-bold leading-none" style={{ fontSize: '1.5em' }}>✦</span>
-        <span className="font-semibold leading-none opacity-90" style={{ fontSize: '0.42em' }}>옛봄</span>
+      <div className={`flex items-center justify-center bg-gradient-to-br from-primary/15 to-primary/5 ${className}`} style={style}>
+        <img src="/logo.png" alt="" className="w-1/2 h-1/2 object-contain opacity-90" />
       </div>
     )
   }
