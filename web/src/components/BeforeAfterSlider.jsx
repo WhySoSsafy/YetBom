@@ -4,7 +4,7 @@ import { Icon } from './Icon'
 const DEMO_START = 33 // 1/3 지점에서 시작
 const DEMO_END = 72   // 오른쪽으로 이동
 
-export function BeforeAfterSlider({ beforeSrc, afterSrc, pos, onPosChange, beforeLabel, afterLabel, hint }) {
+export function BeforeAfterSlider({ beforeSrc, afterSrc, pos, onPosChange, beforeLabel, afterLabel, hint, beforeFilter }) {
   const ref = useRef(null)
   const dragging = useRef(false)
   const rafRef = useRef(0)
@@ -58,7 +58,7 @@ export function BeforeAfterSlider({ beforeSrc, afterSrc, pos, onPosChange, befor
          className="relative w-full aspect-[4/3] rounded-card-lg overflow-hidden select-none touch-none cursor-ew-resize">
       <img src={afterSrc} alt="" className="absolute inset-0 w-full h-full object-cover" draggable={false} />
       <img data-overlay src={beforeSrc} alt="" draggable={false}
-           style={{ clipPath: `inset(0 ${100 - viewPos}% 0 0)` }}
+           style={{ clipPath: `inset(0 ${100 - viewPos}% 0 0)`, filter: beforeFilter || undefined }}
            className="absolute inset-0 w-full h-full object-cover" />
       <span className="absolute top-2 left-2 px-2 py-1 rounded-full bg-black/55 text-white text-[11px]">{beforeLabel}</span>
       <span className="absolute top-2 right-2 px-2 py-1 rounded-full bg-black/55 text-white text-[11px]">{afterLabel}</span>

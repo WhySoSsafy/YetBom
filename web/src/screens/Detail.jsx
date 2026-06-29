@@ -148,6 +148,20 @@ export function Detail() {
           </section>
         )}
 
+        {/* 동적 항목: 옛 사진이 없으므로 같은 사진의 흑백본을 '옛 사진'으로 두고 AI 컬러 복원 데모 */}
+        {!isCurated && heroSrc && (
+          <section>
+            <h2 className="text-[18px] font-bold mb-3">{t.detailBeforeAfter}</h2>
+            <BeforeAfterSlider beforeSrc={heroSrc} afterSrc={heroSrc}
+              beforeFilter="grayscale(1) sepia(0.25) contrast(1.05) brightness(0.95)"
+              pos={s.mSliderPos} onPosChange={(p) => s.setSlider('m', p)}
+              beforeLabel={t.demoBefore} afterLabel={t.demoAfter} hint={t.sliderHint} />
+            <div className="mt-2 flex items-center gap-2 text-[12px] text-orange-600">
+              <Icon name="sparkle" size={14} />{t.demoNote}
+            </div>
+          </section>
+        )}
+
         {isCurated && (
           <section>
             <h2 className="text-[18px] font-bold mb-3">{t.detailWhatChanged}</h2>
