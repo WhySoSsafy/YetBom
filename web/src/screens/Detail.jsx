@@ -9,6 +9,7 @@ import { fetchHeritageById, fetchWikiSummary } from '../api/wiki'
 import { askAI, generateOverview } from '../api/chat'
 import { USE_MOCK } from '../api/client'
 import { requestTTS } from '../api/tts'
+import { prebuiltAudio } from '../data/prebuiltAudio'
 import { Icon } from '../components/Icon'
 import { Thumb } from '../components/Thumb'
 import { BeforeAfterSlider } from '../components/BeforeAfterSlider'
@@ -85,12 +86,9 @@ export function Detail() {
     if (USE_MOCK) return
     if (!s.mPlay) { audioRef.current?.pause(); useAppStore.getState().setTTS('m', { loading: false }); return }
     let cancelled = false
-    if (!activeText) { useAppStore.getState().setTTS('m', { play: false }); return }
-    useAppStore.getState().setTTS('m', { loading: true })
-    requestTTS(activeText).then((res) => {
+    const startAudio = (srcUrl) => {
       if (cancelled) return
-      if (!res?.audio_data) { useAppStore.getState().setTTS('m', { play: false, loading: false }); return }
-      const audio = new Audio('data:audio/mpeg;base64,' + res.audio_data)
+      const audio = new Audio(srcUrl)
       audio.playbackRate = useAppStore.getState().mSpeed
       audio.ontimeupdate = () => {
         const dur = audio.duration
@@ -102,6 +100,16 @@ export function Detail() {
       audio.play()
         .then(() => useAppStore.getState().setTTS('m', { loading: false }))
         .catch(() => useAppStore.getState().setTTS('m', { play: false, loading: false }))
+    }
+    // 미리 만든 음성이 있으면 기다림 없이 즉시 재생
+    const pre = prebuiltAudio(id, s.mMode, lang)
+    if (pre) { startAudio(pre); return () => { cancelled = true; audioRef.current?.pause() } }
+    if (!activeText) { useAppStore.getState().setTTS('m', { play: false }); return }
+    useAppStore.getState().setTTS('m', { loading: true })
+    requestTTS(activeText).then((res) => {
+      if (cancelled) return
+      if (!res?.audio_data) { useAppStore.getState().setTTS('m', { play: false, loading: false }); return }
+      startAudio('data:audio/mpeg;base64,' + res.audio_data)
     }).catch(() => { if (!cancelled) useAppStore.getState().setTTS('m', { play: false, loading: false }) })
     return () => { cancelled = true; audioRef.current?.pause() }
     // eslint-disable-next-line react-hooks/exhaustive-deps
