@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
 import { copy, tr } from '../data/copy'
@@ -44,6 +45,14 @@ export function Home() {
   const lang = useAppStore((s) => s.lang)
   const t = copy[lang]
   const openHeritage = (h) => nav(h.supported ? `/detail/${h.id}` : '/unsupported')
+
+  // 광고 배너 자동 전환 (4초마다 옆 사진으로)
+  const [idx, setIdx] = useState(0)
+  useEffect(() => {
+    const timer = setInterval(() => setIdx((i) => (i + 1) % banners.length), 4000)
+    return () => clearInterval(timer)
+  }, [])
+
   return (
     <div className="pt-[58px]">
       <div className="px-content flex items-center justify-between">
@@ -53,14 +62,24 @@ export function Home() {
           <button onClick={() => nav('/notifications')}><Icon name="bell" size={22} /></button>
         </div>
       </div>
-      <div className="mt-4 flex gap-3 overflow-x-auto nsb px-content snap-x snap-mandatory">
-        {banners.map((b, i) => (
-          <div key={i} className="relative shrink-0 w-[92%] h-[336px] rounded-card-lg overflow-hidden snap-center">
-            <img src={b.img} alt="" className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,.75))' }} />
-            <div className="absolute bottom-5 left-5 right-5 text-white text-[18px] font-bold whitespace-pre-line">{tr(b.text, lang)}</div>
+      <div className="mt-4 px-content">
+        <div className="relative h-[336px] rounded-card-lg overflow-hidden">
+          <div className="flex h-full transition-transform duration-700 ease-out" style={{ transform: `translateX(-${idx * 100}%)` }}>
+            {banners.map((b, i) => (
+              <div key={i} className="relative w-full h-full shrink-0">
+                <img src={b.img} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,.75))' }} />
+                <div className="absolute bottom-6 left-5 right-5 text-white text-[18px] font-bold whitespace-pre-line">{tr(b.text, lang)}</div>
+              </div>
+            ))}
           </div>
-        ))}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+            {banners.map((_, i) => (
+              <button key={i} onClick={() => setIdx(i)} aria-label={`배너 ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${i === idx ? 'w-5 bg-white' : 'w-1.5 bg-white/50'}`} />
+            ))}
+          </div>
+        </div>
       </div>
       <div className="px-content mt-7">
         <h2 className="text-[18px] font-bold mb-1">{t.homeRecommend}</h2>

@@ -12,3 +12,7 @@
 body { margin: 0; -webkit-font-smoothing: antialiased; }
 .nsb::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .nsb { scrollbar-width: none; }
+
+/* 전역 터치 피드백 — 누르면 즉시 살짝 어두워지고 줄어들어 '눌림'을 알림 */
+button, a, label, [role="button"] { -webkit-tap-highlight-color: transparent; transition: opacity .12s ease, transform .08s ease; }
+button:not([disabled]):active, a:active, label:active, [role="button"]:active { opacity: .6; transform: scale(.97); }
