@@ -16,10 +16,12 @@ export function BottomNav() {
     { path: '/my', icon: 'graduation', label: t.navMy },
   ]
   return (
-    <div className="absolute bottom-0 left-0 right-0 h-[90px] bg-white border-t border-black/8 flex items-center justify-around px-2 z-30">
+    <div className="absolute bottom-0 left-0 right-0 min-h-[90px] pb-[env(safe-area-inset-bottom)] bg-white border-t border-black/8 flex items-center justify-around px-2 z-30">
       {tabs.slice(0, 2).map((tab) => <NavBtn key={tab.path} tab={tab} loc={loc} nav={nav} />)}
       <button data-testid="camera-fab" onClick={() => setSheetOpen(true)}
-        className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center -mt-6 shadow-lg shrink-0">
+        className="relative w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center -mt-6 shadow-lg shrink-0 transition-transform active:scale-90">
+        {/* 핵심 동작(카메라)으로 시선을 끄는 잔잔한 확산 링 */}
+        <span className="absolute inset-0 rounded-full bg-primary animate-fabPulse" />
         <Icon name="camera" size={26} />
       </button>
       {tabs.slice(2).map((tab) => <NavBtn key={tab.path} tab={tab} loc={loc} nav={nav} />)}
@@ -31,7 +33,7 @@ function NavBtn({ tab, loc, nav }) {
   const active = loc.pathname === tab.path
   return (
     <button onClick={() => nav(tab.path)}
-      className={`flex flex-col items-center gap-1 w-14 ${active ? 'text-primary' : 'text-black/30'}`}>
+      className={`flex flex-col items-center gap-1 w-14 transition-transform active:scale-90 ${active ? 'text-primary scale-105' : 'text-black/30'}`}>
       <Icon name={tab.icon} size={25} />
       <span className="text-[11px]">{tab.label}</span>
     </button>

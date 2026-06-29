@@ -1,8 +1,9 @@
 import { Icon } from './Icon'
 
-export function HeritageCard({ heritage, lang, onClick, thumbSize = 96 }) {
+export function HeritageCard({ heritage, lang, onClick, thumbSize = 96, index = 0 }) {
   return (
-    <button onClick={onClick} className="w-full flex items-center gap-3 py-3 text-left">
+    <button onClick={onClick} style={{ animationDelay: `${index * 60}ms` }}
+      className="w-full flex items-center gap-3 py-3 text-left animate-cardIn transition-transform active:scale-[0.98]">
       <img src={heritage.thumb} alt="" style={{ width: thumbSize, height: thumbSize }}
            className="rounded-card object-cover shrink-0" />
       <div className="flex-1 min-w-0">

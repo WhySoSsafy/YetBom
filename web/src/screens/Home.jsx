@@ -36,8 +36,8 @@ export function Home() {
       </div>
       <div className="px-content mt-7">
         <h2 className="text-[18px] font-bold mb-1">{t.homeRecommend}</h2>
-        {heritages.map((h) => (
-          <HeritageCard key={h.id} heritage={h} lang={lang} onClick={() => openHeritage(h)} thumbSize={96} />
+        {heritages.map((h, i) => (
+          <HeritageCard key={h.id} heritage={h} lang={lang} index={i} onClick={() => openHeritage(h)} thumbSize={96} />
         ))}
       </div>
     </div>

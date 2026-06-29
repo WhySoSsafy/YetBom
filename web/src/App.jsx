@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { MobileShell } from './components/MobileShell'
 import { StatusBar } from './components/StatusBar'
 import { MainLayout } from './layouts/MainLayout'
@@ -16,7 +16,14 @@ import { Unsupported } from './screens/Unsupported'
 import { WebLanding } from './screens/WebLanding'
 
 function Phone({ children }) {
-  return <MobileShell><StatusBar />{children}</MobileShell>
+  const loc = useLocation()
+  // 경로가 바뀔 때마다 key가 갱신되어 화면이 부드럽게 슬라이드·페이드 인 된다.
+  return (
+    <MobileShell>
+      <StatusBar />
+      <div key={loc.pathname} className="absolute inset-0 animate-screenIn">{children}</div>
+    </MobileShell>
+  )
 }
 
 export default function App() {

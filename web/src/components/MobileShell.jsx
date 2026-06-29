@@ -1,9 +1,10 @@
 export function MobileShell({ children }) {
   return (
     // 좁은 화면(실제 폰): 베젤 없이 전체화면. sm(640px)+ 데스크탑: 핸드폰 베젤 안에 표시.
-    <div className="min-h-screen sm:flex sm:items-center sm:justify-center sm:bg-neutral-100 sm:py-8">
+    <div className="min-h-[100dvh] sm:flex sm:items-center sm:justify-center sm:bg-neutral-100 sm:py-8">
       <div className="sm:p-[13px] sm:bg-[#161617] sm:rounded-[56px] sm:shadow-2xl">
-        <div className="relative w-full h-screen sm:w-[448px] sm:h-[946px] bg-white overflow-hidden sm:rounded-[44px]">
+        {/* 실제 폰: 동적 뷰포트 높이(100dvh)로 주소창/툴바 영역을 제외한 '보이는' 높이에 맞춰 하단 네비가 가려지지 않게 한다. */}
+        <div className="relative w-full h-[100dvh] sm:w-[448px] sm:h-[946px] bg-white overflow-hidden sm:rounded-[44px]">
           {children}
         </div>
       </div>
