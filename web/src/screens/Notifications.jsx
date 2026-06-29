@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
-import { copy } from '../data/copy'
+import { copy, tr } from '../data/copy'
 import { Switch } from '../components/Switch'
 import { Icon } from '../components/Icon'
 
@@ -25,8 +25,8 @@ export function Notifications() {
           <div key={r.key} className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-card bg-primary/10 text-primary flex items-center justify-center shrink-0"><Icon name={r.icon} size={20} /></div>
             <div className="flex-1">
-              <div className="font-semibold text-[15px]">{r.label[lang]}</div>
-              <div className="text-[12px] text-black/50">{r.desc[lang]}</div>
+              <div className="font-semibold text-[15px]">{tr(r.label, lang)}</div>
+              <div className="text-[12px] text-black/50">{tr(r.desc, lang)}</div>
             </div>
             <Switch on={noti[r.key]} onChange={(v) => setNoti(r.key, v)} />
           </div>

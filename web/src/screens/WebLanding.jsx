@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
-import { copy } from '../data/copy'
+import { copy, tr, LANGS } from '../data/copy'
 import { getCommentary } from '../data/commentary'
 import { askAI } from '../api/chat'
 import { USE_MOCK } from '../api/client'
@@ -11,6 +11,7 @@ import { CommentaryPlayer } from '../components/CommentaryPlayer'
 import { AskAIChat } from '../components/AskAIChat'
 import { Quiz } from '../components/Quiz'
 import { LangToggle } from '../components/LangToggle'
+import { Thumb } from '../components/Thumb'
 import { heritages, getHeritage } from '../data/heritage'
 
 export function WebLanding() {
@@ -28,7 +29,7 @@ export function WebLanding() {
     if (USE_MOCK) return
     if (!s.wPlay) { audioRef.current?.pause(); useAppStore.getState().setTTS('w', { loading: false }); return }
     let cancelled = false
-    const text = getCommentary('sungnyemun')?.modes.find((m) => m.key === s.wMode)?.text[lang]
+    const text = tr(getCommentary('sungnyemun')?.modes.find((m) => m.key === s.wMode)?.text, lang)
     useAppStore.getState().setTTS('w', { loading: true })
     requestTTS(text).then((res) => {
       if (cancelled) return
@@ -95,14 +96,26 @@ export function WebLanding() {
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => { e.preventDefault(); captureFile(e.dataTransfer.files?.[0]) }}>
             <input type="file" accept="image/*" className="hidden" ref={inputRef} onChange={(e) => captureFile(e.target.files?.[0])} />
-            <div className="text-[16px] font-medium">{lang === 'ko' ? '사진을 끌어다 놓으세요' : 'Drag & drop a photo'}</div>
-            <div className="text-[13px] text-black/50 mt-2">{lang === 'ko' ? 'JPG·PNG·HEIC 지원 · 클릭해서 선택' : 'JPG·PNG·HEIC · click to choose'}</div>
+            <div className="text-[16px] font-medium">{t.dropTitle}</div>
+            <div className="text-[13px] text-black/50 mt-2">{t.dropHint}</div>
           </label>
         </div>
         <BeforeAfterSlider beforeSrc={hero.before} afterSrc={hero.after}
           pos={s.wSliderPos} onPosChange={(p) => s.setSlider('w', p)}
-          beforeLabel={hero.beforeLabel?.[lang] ?? t.detailBefore}
-          afterLabel={hero.afterLabel?.[lang] ?? t.detailAfter} hint={t.sliderHint} />
+          beforeLabel={tr(hero.beforeLabel, lang) || t.detailBefore}
+          afterLabel={tr(hero.afterLabel, lang) || t.detailAfter} hint={t.sliderHint} />
+      </section>
+
+      {/* 다국어 지원 자랑 */}
+      <section className="bg-primary/[0.04] border-y border-primary/10">
+        <div className="max-w-[1200px] mx-auto px-8 py-10 text-center">
+          <div className="text-[20px] font-bold">{t.langBragTitle}</div>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            {LANGS.map((l) => (
+              <span key={l.key} className="px-4 py-2 rounded-full bg-white border border-black/8 text-[14px] font-medium shadow-sm">{l.label}</span>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="max-w-[1000px] mx-auto px-8 py-12">
@@ -129,10 +142,10 @@ export function WebLanding() {
       <section className="max-w-[1200px] mx-auto px-8 py-12">
         <h2 className="text-[24px] font-bold mb-6">{t.unsupportedBrowse}</h2>
         <div className="grid grid-cols-4 gap-4">
-          {heritages.map((hh) => (
+          {heritages.filter((hh) => hh.supported).map((hh) => (
             <div key={hh.id} className="rounded-card overflow-hidden border border-black/8">
-              <img src={hh.thumb} alt="" className="w-full h-40 object-cover" />
-              <div className="p-3"><div className="font-semibold text-[15px]">{hh.name[lang]}</div></div>
+              <Thumb src={hh.thumb} label={tr(hh.name, lang)} className="w-full h-40 object-cover text-[28px]" />
+              <div className="p-3"><div className="font-semibold text-[15px]">{tr(hh.name, lang)}</div></div>
             </div>
           ))}
         </div>

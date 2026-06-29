@@ -5,9 +5,14 @@ import { useAppStore } from '../store/useAppStore'
 
 describe('LangToggle', () => {
   beforeEach(() => useAppStore.getState().__reset())
-  it('EN 클릭 시 언어가 en으로 바뀐다', () => {
+  it('언어를 선택하면 store가 바뀐다', () => {
     render(<LangToggle />)
-    fireEvent.click(screen.getByText('EN'))
-    expect(useAppStore.getState().lang).toBe('en')
+    fireEvent.change(screen.getByLabelText('언어 선택'), { target: { value: 'ja' } })
+    expect(useAppStore.getState().lang).toBe('ja')
+  })
+  it('5개 언어를 제공한다', () => {
+    render(<LangToggle />)
+    expect(screen.getByRole('option', { name: '日本語' })).toBeInTheDocument()
+    expect(screen.getByRole('option', { name: 'Español' })).toBeInTheDocument()
   })
 })

@@ -1,19 +1,14 @@
 import { useAppStore } from '../store/useAppStore'
+import { LANGS } from '../data/copy'
 
-export function LangToggle({ variant = 'pill' }) {
+// 다국어 선택기. 언어가 늘어나도 LANGS만 추가하면 된다.
+export function LangToggle() {
   const lang = useAppStore((s) => s.lang)
   const setLang = useAppStore((s) => s.setLang)
-  const opts = [{ key: 'ko', label: '한국어' }, { key: 'en', label: 'EN' }]
   return (
-    <div className="flex gap-[6px]">
-      {opts.map((o) => (
-        <button key={o.key} onClick={() => setLang(o.key)}
-          className={`px-3 py-1 rounded-full text-[13px] font-medium transition-colors ${
-            lang === o.key ? 'bg-primary text-white' : 'bg-black/5 text-black/60'
-          }`}>
-          {o.label}
-        </button>
-      ))}
-    </div>
+    <select value={lang} onChange={(e) => setLang(e.target.value)} aria-label="언어 선택"
+      className="px-3 py-1 rounded-full text-[13px] font-medium bg-black/5 text-black/70 border-0 outline-none cursor-pointer appearance-none">
+      {LANGS.map((l) => <option key={l.key} value={l.key}>{l.label}</option>)}
+    </select>
   )
 }

@@ -1,4 +1,5 @@
 import { Icon } from './Icon'
+import { tr } from '../data/copy'
 
 export function CommentaryPlayer({ modes, lang, activeMode, onModeChange, play, progress, speed, loading, onPlayToggle, onSpeedChange }) {
   const active = modes.find((m) => m.key === activeMode) || modes[0]
@@ -10,10 +11,10 @@ export function CommentaryPlayer({ modes, lang, activeMode, onModeChange, play, 
           <button key={m.key} onClick={() => onModeChange(m.key)}
             className={`px-3 py-[6px] rounded-full text-[13px] whitespace-nowrap ${
               m.key === activeMode ? 'bg-primary text-white' : 'bg-black/5 text-black/70'
-            }`}>{m.label[lang]}</button>
+            }`}>{tr(m.label, lang)}</button>
         ))}
       </div>
-      <p className="mt-4 text-[15px] leading-relaxed text-black/80">{active.text[lang]}</p>
+      <p className="mt-4 text-[15px] leading-relaxed text-black/80">{tr(active.text, lang)}</p>
       <div className="mt-4 flex items-center gap-3">
         <button onClick={onPlayToggle} disabled={loading} aria-busy={loading}
           aria-label={loading ? '음성 생성 중' : play ? '일시정지' : '재생'}

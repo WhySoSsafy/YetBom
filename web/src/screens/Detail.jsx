@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
-import { copy } from '../data/copy'
+import { copy, tr } from '../data/copy'
 import { getHeritage } from '../data/heritage'
 import { getCommentary } from '../data/commentary'
 import { askAI } from '../api/chat'
@@ -49,7 +49,7 @@ export function Detail() {
     if (USE_MOCK) return
     if (!s.mPlay) { audioRef.current?.pause(); useAppStore.getState().setTTS('m', { loading: false }); return }
     let cancelled = false
-    const text = getCommentary(id)?.modes.find((m) => m.key === s.mMode)?.text[lang]
+    const text = tr(getCommentary(id)?.modes.find((m) => m.key === s.mMode)?.text, lang)
     useAppStore.getState().setTTS('m', { loading: true })
     requestTTS(text).then((res) => {
       if (cancelled) return
@@ -100,8 +100,8 @@ export function Detail() {
           <Icon name="bookmark" size={24} fill={s.saved[id] ? 'currentColor' : 'none'} />
         </button>
         <div className="absolute bottom-4 left-4 text-white">
-          <div className="text-[24px] font-bold">{h.name[lang]}</div>
-          <div className="text-[13px] text-white/80">{h.era[lang]}</div>
+          <div className="text-[24px] font-bold">{tr(h.name, lang)}</div>
+          <div className="text-[13px] text-white/80">{tr(h.era, lang)}</div>
         </div>
       </div>
 
@@ -125,8 +125,8 @@ export function Detail() {
               <div key={i} className="flex gap-3 p-3 rounded-card bg-black/[.03]">
                 <div className="w-10 h-10 rounded-card bg-primary/10 text-primary flex items-center justify-center shrink-0"><Icon name={ch.icon} size={20} /></div>
                 <div>
-                  <div className="font-semibold text-[15px]">{ch.title[lang]}</div>
-                  <div className="text-[13px] text-black/60 mt-1">{ch.body[lang]}</div>
+                  <div className="font-semibold text-[15px]">{tr(ch.title, lang)}</div>
+                  <div className="text-[13px] text-black/60 mt-1">{tr(ch.body, lang)}</div>
                 </div>
               </div>
             ))}
@@ -153,8 +153,8 @@ export function Detail() {
           <div className="grid grid-cols-2 gap-2">
             {c.summaryCards.map((card, i) => (
               <div key={i} className={`p-3 rounded-card ${ACCENT[card.accent]}`}>
-                <div className="text-[11px] opacity-70">{card.label[lang]}</div>
-                <div className="text-[15px] font-bold mt-1">{card.value[lang]}</div>
+                <div className="text-[11px] opacity-70">{tr(card.label, lang)}</div>
+                <div className="text-[15px] font-bold mt-1">{tr(card.value, lang)}</div>
               </div>
             ))}
           </div>

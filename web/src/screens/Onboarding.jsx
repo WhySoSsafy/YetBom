@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
-import { copy } from '../data/copy'
+import { copy, LANGS } from '../data/copy'
 import { Icon } from '../components/Icon'
 
 export function Onboarding() {
@@ -21,10 +21,10 @@ export function Onboarding() {
         <div className="text-[15px] text-white/80 mt-4 whitespace-pre-line">{t.onbBody}</div>
         <div className="mt-6">
           <div className="text-[12px] text-white/60 mb-2">{t.onbLang}</div>
-          <div className="flex gap-2">
-            {[{ k: 'ko', l: '한국어' }, { k: 'en', l: 'EN' }].map((o) => (
-              <button key={o.k} onClick={() => setLang(o.k)}
-                className={`px-4 py-2 rounded-full text-[14px] ${lang === o.k ? 'bg-white text-black' : 'bg-white/15 text-white'}`}>{o.l}</button>
+          <div className="flex flex-wrap gap-2">
+            {LANGS.map((o) => (
+              <button key={o.key} onClick={() => setLang(o.key)}
+                className={`px-4 py-2 rounded-full text-[14px] ${lang === o.key ? 'bg-white text-black' : 'bg-white/15 text-white'}`}>{o.label}</button>
             ))}
           </div>
         </div>

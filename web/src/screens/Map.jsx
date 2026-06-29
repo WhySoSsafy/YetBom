@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useAppStore } from '../store/useAppStore'
-import { copy } from '../data/copy'
+import { copy, tr } from '../data/copy'
 import { heritages } from '../data/heritage'
 import { BottomSheet } from '../components/BottomSheet'
 import { Thumb } from '../components/Thumb'
@@ -101,9 +101,9 @@ export function MapScreen() {
         title={`${t.mapNearby} · ${heritages.length}`}>
         {list.map((h) => (
           <button key={h.id} onClick={() => open(h)} className="w-full flex items-center gap-3 py-3 text-left border-b border-black/5">
-            <Thumb src={h.thumb} label={h.name[lang]} className="w-[54px] h-[54px] rounded-card object-cover shrink-0 text-[18px]" />
+            <Thumb src={h.thumb} label={tr(h.name, lang)} className="w-[54px] h-[54px] rounded-card object-cover shrink-0 text-[18px]" />
             <div className="flex-1">
-              <div className="font-semibold text-[15px]">{h.name[lang]}</div>
+              <div className="font-semibold text-[15px]">{tr(h.name, lang)}</div>
               <div className="text-[12px] text-black/50">{h.dist} · {h.status === 'available' ? t.mapLegendAvailable : t.mapLegendSoon}</div>
             </div>
             <Icon name="chevron-right" size={18} />

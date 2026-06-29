@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
-import { copy } from '../data/copy'
+import { copy, tr } from '../data/copy'
 import { getHeritage } from '../data/heritage'
 import { identifyImage } from '../api/identify'
 import { Icon } from '../components/Icon'
@@ -36,8 +36,8 @@ export function Identify() {
           <span className="absolute top-3 right-3 px-3 py-1 rounded-full bg-primary text-white text-[13px] font-bold">{result.match}% {t.identifyMatch}</span>
         </div>
         <div className="p-4">
-          <div className="text-[18px] font-bold">{h.name[lang]}</div>
-          <div className="text-[13px] text-black/60 mt-1">{h.era[lang]}</div>
+          <div className="text-[18px] font-bold">{tr(h.name, lang)}</div>
+          <div className="text-[13px] text-black/60 mt-1">{tr(h.era, lang)}</div>
         </div>
       </div>
       <div className="mt-4 rounded-card bg-black/5 p-4">
