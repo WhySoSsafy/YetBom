@@ -17,6 +17,7 @@ export function useHeritages(lang) {
   }, [lang])
 
   const curatedNames = new Set(curatedHeritages.map((h) => h.name.ko))
-  const merged = [...curatedHeritages, ...dynamic.filter((d) => !curatedNames.has(d.name))]
+  // 이미지 없는 동적 항목은 품질 저하로 보여 지도/목록에서 제외
+  const merged = [...curatedHeritages, ...dynamic.filter((d) => d.image && !curatedNames.has(d.name))]
   return { list: merged, count: merged.length, loading }
 }

@@ -5,7 +5,7 @@ import { copy, tr } from '../data/copy'
 import { getHeritage } from '../data/heritage'
 import { getCommentary } from '../data/commentary'
 import { fetchHeritageById, fetchWikiSummary } from '../api/wiki'
-import { askAI } from '../api/chat'
+import { askAI, generateOverview } from '../api/chat'
 import { USE_MOCK } from '../api/client'
 import { requestTTS } from '../api/tts'
 import { Icon } from '../components/Icon'
@@ -43,10 +43,16 @@ export function Detail() {
     if (isCurated || !id) { setLoading(false); return }
     let on = true
     setLoading(true); setSummary(null)
-    fetchHeritageById(id, lang).then((meta) => {
+    fetchHeritageById(id, lang).then(async (meta) => {
       if (!on) return
       setDyn(meta)
-      return fetchWikiSummary(meta?.article, lang).then((sum) => { if (on) setSummary(sum) })
+      const sum = await fetchWikiSummary(meta?.article, lang)
+      const image = sum?.image || meta?.image || null
+      let extract = sum?.extract || ''
+      let ai = false
+      // 위키 요약이 없으면 AI 도슨트가 선택 언어로 해설 생성
+      if (!extract) { extract = await generateOverview(typeof meta?.name === 'string' ? meta.name : tr(meta?.name, lang), lang); ai = !!extract }
+      if (on) setSummary({ extract, image, ai })
     }).finally(() => { if (on) setLoading(false) })
     return () => { on = false }
   }, [id, lang, isCurated])
@@ -187,7 +193,10 @@ export function Detail() {
               loading={s.mLoading}
               onPlayToggle={() => s.setTTS('m', { play: !s.mPlay })}
               onSpeedChange={(sp) => s.setTTS('m', { speed: sp })} />
-            {!isCurated && heritage.article && (
+            {!isCurated && summary?.ai && (
+              <div className="mt-2 text-[12px] text-black/40">✦ {t.aiGenerated}</div>
+            )}
+            {!isCurated && !summary?.ai && heritage.article && (
               <a href={`https://${lang}.wikipedia.org/wiki/${encodeURIComponent(heritage.article)}`} target="_blank" rel="noreferrer"
                 className="mt-2 inline-block text-[12px] text-black/40">{t.detailSource} · Wikipedia</a>
             )}
