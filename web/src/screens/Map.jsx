@@ -81,6 +81,8 @@ export function MapScreen() {
   const [userPos, setUserPos] = useState(null)
   const { list, loading } = useHeritages(lang)
   const t = copy[lang] || copy.en
+  // 지도 탭 진입 시 바텀시트를 펼친 상태로(주변 목록이 바로 보이게)
+  useEffect(() => { setMapSheet('expanded') }, [setMapSheet])
   const toggle = () => setMapSheet(mapSheet === 'collapsed' ? 'expanded' : 'collapsed')
   const open = (h) => nav(h.supported === false ? '/unsupported' : `/detail/${h.id}`)
 

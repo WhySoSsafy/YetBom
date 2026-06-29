@@ -22,7 +22,7 @@ const initial = {
   captureMode: 'camera',
   capturedImage: null,
   sheetOpen: false,
-  mapSheet: 'collapsed',
+  mapSheet: 'expanded',
   saved: {},
   visited: {},
   quizCount: 0,

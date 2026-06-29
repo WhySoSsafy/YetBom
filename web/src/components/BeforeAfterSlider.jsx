@@ -11,10 +11,11 @@ export function BeforeAfterSlider({ beforeSrc, afterSrc, pos, onPosChange, befor
   // 최초 진입 시 '드래그 가능' 신호용. 사용자가 한 번이라도 만지면 끈다.
   const [hinting, setHinting] = useState(true)
   const [demoPos, setDemoPos] = useState(DEMO_START)
+  const [loaded, setLoaded] = useState(false) // 사진이 실제로 떠야 데모 이동 시작
 
-  // 자동 데모: 1/3 지점에서 시작해 천천히 오른쪽으로 이동 → 드래그 가능함을 알림
+  // 자동 데모: 사진 로드 후 1/3 지점에서 천천히 오른쪽으로 이동 → 드래그 가능함을 알림
   useEffect(() => {
-    if (!hinting) return
+    if (!hinting || !loaded) return
     let t0 = 0
     const DURATION = 2400
     const ease = (x) => 1 - Math.pow(1 - x, 3) // easeOutCubic
@@ -28,7 +29,7 @@ export function BeforeAfterSlider({ beforeSrc, afterSrc, pos, onPosChange, befor
     rafRef.current = requestAnimationFrame(step)
     return () => cancelAnimationFrame(rafRef.current)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hinting])
+  }, [hinting, loaded])
 
   const stopHint = () => {
     if (!hinting) return
@@ -58,6 +59,8 @@ export function BeforeAfterSlider({ beforeSrc, afterSrc, pos, onPosChange, befor
          className="relative w-full aspect-[4/3] rounded-card-lg overflow-hidden select-none touch-none cursor-ew-resize">
       <img src={afterSrc} alt="" className="absolute inset-0 w-full h-full object-cover" draggable={false} />
       <img data-overlay src={beforeSrc} alt="" draggable={false}
+           onLoad={() => setLoaded(true)}
+           ref={(el) => { if (el && el.complete && el.naturalWidth) setLoaded(true) }}
            style={{ clipPath: `inset(0 ${100 - viewPos}% 0 0)`, filter: beforeFilter || undefined }}
            className="absolute inset-0 w-full h-full object-cover" />
       <span className="absolute top-2 left-2 px-2 py-1 rounded-full bg-black/55 text-white text-[11px]">{beforeLabel}</span>
