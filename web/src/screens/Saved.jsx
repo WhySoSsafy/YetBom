@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
 import { copy } from '../data/copy'
-import { heritages } from '../data/heritage'
+import { useHeritages } from '../data/useHeritages'
 import { HeritageCard } from '../components/HeritageCard'
 
 export function Saved() {
@@ -9,7 +9,9 @@ export function Saved() {
   const lang = useAppStore((s) => s.lang)
   const saved = useAppStore((s) => s.saved)
   const t = copy[lang] || copy.en
-  const list = heritages.filter((h) => saved[h.id])
+  // 큐레이션 + 동적(위키) 전체에서 저장된 항목 필터 — 지도에서 저장한 문화재도 노출
+  const { list: all } = useHeritages(lang)
+  const list = all.filter((h) => saved[h.id])
   return (
     <div className="pt-16 px-content">
       <h1 className="text-[22px] font-bold">{t.savedTitle} · {list.length}</h1>
@@ -18,7 +20,7 @@ export function Saved() {
           {t.savedEmpty}
         </p>
       ) : (
-        list.map((h) => <HeritageCard key={h.id} heritage={h} lang={lang} onClick={() => nav(`/detail/${h.id}`)} />)
+        list.map((h, i) => <HeritageCard key={h.id} heritage={h} lang={lang} index={i} onClick={() => nav(`/detail/${h.id}`)} />)
       )}
     </div>
   )

@@ -6,7 +6,7 @@ export function HeritageCard({ heritage, lang, onClick, thumbSize = 96, index = 
   return (
     <button onClick={onClick} style={{ animationDelay: `${index * 60}ms` }}
       className="w-full flex items-center gap-3 py-3 text-left animate-cardIn transition-transform active:scale-[0.98]">
-      <Thumb src={heritage.thumb} label={tr(heritage.name, lang)} style={{ width: thumbSize, height: thumbSize }}
+      <Thumb src={heritage.thumb || heritage.image} label={tr(heritage.name, lang)} style={{ width: thumbSize, height: thumbSize }}
            className="rounded-card object-cover shrink-0 text-[24px]" />
       <div className="flex-1 min-w-0">
         <div className="font-bold text-[17px]">{tr(heritage.name, lang)}</div>
