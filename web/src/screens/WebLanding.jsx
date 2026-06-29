@@ -12,6 +12,7 @@ import { AskAIChat } from '../components/AskAIChat'
 import { Quiz } from '../components/Quiz'
 import { WebHeader } from '../components/WebHeader'
 import { Thumb } from '../components/Thumb'
+import { Icon } from '../components/Icon'
 import { heritages, getHeritage } from '../data/heritage'
 import { restorationView } from '../data/restoration'
 
@@ -99,20 +100,30 @@ export function WebLanding() {
           <h1 className="text-[40px] font-bold leading-tight whitespace-pre-line tracking-tight">{t.onbTitle}</h1>
           <p className="text-[16px] text-black/60 mt-4 whitespace-pre-line">{t.onbBody}</p>
           {/* 사진 없이 바로 체험 — 큐레이션 문화유산 선택 */}
-          <div className="mt-6 text-[13px] font-semibold text-black/50">{t.tryDemo}</div>
+          <div className="mt-6 flex items-center gap-1.5 text-[14px] font-bold text-primary">
+            <Icon name="sparkle" size={16} />{t.tryDemo}
+          </div>
           <div className="mt-3 grid grid-cols-2 gap-3">
-            {demoSites.map((hh) => (
-              <button key={hh.id} onClick={() => selectDemo(hh.id)}
-                className={`flex items-center gap-3 p-2 rounded-card border text-left transition-colors ${
-                  demoId === hh.id ? 'border-primary bg-primary/5' : 'border-black/10 hover:border-primary/40'
-                }`}>
-                <Thumb src={hh.thumb} className="w-12 h-12 rounded-card object-cover shrink-0 text-[20px]" />
-                <div className="min-w-0">
-                  <div className="font-semibold text-[14px] truncate">{tr(hh.name, lang)}</div>
-                  <div className="text-[12px] text-black/50 truncate">{tr(hh.era, lang)}</div>
-                </div>
-              </button>
-            ))}
+            {demoSites.map((hh, i) => {
+              const active = demoId === hh.id
+              return (
+                <button key={hh.id} onClick={() => selectDemo(hh.id)} style={{ animationDelay: `${i * 90}ms` }}
+                  className={`group relative flex items-center gap-3 p-3 rounded-card-lg border-2 text-left animate-cardIn transition-all duration-200 hover:-translate-y-1 hover:shadow-xl ${
+                    active ? 'border-primary bg-primary/5 shadow-md' : 'border-black/10 hover:border-primary'
+                  }`}>
+                  <Thumb src={hh.thumb} className="w-14 h-14 rounded-card object-cover shrink-0 text-[20px]" />
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-[14px] truncate">{tr(hh.name, lang)}</div>
+                    <div className="text-[12px] text-black/50 truncate">{tr(hh.era, lang)}</div>
+                  </div>
+                  <span className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
+                    active ? 'bg-primary text-white' : 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white'
+                  }`}>
+                    <span className={active ? '' : 'animate-nudgeX'}><Icon name="chevron-right" size={16} /></span>
+                  </span>
+                </button>
+              )
+            })}
           </div>
           <input type="file" accept="image/*" className="hidden" ref={inputRef} onChange={(e) => captureFile(e.target.files?.[0])} />
           <button onClick={() => inputRef.current?.click()} className="mt-4 text-[13px] text-primary font-medium underline underline-offset-2">{t.orUpload}</button>
