@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getCommentary } from './commentary'
 import { tr } from './copy'
-import { fetchWikiSummary } from '../api/wiki'
+import { fetchWikiSummary, biggerImage } from '../api/wiki'
 import { generateOverview } from '../api/chat'
 
 // 선택한 문화유산의 설명/이미지/복원 전·후 정보를 모은다.
@@ -32,7 +32,9 @@ export function useHeritageContent(h, lang) {
       let text = sum?.extract || ''
       let ai = false
       if (!text) { text = await generateOverview(typeof h.name === 'string' ? h.name : tr(h.name, lang), lang); ai = !!text }
-      if (on) { setContent({ text, image: sum?.image || h.image || h.thumb, dynamic: true, ai, article: h.article }); setLoading(false) }
+      // 지도와 동일한 이미지(고해상도)를 우선 사용 → 들어갈 때 사진이 바뀌지 않게
+      const image = h.thumb || biggerImage(h.image) || sum?.image
+      if (on) { setContent({ text, image, dynamic: true, ai, article: h.article }); setLoading(false) }
     })()
     return () => { on = false }
     // eslint-disable-next-line react-hooks/exhaustive-deps

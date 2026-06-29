@@ -5,7 +5,7 @@ import { copy, tr } from '../data/copy'
 import { getHeritage } from '../data/heritage'
 import { getCommentary } from '../data/commentary'
 import { restorationView } from '../data/restoration'
-import { fetchHeritageById, fetchWikiSummary } from '../api/wiki'
+import { fetchHeritageById, fetchWikiSummary, biggerImage } from '../api/wiki'
 import { askAI, generateOverview } from '../api/chat'
 import { USE_MOCK } from '../api/client'
 import { requestTTS } from '../api/tts'
@@ -63,7 +63,8 @@ export function Detail() {
   const modes = isCurated
     ? c.modes
     : (summary?.extract ? [{ key: 'wiki', label: WIKI_LABEL, text: summary.extract }] : [])
-  const heroSrc = heritage?.thumb || summary?.image || heritage?.image
+  // 지도와 동일한 이미지(고해상도)를 우선 → 상세 진입 시 사진이 바뀌지 않게
+  const heroSrc = heritage?.thumb || biggerImage(heritage?.image) || summary?.image
   const rv = heritage ? restorationView(heritage, heroSrc, t, lang) : {}
   const activeText = tr((modes.find((m) => m.key === s.mMode) || modes[0])?.text, lang)
 

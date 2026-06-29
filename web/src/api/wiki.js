@@ -51,6 +51,12 @@ function rowToHeritage(qid, b) {
   }
 }
 
+// 지도 썸네일과 동일한 Commons 파일을 더 큰 해상도로(상세 hero용). 같은 사진이라 전환 시 안 바뀜.
+export function biggerImage(url) {
+  if (!url) return url
+  return url.replace(/([?&])width=\d+/, '$1width=900')
+}
+
 const listCache = new Map() // lang → Promise<heritage[]>
 export function fetchHeritageList(lang) {
   if (listCache.has(lang)) return listCache.get(lang)
