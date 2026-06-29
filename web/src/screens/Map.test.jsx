@@ -9,7 +9,7 @@ vi.mock('react-leaflet', () => ({
   MapContainer: ({ children }) => <div data-testid="map">{children}</div>,
   TileLayer: () => null,
   Marker: () => null,
-  useMap: () => ({ fitBounds: () => {} }),
+  useMap: () => ({ fitBounds: () => {}, setView: () => {} }),
 }))
 vi.mock('leaflet', () => ({ default: { divIcon: () => ({}), latLngBounds: () => ({}) } }))
 
