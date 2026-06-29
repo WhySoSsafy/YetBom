@@ -47,8 +47,6 @@ export function CaptureSheet() {
   const opts = [
     { mode: 'camera', label: t.captureCamera, icon: 'camera' },
     { mode: 'ocr', label: t.captureOcrOpt, icon: 'search' },
-    { mode: 'qr', label: t.captureQr, icon: 'layers' },
-    { mode: 'gallery', label: t.captureGallery, icon: 'bookmark' },
   ]
   const pick = (mode) => { setCaptureMode(mode); setSheetOpen(false); nav('/capture') }
   return (
