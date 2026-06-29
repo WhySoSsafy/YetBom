@@ -104,7 +104,8 @@ export function Detail() {
           <h2 className="text-[18px] font-bold mb-3">{t.detailBeforeAfter}</h2>
           <BeforeAfterSlider beforeSrc={h.before} afterSrc={h.after}
             pos={s.mSliderPos} onPosChange={(p) => s.setSlider('m', p)}
-            beforeLabel={t.detailBefore} afterLabel={t.detailAfter} hint={t.sliderHint} />
+            beforeLabel={h.beforeLabel?.[lang] ?? t.detailBefore}
+            afterLabel={h.afterLabel?.[lang] ?? t.detailAfter} hint={t.sliderHint} />
           <div className="mt-2 flex items-center gap-2 text-[12px] text-orange-600">
             <Icon name="sparkle" size={14} />{t.detailAiEstimate}
             <span className="text-black/40 ml-auto">{t.detailSource}</span>

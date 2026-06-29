@@ -101,7 +101,8 @@ export function WebLanding() {
         </div>
         <BeforeAfterSlider beforeSrc={hero.before} afterSrc={hero.after}
           pos={s.wSliderPos} onPosChange={(p) => s.setSlider('w', p)}
-          beforeLabel={t.detailBefore} afterLabel={t.detailAfter} hint={t.sliderHint} />
+          beforeLabel={hero.beforeLabel?.[lang] ?? t.detailBefore}
+          afterLabel={hero.afterLabel?.[lang] ?? t.detailAfter} hint={t.sliderHint} />
       </section>
 
       <section className="max-w-[1000px] mx-auto px-8 py-12">
