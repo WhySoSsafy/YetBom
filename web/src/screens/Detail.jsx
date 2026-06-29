@@ -95,7 +95,10 @@ export function Detail() {
         <img src={h.thumb} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent" />
         <button onClick={() => nav(-1)} className="absolute top-14 left-4 text-white"><Icon name="chevron-left" size={26} /></button>
-        <button onClick={() => s.toggleSaved(id)} className="absolute top-14 right-4 text-white"><Icon name="bookmark" size={24} /></button>
+        <button onClick={() => s.toggleSaved(id)} aria-pressed={!!s.saved[id]} aria-label="즐겨찾기"
+          className={`absolute top-14 right-4 transition-transform active:scale-90 ${s.saved[id] ? 'text-primary' : 'text-white'}`}>
+          <Icon name="bookmark" size={24} fill={s.saved[id] ? 'currentColor' : 'none'} />
+        </button>
         <div className="absolute bottom-4 left-4 text-white">
           <div className="text-[24px] font-bold">{h.name[lang]}</div>
           <div className="text-[13px] text-white/80">{h.era[lang]}</div>

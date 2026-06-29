@@ -19,10 +19,10 @@ const PATHS = {
   trophy: 'M6 4h12v3a6 6 0 01-12 0V4zM4 4h2M18 4h2M9 17h6v3H9z',
 }
 
-export function Icon({ name, size = 24 }) {
+export function Icon({ name, size = 24, fill = 'none' }) {
   const d = PATHS[name]
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={fill}
          stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       {d ? <path d={d} /> : <circle cx="12" cy="12" r="9" />}
     </svg>
