@@ -27,7 +27,7 @@ export function Home() {
       </div>
       <div className="mt-4 flex gap-3 overflow-x-auto nsb px-content snap-x snap-mandatory">
         {banners.map((b, i) => (
-          <div key={i} className="relative shrink-0 w-[92%] h-[480px] rounded-card-lg overflow-hidden snap-center">
+          <div key={i} className="relative shrink-0 w-[92%] h-[336px] rounded-card-lg overflow-hidden snap-center">
             <img src={b.img} alt="" className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,.75))' }} />
             <div className="absolute bottom-5 left-5 right-5 text-white text-[18px] font-bold whitespace-pre-line">{b.text[lang]}</div>
