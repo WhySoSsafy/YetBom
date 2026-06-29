@@ -22,4 +22,11 @@ describe('CommentaryPlayer', () => {
     fireEvent.click(screen.getByText('어린이'))
     expect(onModeChange).toHaveBeenCalledWith('kids')
   })
+  it('loading 중에는 스피너를 보여주고 재생 버튼을 비활성화한다', () => {
+    const { container } = render(<CommentaryPlayer modes={modes} lang="ko" activeMode="30s"
+      onModeChange={vi.fn()} play={false} progress={0} speed={1} loading
+      onPlayToggle={vi.fn()} onSpeedChange={vi.fn()} />)
+    expect(container.querySelector('[data-spinner]')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '음성 생성 중' })).toBeDisabled()
+  })
 })

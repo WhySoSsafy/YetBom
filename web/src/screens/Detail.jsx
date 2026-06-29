@@ -44,12 +44,13 @@ export function Detail() {
   // TTS 실제 오디오 재생 — USE_MOCK=false일 때만 동작
   useEffect(() => {
     if (USE_MOCK) return
-    if (!s.mPlay) { audioRef.current?.pause(); return }
+    if (!s.mPlay) { audioRef.current?.pause(); useAppStore.getState().setTTS('m', { loading: false }); return }
     let cancelled = false
     const text = getCommentary(id)?.modes.find((m) => m.key === s.mMode)?.text[lang]
+    useAppStore.getState().setTTS('m', { loading: true })
     requestTTS(text).then((res) => {
       if (cancelled) return
-      if (!res?.audio_data) { useAppStore.getState().setTTS('m', { play: false }); return }
+      if (!res?.audio_data) { useAppStore.getState().setTTS('m', { play: false, loading: false }); return }
       const audio = new Audio('data:audio/mpeg;base64,' + res.audio_data)
       audio.playbackRate = useAppStore.getState().mSpeed
       audio.ontimeupdate = () => {
@@ -57,10 +58,12 @@ export function Detail() {
         if (!dur || !isFinite(dur)) return
         useAppStore.getState().setTTS('m', { progress: (audio.currentTime / dur) * 100 })
       }
-      audio.onended = () => useAppStore.getState().setTTS('m', { play: false, progress: 100 })
+      audio.onended = () => useAppStore.getState().setTTS('m', { play: false, progress: 100, loading: false })
       audioRef.current = audio
-      audio.play().catch(() => useAppStore.getState().setTTS('m', { play: false }))
-    }).catch(() => { if (!cancelled) useAppStore.getState().setTTS('m', { play: false }) })
+      audio.play()
+        .then(() => useAppStore.getState().setTTS('m', { loading: false }))
+        .catch(() => useAppStore.getState().setTTS('m', { play: false, loading: false }))
+    }).catch(() => { if (!cancelled) useAppStore.getState().setTTS('m', { play: false, loading: false }) })
     return () => { cancelled = true; audioRef.current?.pause() }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [s.mPlay])
@@ -127,6 +130,7 @@ export function Detail() {
           <h2 className="text-[18px] font-bold mb-3">{t.detailCommentary}</h2>
           <CommentaryPlayer modes={c.modes} lang={lang} activeMode={s.mMode}
             onModeChange={(m) => s.setMode('m', m)} play={s.mPlay} progress={s.mTTS} speed={s.mSpeed}
+            loading={s.mLoading}
             onPlayToggle={() => s.setTTS('m', { play: !s.mPlay })}
             onSpeedChange={(sp) => s.setTTS('m', { speed: sp })} />
         </section>

@@ -26,12 +26,13 @@ export function WebLanding() {
   // TTS 실제 오디오 재생 — USE_MOCK=false일 때만 동작 (mock 모드에서는 기존 no-op 유지)
   useEffect(() => {
     if (USE_MOCK) return
-    if (!s.wPlay) { audioRef.current?.pause(); return }
+    if (!s.wPlay) { audioRef.current?.pause(); useAppStore.getState().setTTS('w', { loading: false }); return }
     let cancelled = false
     const text = getCommentary('sungnyemun')?.modes.find((m) => m.key === s.wMode)?.text[lang]
+    useAppStore.getState().setTTS('w', { loading: true })
     requestTTS(text).then((res) => {
       if (cancelled) return
-      if (!res?.audio_data) { useAppStore.getState().setTTS('w', { play: false }); return }
+      if (!res?.audio_data) { useAppStore.getState().setTTS('w', { play: false, loading: false }); return }
       const audio = new Audio('data:audio/mpeg;base64,' + res.audio_data)
       audio.playbackRate = useAppStore.getState().wSpeed
       audio.ontimeupdate = () => {
@@ -39,10 +40,12 @@ export function WebLanding() {
         if (!dur || !isFinite(dur)) return
         useAppStore.getState().setTTS('w', { progress: (audio.currentTime / dur) * 100 })
       }
-      audio.onended = () => useAppStore.getState().setTTS('w', { play: false, progress: 100 })
+      audio.onended = () => useAppStore.getState().setTTS('w', { play: false, progress: 100, loading: false })
       audioRef.current = audio
-      audio.play().catch(() => useAppStore.getState().setTTS('w', { play: false }))
-    }).catch(() => { if (!cancelled) useAppStore.getState().setTTS('w', { play: false }) })
+      audio.play()
+        .then(() => useAppStore.getState().setTTS('w', { loading: false }))
+        .catch(() => useAppStore.getState().setTTS('w', { play: false, loading: false }))
+    }).catch(() => { if (!cancelled) useAppStore.getState().setTTS('w', { play: false, loading: false }) })
     return () => { cancelled = true; audioRef.current?.pause() }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [s.wPlay])
@@ -105,6 +108,7 @@ export function WebLanding() {
         <h2 className="text-[24px] font-bold mb-6">{t.detailCommentary}</h2>
         <CommentaryPlayer modes={c.modes} lang={lang} activeMode={s.wMode}
           onModeChange={(m) => s.setMode('w', m)} play={s.wPlay} progress={s.wTTS} speed={s.wSpeed}
+          loading={s.wLoading}
           onPlayToggle={() => s.setTTS('w', { play: !s.wPlay })}
           onSpeedChange={(sp) => s.setTTS('w', { speed: sp })} />
       </section>

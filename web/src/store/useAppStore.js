@@ -12,6 +12,7 @@ const initial = {
   mMode: '30s', wMode: '30s',
   mPlay: false, wPlay: false,
   mTTS: 0, wTTS: 0,
+  mLoading: false, wLoading: false,
   mSpeed: 1, wSpeed: 1,
   mChat: [], wChat: [],
   mPick: {}, wPick: {},
@@ -34,10 +35,11 @@ export const useAppStore = create((set) => ({
   setCaptureMode: (m) => set({ captureMode: m }),
   setSlider: (surface, pos) => set({ [`${surface}SliderPos`]: pos }),
   setMode: (surface, modeKey) => set({ [`${surface}Mode`]: modeKey }),
-  setTTS: (surface, { play, progress, speed }) => set((s) => ({
+  setTTS: (surface, { play, progress, speed, loading }) => set((s) => ({
     [`${surface}Play`]: play ?? s[`${surface}Play`],
     [`${surface}TTS`]: progress ?? s[`${surface}TTS`],
     [`${surface}Speed`]: speed ?? s[`${surface}Speed`],
+    [`${surface}Loading`]: loading ?? s[`${surface}Loading`],
   })),
   addChat: (surface, msg) => set((s) => ({ [`${surface}Chat`]: [...s[`${surface}Chat`], msg] })),
   setInput: (surface, v) => set({ [`${surface}Input`]: v }),
